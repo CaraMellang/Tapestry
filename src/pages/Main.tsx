@@ -8,15 +8,15 @@ import Home from "./Home";
 import SignForm from "./SignForm";
 
 function Main() {
-  const [toggle, setToggle] = useState(false);
+  const [isSign, setIsSign] = useState(true);
 
   return (
     <BrowserRouter>
-      {toggle && <Header />}
+      {!isSign && <Header />}
       <MainWrapper>
         <Routes>
-          {toggle === false ? (
-            <Route path={`/*`} element={<SignForm setToggle={setToggle} />} />
+          {isSign  ? (
+            <Route path={`/*`} element={<SignForm setIsSign={setIsSign} />} />
           ) : (
             <>
               <Route path={`/*`} element={<Home />} />

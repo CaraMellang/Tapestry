@@ -7,6 +7,7 @@ import createSagaMiddleware from "redux-saga";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./modules";
 import { Provider } from "react-redux";
+import rootSaga from "./modules/saga/RootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,7 +16,7 @@ const store = configureStore({
   middleware: [sagaMiddleware],
 });
 
-// sagaMiddleware.run(mySaga)
+sagaMiddleware.run(rootSaga)
 
 ReactDOM.render(
   <React.StrictMode>

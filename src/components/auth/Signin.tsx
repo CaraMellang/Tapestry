@@ -1,25 +1,66 @@
 import { Button, Form, Input } from "antd";
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import useInput from "../../hook/useInput";
+import { setCookie } from "../../lib/cookie";
+import { SIGNIN_REQUEST } from "../../modules/redux/User";
 
-export default function Signin() {
+interface SignInProps {
+  setIsSign: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Signin({ setIsSign }: SignInProps) {
+  const [email, setEmail] = useInput("");
+  const [password, setPassword] = useInput("");
+  const dispatch = useDispatch();
+
+  const userSelector: any = useSelector((state: any) => state.userSliceReducer);
+  const userSelectorUser: any = useSelector(
+    (state: any) => state.userSliceReducer.user
+  );
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // e.preventDefault(); antd는 안써도됨
+    if (email === "" || password === "") {
+      window.alert("require Email && Password!");
+      return;
+    }
+
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    dispatch(SIGNIN_REQUEST(data));
+  };
+  useEffect(() => {
+    if (userSelector.signinSucceed) {
+      const accessToken = userSelectorUser.accessToken;
+      setCookie("accessToken", accessToken, 1);
+      setIsSign(false);
+    }
+  }, [userSelector]);
+
   return (
     <SignInWrap>
-      <Form>
+      <Form onFinish={onSubmit}>
         <Form.Item
           label="Email"
           name="email"
           rules={[{ required: true, message: "Required Email" }]}
         >
-          <Input />
+          <Input type={"email"} value={email} onChange={setEmail} />
         </Form.Item>
         <Form.Item
           label="Password"
           name="password"
           rules={[{ required: true, message: "Required Password" }]}
         >
-          <Input.Password />
+          <Input.Password value={password} onChange={setPassword} />
         </Form.Item>
+        <a href="http://localhost:5000/auth/google" >google login</a>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
