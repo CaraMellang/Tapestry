@@ -1,9 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Header() {
   const navigate = useNavigate();
+  const selector = useSelector((state: any) => state.userSliceReducer);
 
   console.log();
 
@@ -16,16 +18,16 @@ function Header() {
         메인~
       </NavLink>
       <NavLink
-        to={`/group`}
+        to={`/feed`}
         style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
       >
-        그룹
+        피드
       </NavLink>
       <NavLink
-        to={`/follow`}
+        to={`/profile/${selector.user.userId}`}
         style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
       >
-        팔로우
+        프로파일
       </NavLink>
     </HeaderWrap>
   );

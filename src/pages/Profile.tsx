@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-function Follow() {
+function Profile() {
   return (
-    <FolloWrapper>
+    <ProfileWrapper>
       <div>
         <h1>follow</h1>
       </div>
-    </FolloWrapper>
+    </ProfileWrapper>
   );
 }
 
-export default Follow;
+export default Profile;
 
-const FolloWrapper = styled.div`
+const ProfileWrapper = styled.div`
   div {
     color: blue;
   }

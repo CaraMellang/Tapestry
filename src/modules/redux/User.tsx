@@ -5,7 +5,7 @@ const initialState = {
     signinSucceed: false,
     signinError: null,
     user: {
-      userId: "기본,,?",
+      userId: "",
       email: "",
       username: "",
       createdAt: "",

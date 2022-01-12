@@ -7,14 +7,15 @@ import useInput from "../../hook/useInput";
 import { setCookie } from "../../lib/cookie";
 import { SIGNIN_REQUEST } from "../../modules/redux/User";
 
-interface SignInProps {
-  setIsSign: React.Dispatch<React.SetStateAction<boolean>>;
+interface SignupProps {
   setSigninToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
+export default function Signup({ setSigninToggle }: SignupProps) {
   const [email, setEmail] = useInput("");
   const [password, setPassword] = useInput("");
+  const [confirmPassword, setConfirmPassword] = useInput("");
+  const [username, setUsername] = useInput("");
   const dispatch = useDispatch();
 
   const userSelector: any = useSelector((state: any) => state.userSliceReducer);
@@ -24,31 +25,37 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // e.preventDefault(); antd는 안써도됨
-    if (email === "" || password === "") {
-      window.alert("require Email && Password!");
+    if (
+      email === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      username === ""
+    ) {
+      window.alert("필수 항목들을 기입하세요.");
       return;
     }
-
-    const data = {
-      email: email,
-      password: password,
-    };
-
-    dispatch(SIGNIN_REQUEST(data));
+    //success
+    window.alert("가입완료");
+    setSigninToggle(true);
   };
-  useEffect(() => {
-    if (userSelector.signinSucceed) {
-      const accessToken = userSelectorUser.accessToken;
-      setCookie("accessToken", accessToken, 1);
-      setIsSign(false);
-    }
-  }, [userSelector]);
 
   return (
-    <SignInWrap>
-      <Form onFinish={onSubmit}>
+    <SignupWrap>
+      <Form onFinish={onSubmit} style={{ width: "15%" }}>
         <Form.Item
-          // label="Email"
+          //   label="Username"
+          name="Username"
+          rules={[{ required: true, message: "Required Username" }]}
+        >
+          <Input
+            type={"text"}
+            value={username}
+            onChange={setUsername}
+            placeholder="Username"
+          />
+        </Form.Item>
+        <Form.Item
+          //   label="Email"
           name="email"
           rules={[{ required: true, message: "Required Email" }]}
         >
@@ -60,31 +67,39 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
           />
         </Form.Item>
         <Form.Item
-          // label="Password"
+          //   label="Password"
           name="password"
           rules={[{ required: true, message: "Required Password" }]}
         >
           <Input.Password
             value={password}
             onChange={setPassword}
-            placeholder="Password"
+            placeholder="password"
           />
         </Form.Item>
-        <a href="http://localhost:5000/auth/google">google login</a>
+        <Form.Item
+          //   label="Confirm Password"
+          name="confirmPassword"
+          rules={[{ required: true, message: "Required confirmPassword" }]}
+        >
+          <Input.Password
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            placeholder="confirmPassword"
+          />
+        </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
-        <div onClick={() => setSigninToggle(false)}>
-          아직 회원이 아니신가요?
-        </div>
+        <div onClick={() => setSigninToggle(true)}>회원이신가요?</div>
       </Form>
-    </SignInWrap>
+    </SignupWrap>
   );
 }
 
-const SignInWrap = styled.div`
+const SignupWrap = styled.div`
   display: flex;
   justify-content: center;
 `;

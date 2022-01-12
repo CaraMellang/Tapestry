@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Signin from "../components/auth/Signin";
+import Signup from "../components/auth/SignUp";
 import { deleteCookie, getCookie, setCookie } from "../lib/cookie";
 
 interface SignFormProps {
@@ -10,6 +11,7 @@ interface SignFormProps {
 }
 
 export default function SignForm({ setIsSign }: SignFormProps) {
+  const [signinToggle , setSigninToggle] = useState(true)
   const useSeletor = useSelector((state: any) => state.userSliceReducer);
 
   useEffect(() => {
@@ -39,7 +41,8 @@ export default function SignForm({ setIsSign }: SignFormProps) {
 
   return (
     <SignFormWrap>
-      <Signin setIsSign={setIsSign} />
+      {signinToggle ? 
+      <Signin setIsSign={setIsSign} setSigninToggle={setSigninToggle} /> :<Signup setSigninToggle={setSigninToggle} />}
     </SignFormWrap>
   );
 }

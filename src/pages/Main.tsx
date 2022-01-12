@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/header/header";
-import Follow from "./Follow";
-import Group from "./Group";
+import Profile from "./Profile";
 import Home from "./Home";
 import SignForm from "./SignForm";
+import Feed from "./Feed";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -20,11 +20,10 @@ function Main() {
           ) : (
             <>
               <Route path={`/*`} element={<Home />} />
-              <Route path={`/group`} element={<Group />} />
-              <Route path={`/follow`} element={<Follow />} />
+              <Route path={`/feed`} element={<Feed />} />
+              <Route path={`/profile/:id`} element={<Profile />} />
             </>
           )}
-          {/* <Header /> */}
         </Routes>
       </MainWrapper>
     </BrowserRouter>
