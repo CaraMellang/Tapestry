@@ -20,7 +20,7 @@ function Main() {
           ) : (
             <>
               <Route path={`/*`} element={<Home />} />
-              <Route path={`/feed`} element={<Feed />} />
+              <Route path={`/feed/*`} element={<Feed />} />
               <Route path={`/profile/:id`} element={<Profile />} />
             </>
           )}

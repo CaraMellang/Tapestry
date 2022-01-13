@@ -27,7 +27,6 @@ html , body , #root{
   background-repeat:no-repeat;
   /* background: #181818; */
   /* #121212 */
-  color:white;
   width:100%;
   /* height:100%; */
   /* height:100vh; */

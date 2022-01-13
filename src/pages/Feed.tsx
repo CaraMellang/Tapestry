@@ -1,44 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import FeedHeader from "../components/feed/FeedHeader";
+import GroupFeed from "../components/feed/GroupFeed";
+import NewFeed from "../components/feed/NewFeed";
+import Popular from "../components/feed/Popular";
 
 export default function Feed() {
-  const [posts, setPosts] = useState<Object[]>([{}]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function readPost() {
-      try {
-        const {
-          data: { data },
-        } = await axios.post(`http://localhost:5000/post/read`, {
-          group_id: "61cf23fade9e5f953c747b90",
-          page: 1,
-        });
-        console.log(data);
-        setPosts(data);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    readPost();
-    console.log(loading, posts);
-  }, []);
   return (
     <FeedWrap>
-      <h1>home</h1>
+      <h1>feed</h1>
       <div>새글, 인기글 , 내 그룹내 게시글(최신순 으로 정렬)</div>
+      <FeedHeader />
       <div>
-        {!loading &&
-          posts.map((item: any) => {
-            return (
-              <div style={{ display: "flex" }} key={item._id}>
-                <div>{item.group_name}</div>
-                <div>{item.text}</div>
-                <div>{item.created_at}</div>
-              </div>
-            );
-          })}
+        <Routes>
+          <Route path={`newfeed`} element={<NewFeed />} />
+          <Route path={`popular`} element={<Popular />} />
+          <Route path={`groupfeed`} element={<GroupFeed />} />
+        </Routes>
         {/* 1. 인기글
         <p>
           1) 인기글 인기글은 각 카페에서 멤버들이 관심을 갖고 많은 반응을 보인
@@ -70,4 +50,3 @@ export default function Feed() {
 const FeedWrap = styled.div`
   color: black;
 `;
-

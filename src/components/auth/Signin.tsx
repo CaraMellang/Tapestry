@@ -39,7 +39,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
   useEffect(() => {
     if (userSelector.signinSucceed) {
       const accessToken = userSelectorUser.accessToken;
-      setCookie("accessToken", accessToken, 1);
+      setCookie("access_token", accessToken, 1);
       setIsSign(false);
     }
   }, [userSelector]);

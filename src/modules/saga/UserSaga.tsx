@@ -1,13 +1,13 @@
 import { PayloadAction, Action } from "@reduxjs/toolkit";
 import axios from "axios";
 import { call, put } from "redux-saga/effects";
-import { SIGNIN_FAILED, SIGNIN_SUCCESS } from "../redux/User";
+import { SIGNIN_FAILED, SIGNIN_SUCCESS, TOKEN_FAILED, TOKEN_SUCCESS } from "../redux/User";
 
 async function postUserData(data: any) {
   return await axios.post(`http://localhost:5000/auth/signin`, data);
 }
 
-function* postUser(action: any): Generator {
+export function* postUser(action: any): Generator {
   try {
     const { data }: any = yield call(postUserData, action.payload);
     console.log(data);
@@ -18,4 +18,21 @@ function* postUser(action: any): Generator {
   }
 }
 
-export default postUser;
+async function postToken(data:any){
+  return await axios.post(`http://localhost:5000/auth/verify`,
+  { key: "value" },
+  {
+    headers: { Authorization: `Bearer ${data}` },
+  })
+}
+
+export function* postUserToken(action:any):Generator{
+  try{
+    const {data}:any = yield call(postToken,action.payload)
+    console.log(data)
+    yield put(TOKEN_SUCCESS(data))
+  }catch(err){
+    yield put(TOKEN_FAILED(err))
+  }
+}
+

@@ -1,11 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import ProfileBot from "../components/profile/ProfileBot";
+import ProfileHeader from "../components/profile/ProfileHeader";
+import ProfileTop from "../components/profile/ProfileTop";
 
 function Profile() {
+  const selector = useSelector((state:any)=>state.userSliceReducer)
   return (
     <ProfileWrapper>
       <div>
-        <h1>follow</h1>
+        <h1>Profile</h1>
+        <ProfileTop />
+        <ProfileHeader />
+        <ProfileBot />
+        <div>{selector.username}</div>
+        <div></div>
       </div>
     </ProfileWrapper>
   );
