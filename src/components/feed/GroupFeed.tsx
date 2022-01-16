@@ -1,69 +1,74 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Loading from "../Loading";
 
 export default function GroupFeed() {
-  const [posts, setPosts] = useState<object[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [obserberRef, inView] = useInView();
+  const [posts, setPosts] = useState<object[]>([
+    { group_name: "ㅗ" },
+    { group_name: "ㅗ" },
+    { group_name: "ㅗ" },
+    { group_name: "ㅗ" },
+    { group_name: "ㅗ" },
+    { group_name: "ㅗ" },
+  ]);
+  let items = [];
+  const [loading, setLoading] = useState(false);
+  // const [observerRef, inView] = useInView();
   const [page, setPage] = useState(1);
+  const observerTarget = useRef(null);
+  const [target, setTarget] = useState();
 
-  // useEffect(() => {
-  //   async function readPost() {
-  //     try {
-  //       const {
-  //         data: { data },
-  //       } = await axios.post(`http://localhost:5000/post/read`, {
-  //         group_id: "61cf23fade9e5f953c747b90",
-  //         page: 1,
-  //       });
-  //       console.log(data);
-  //       setPosts(data);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  //   readPost();
-  //   console.log(loading, posts);
-  // }, []);
+  
 
-  useEffect(() => {
-    async function getReadPost() {
+  const onIntersect = useCallback(async (
+    entries: IntersectionObserverEntry[],
+    observer: IntersectionObserver
+  ) => {
+    console.log("옵저버 실행?");
+    console.log(entries);
+    console.log(observer);
+    if (entries[0].intersectionRatio <= 0) return;
+    if (entries[0].isIntersecting && loading === false) {
+      // observer.unobserve(entries[0].target)
+      setLoading(true);
       try {
-        setLoading(true);
         const {
           data: { data },
         } = await axios.post(`http://localhost:5000/post/read`, {
           group_id: "61cf23fade9e5f953c747b90",
           page: page,
         });
+        setPosts((prevState) => [...prevState, ...data]);
+        setPage((prevState) => prevState + 1);
+        // observer.observe(entries[0].target)
         console.log(data);
-        console.log(page)
-        setPosts((prevData) => [...prevData, data]);
+        console.log(page);
+        console.log(loading)
         setLoading(false);
+        console.log(loading)
       } catch (err) {
+        // observer.observe(entries[0].target)
+        setLoading(false);
         console.log(err);
       }
     }
-    getReadPost();
-  }, [page]);
+  },[page])
 
   useEffect(() => {
-    if (inView && !loading) {
-      setPage((prevState) => prevState + 1);
+    const intersectionObserver = new IntersectionObserver(onIntersect, {
+      threshold: 0.4,
+    });
+    if (observerTarget.current) {
+      intersectionObserver.observe(observerTarget.current);
     }
-  }, [inView, loading]);
+  }, []);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
   return (
     <div>
-      <h1>그룹피드</h1>
+      <h1 className="dd">그룹피드{page}</h1>
       <div>
-        {!loading && posts.map((item: any) => {
+        {posts.map((item: any, index: number) => {
           return (
             <div
               style={{
@@ -71,7 +76,7 @@ export default function GroupFeed() {
                 flexDirection: "column",
                 height: "350px",
               }}
-              key={item._id}
+              key={index}
             >
               <div>
                 <div>{item.group_name}</div>
@@ -90,7 +95,8 @@ export default function GroupFeed() {
             </div>
           );
         })}
-        {loading ? <Loading /> : <div ref={obserberRef}></div>}
+        {loading ? <Loading /> : ""}
+        <div ref={observerTarget}></div>
       </div>
     </div>
   );
