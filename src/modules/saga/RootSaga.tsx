@@ -1,4 +1,4 @@
-import { takeLatest } from "redux-saga/effects";
+import { all, takeLatest } from "redux-saga/effects";
 import { groupFeed } from "./FeedSaga";
 import { postUser, postUserToken } from "./UserSaga";
 

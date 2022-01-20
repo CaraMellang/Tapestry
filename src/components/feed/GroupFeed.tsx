@@ -7,17 +7,11 @@ import Loading from "../Loading";
 
 export default function GroupFeed() {
   const [posts, setPosts] = useState<object[]>([]);
-  // const [page, setPage] = useState(1);
-  const observerTarget = useRef(null);
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const selector = useSelector((state: any) => state.groupFeedSliceReducer);
   const dispatch = useDispatch();
 
-  if (selector.groupFeedSucceed) {
-    console.log(selector);
-  }
-
-  const onIntersect = async (
+  const onIntersect = useCallback((
     entries: IntersectionObserverEntry[],
     observer: IntersectionObserver
   ) => {
@@ -26,30 +20,16 @@ export default function GroupFeed() {
     if (entries[0].intersectionRatio <= 0)
       return console.log("인터섹션라티오", entries[0].intersectionRatio);
     if (entries[0].isIntersecting && selector.groupFeedLoading === false) {
-      // observer.unobserve(entries[0].target)
+      console.log("page", selector.groupPageNumber);
       const data = {
         page: selector.groupPageNumber,
       };
       dispatch(GROUP_FEED_REQUEST(data));
-      // try {
-      //   const {
-      //     data: { data },
-      //   } = await axios.post(`http://localhost:5000/post/read`, {
-      //     group_id: "61cf23fade9e5f953c747b90",
-      //     page: page,
-      //   });
-      //   setPosts((prevState) => [...prevState, ...data]);
-      //   setPage((prevState) => prevState + 1);
-      //   console.log(data);
-      //   console.log(page);
-      // } catch (err) {
-      //   console.log(err);
-      // }
-      // observer.observe(entries[0].target)
     }
-  };
+  },[selector.groupPageNumber, selector.groupFeedLoading])
 
   useEffect(() => {
+    console.log("타겟", target);
     if (target) {
       let intersectionObserver = new IntersectionObserver(onIntersect, {
         threshold: 0.4,
@@ -57,9 +37,7 @@ export default function GroupFeed() {
       intersectionObserver.observe(target);
       return () => intersectionObserver && intersectionObserver.disconnect();
     }
-  }, [target]);
-
-  useEffect(() => {}, []);
+  }, [target, onIntersect]);
 
   return (
     <div>
