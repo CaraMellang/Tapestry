@@ -10,6 +10,7 @@ const initialState = {
     username: "",
     user_img: "",
     follow: [],
+    group:[],
     createdAt: "",
     accessToken: "",
   },
@@ -24,7 +25,7 @@ const userSlice = createSlice({
       state.signinLoading = false;
       state.signinError = null;
     },
-    SIGNIN_SUCCESS: (state: any, action: any) => {
+    SIGNIN_SUCCESS: (state, action) => {
       state.signinLoading = false;
       state.signinSucceed = true;
       state.user.userId = action.payload.data.userId;
@@ -33,6 +34,7 @@ const userSlice = createSlice({
       state.user.username = action.payload.data.username;
       state.user.user_img = action.payload.data.user_img;
       state.user.follow = action.payload.data.follow;
+      state.user.group = action.payload.data.group;
       state.user.createdAt = action.payload.data.createdAt;
     },
     SIGNIN_FAILED: (state, action) => {
@@ -55,6 +57,7 @@ const userSlice = createSlice({
       state.user.username = action.payload.data.username;
       state.user.user_img = action.payload.data.user_img;
       state.user.follow = action.payload.data.follow;
+      state.user.group = action.payload.data.group;
       state.user.createdAt = action.payload.data.createdAt;
     },
     TOKEN_FAILED: (state, action) => {

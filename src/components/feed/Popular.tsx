@@ -9,7 +9,7 @@ export default function Popular() {
   }
   return (
     <div>
-      <h1>Popular피드</h1>
+      <h1>인기피드</h1>
     </div>
   );
 }

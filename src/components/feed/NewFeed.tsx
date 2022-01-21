@@ -11,7 +11,7 @@ export default function NewFeed() {
   }
   return (
     <div>
-      <h1>new피드</h1>
+      <h1>새로운피드</h1>
     </div>
   );
 }

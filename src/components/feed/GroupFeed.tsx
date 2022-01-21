@@ -8,28 +8,36 @@ import Loading from "../Loading";
 export default function GroupFeed() {
   const [posts, setPosts] = useState<object[]>([]);
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const selector = useSelector((state: any) => state.groupFeedSliceReducer);
+  const groupSelector = useSelector(
+    (state: any) => state.groupFeedSliceReducer
+  );
+  const userSelector = useSelector((state: any) => state.userSliceReducer);
   const dispatch = useDispatch();
+  console.log(groupSelector);
 
-  const onIntersect = useCallback((
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) => {
-    console.log(entries[0].intersectionRatio);
-    console.log("isinter", entries[0].isIntersecting);
-    if (entries[0].intersectionRatio <= 0)
-      return console.log("인터섹션라티오", entries[0].intersectionRatio);
-    if (entries[0].isIntersecting && selector.groupFeedLoading === false) {
-      console.log("page", selector.groupPageNumber);
-      const data = {
-        page: selector.groupPageNumber,
-      };
-      dispatch(GROUP_FEED_REQUEST(data));
-    }
-  },[selector.groupPageNumber, selector.groupFeedLoading])
+  const onIntersect = useCallback(
+    (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      if (entries[0].intersectionRatio <= 0)
+        return console.log("인터섹션라티오", entries[0].intersectionRatio);
+      if (
+        entries[0].isIntersecting &&
+        groupSelector.groupFeedLoading === false
+      ) {
+        const data = {
+          group_arr: userSelector.user.group,
+          page: groupSelector.groupPageNumber,
+        };
+        dispatch(GROUP_FEED_REQUEST(data));
+      }
+    },
+    [
+      groupSelector.groupPageNumber,
+      groupSelector.groupFeedLoading,
+      userSelector.user.group,
+    ]
+  );
 
   useEffect(() => {
-    console.log("타겟", target);
     if (target) {
       let intersectionObserver = new IntersectionObserver(onIntersect, {
         threshold: 0.4,
@@ -41,9 +49,10 @@ export default function GroupFeed() {
 
   return (
     <div>
-      <h1 className="dd">그룹피드{selector.groupFeedPage}</h1>
+      <h1 className="dd">그룹피드</h1>
       <div>
-        {selector.groupFeeds.map((item: any, index: number) => {
+        {groupSelector.groupFeeds.map((item: any, index: number) => {
+          console.log(item);
           return (
             <div
               style={{
@@ -54,24 +63,35 @@ export default function GroupFeed() {
               key={index}
             >
               <div>
-                <div>{item.group_name}</div>
+                <div>{item.group_id.group_name}</div>
                 <div>{item.text}</div>
+                <div>
+                  {item.owner_id !== null ? item.owner_id.user_name : "null"}
+                </div>
                 <div>{item.created_at}</div>
               </div>
               <div>
-                {/* {item.comment.map((commentItme: any) => {
+                {item.comment.map((commentItem: any) => {
                   return (
-                    <div style={{ backgroundColor: "beige" }}>
-                      {commentItme.text}
+                    <div
+                      key={commentItem._id}
+                      style={{ backgroundColor: "beige" }}
+                    >
+                      {commentItem.text}
                     </div>
                   );
-                })} */}
+                })}
               </div>
             </div>
           );
         })}
-        {selector.groupFeedLoading ? <Loading /> : ""}
-        <div ref={setTarget}>{selector.groupFeedLoading.toString()}</div>
+        {groupSelector.groupFeedLoading &&
+        groupSelector.groupPageEnd === false ? (
+          <Loading />
+        ) : (
+          <div>더이상 게시글이 없습니다.</div>
+        )}
+        <div ref={setTarget}></div>
       </div>
     </div>
   );

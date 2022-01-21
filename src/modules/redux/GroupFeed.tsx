@@ -6,6 +6,7 @@ interface initialStateType {
   groupFeedError: any;
   groupFeeds: object[];
   groupPageNumber: number;
+  groupPageEnd: boolean;
 }
 
 const initialState: initialStateType = {
@@ -14,6 +15,7 @@ const initialState: initialStateType = {
   groupFeedError: null,
   groupFeeds: [],
   groupPageNumber: 1,
+  groupPageEnd: false,
 };
 
 const groupFeedSlice = createSlice({
@@ -37,12 +39,21 @@ const groupFeedSlice = createSlice({
       state.groupFeedLoading = false;
       state.groupFeedSucceed = false;
     },
+    GROUP_FEED_FINISHED: (state, action) => {
+      console.log("실행??");
+      state.groupPageEnd = true;
+      state.groupPageNumber -= 1;
+    },
   },
 });
 
 const groupFeedSliceReducer = groupFeedSlice.reducer;
 
-export const { GROUP_FEED_REQUEST, GROUP_FEED_SUCCESS, GROUP_FEED_FAILED } =
-  groupFeedSlice.actions;
+export const {
+  GROUP_FEED_REQUEST,
+  GROUP_FEED_SUCCESS,
+  GROUP_FEED_FAILED,
+  GROUP_FEED_FINISHED,
+} = groupFeedSlice.actions;
 
 export default groupFeedSliceReducer;
