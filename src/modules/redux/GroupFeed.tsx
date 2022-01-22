@@ -23,26 +23,28 @@ const groupFeedSlice = createSlice({
   initialState,
   reducers: {
     GROUP_FEED_REQUEST: (state, action) => {
-      console.log(state, action);
       state.groupFeedLoading = true;
       state.groupFeedSucceed = false;
     },
     GROUP_FEED_SUCCESS: (state, action) => {
-      console.log(state, action);
       state.groupPageNumber += 1;
       state.groupFeeds.push(...action.payload.data);
       state.groupFeedLoading = false;
       state.groupFeedSucceed = true;
     },
     GROUP_FEED_FAILED: (state, action) => {
-      console.log(state, action);
       state.groupFeedLoading = false;
       state.groupFeedSucceed = false;
     },
     GROUP_FEED_FINISHED: (state, action) => {
-      console.log("실행??");
       state.groupPageEnd = true;
       state.groupPageNumber -= 1;
+    },
+    GROUP_FEED_EMPTY: (state, action) => {
+      state.groupFeeds = [];
+      state.groupFeedLoading = false;
+      state.groupPageEnd = false;
+      state.groupPageNumber = 1;
     },
   },
 });
@@ -54,6 +56,7 @@ export const {
   GROUP_FEED_SUCCESS,
   GROUP_FEED_FAILED,
   GROUP_FEED_FINISHED,
+  GROUP_FEED_EMPTY,
 } = groupFeedSlice.actions;
 
 export default groupFeedSliceReducer;

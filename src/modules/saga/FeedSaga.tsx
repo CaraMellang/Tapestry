@@ -24,7 +24,7 @@ export function* groupFeed(action: PayloadAction): Generator {
     console.log(data);
     if (data.data.length === 0) {
       console.log("ㅎㅇㅎㅇ");
-      yield put(GROUP_FEED_FINISHED("test"));
+      yield put(GROUP_FEED_FINISHED(action.payload));
       yield cancel();
     }
     yield put(GROUP_FEED_SUCCESS(data));

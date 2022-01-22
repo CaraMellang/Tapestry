@@ -2,7 +2,10 @@ import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
-import { GROUP_FEED_REQUEST } from "../../modules/redux/GroupFeed";
+import {
+  GROUP_FEED_EMPTY,
+  GROUP_FEED_REQUEST,
+} from "../../modules/redux/GroupFeed";
 import Loading from "../Loading";
 
 export default function GroupFeed() {
@@ -43,16 +46,23 @@ export default function GroupFeed() {
         threshold: 0.4,
       });
       intersectionObserver.observe(target);
-      return () => intersectionObserver && intersectionObserver.disconnect();
+      return () => {
+        intersectionObserver && intersectionObserver.disconnect();
+      };
     }
   }, [target, onIntersect]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(GROUP_FEED_EMPTY("dummy"));
+    };
+  }, []);
+
   return (
     <div>
-      <h1 className="dd">그룹피드</h1>
+      <h1 className="dd">그룹피드{groupSelector.groupPageNumber}</h1>
       <div>
         {groupSelector.groupFeeds.map((item: any, index: number) => {
-          console.log(item);
           return (
             <div
               style={{
