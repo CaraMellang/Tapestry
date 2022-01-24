@@ -10,7 +10,7 @@ import {
 
 
 async function readGroupFeed(data: any) {
-  return await axios.post(`http://localhost:5000/post/read`, {
+  return await axios.post(`http://localhost:5000/post/readgroup`, {
     // group_id: "61cf23fade9e5f953c747b90",
     group_arr: data.group_arr,
     page: data.page,
