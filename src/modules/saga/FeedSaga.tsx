@@ -2,19 +2,26 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { fork } from "child_process";
 import { all, call, cancel, put, takeLatest } from "redux-saga/effects";
+import { getCookie } from "../../lib/cookie";
 import {
   GROUP_FEED_FAILED,
   GROUP_FEED_FINISHED,
   GROUP_FEED_SUCCESS,
 } from "../redux/GroupFeed";
 
-
 async function readGroupFeed(data: any) {
-  return await axios.post(`http://localhost:5000/post/readgroup`, {
-    // group_id: "61cf23fade9e5f953c747b90",
-    group_arr: data.group_arr,
-    page: data.page,
-  });
+  const token = getCookie("access_token");
+  return await axios.post(
+    `http://localhost:5000/post/readgroup`,
+    {
+      // group_id: "61cf23fade9e5f953c747b90",
+      group_arr: data.group_arr,
+      page: data.page,
+    },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 }
 
 export function* groupFeed(action: PayloadAction): Generator {
