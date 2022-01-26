@@ -1,52 +1,58 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getCookie } from "../../lib/cookie";
+import {
+  READ_GROUPS_EMPTY,
+  READ_GROUPS_REQUEST,
+} from "../../modules/redux/Groups";
 
 export default function GroupList() {
+  const [isLoading, setIsLoading] = useState(true);
   const userSelector = useSelector((state: any) => state.userSliceReducer);
+  const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
-  const [groups,setGroups] =  useState([])
-  console.log(userSelector);
+  const [groups, setGroups] = useState([]);
 
-  const getGroups = async () => {
-    const token = getCookie("access_token");
-    const dd = await axios.post(
-      `http://localhost:5000/group/readgroup`,
-      {
-        page: 1,
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    setGroups(dd.data.data.group)
-    console.log(dd.data.data);
+  const onPaging = () => {
+    setIsLoading(true);
   };
 
   useEffect(() => {
-    getGroups();
-  }, []);
+    if (groupSelector.groupLoading === false && isLoading) {
+      const data = { page: 1 };
+      dispatch(READ_GROUPS_REQUEST(data));
+      console.log("gd");
+      setIsLoading(false);
+    }
+  }, [isLoading, groupSelector.groupLoading, dispatch]);
+
+  // useEffect(() => { 그룹피드랑 연동되었기에 보류
+  //   return () => {
+  //     dispatch({ type: "groupReducer/READ_GROUP_EMPTY" });
+  //   };
+  // }, []);
 
   return (
     <GroupListWrap>
       <div>그룹목록</div>
       <div className="box-list-layer">
-        {groups ? (
-          groups.map((item: any, index: number) => {
+        {groupSelector.group ? (
+          groupSelector.group.map((item: any, index: number) => {
             return (
               <div key={index} className="box-wrap">
                 <div className="box-padding">
-                  <div className="box">
+                  <Link to={`/group/${item._id}`} className="box">
                     <div className="box-img">이미지입니다{item.group_img}</div>
                     <div className="box-title">
                       <div>{item.group_name}</div>
-                      {/* <div>[그룹인원] {item.group_people_count} 명</div>
-                    <div>[주인장] {item.owner_id.user_name}</div>
-                    <div>[그룹설명] {item.group_description}</div> */}
+                      <div>[그룹인원] {item.group_people_count} 명</div>
+                      <div>[주인장] {item.owner_id.user_name}</div>
+                      <div>[그룹설명] {item.group_description}</div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             );
@@ -54,6 +60,9 @@ export default function GroupList() {
         ) : (
           <div>없음</div>
         )}
+        <div onClick={onPaging} style={{ cursor: "pointer" }}>
+          페이징
+        </div>
       </div>
     </GroupListWrap>
   );

@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import Home from "./Home";
 import SignForm from "./SignForm";
 import Feed from "./Feed";
+import Group from "./Group";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -15,13 +16,14 @@ function Main() {
       {!isSign && <Header />}
       <MainWrapper>
         <Routes>
-          {isSign  ? (
+          {isSign ? (
             <Route path={`/*`} element={<SignForm setIsSign={setIsSign} />} />
           ) : (
             <>
               <Route path={`/*`} element={<Home />} />
               <Route path={`/feed/*`} element={<Feed />} />
               <Route path={`/profile/:id`} element={<Profile />} />
+              <Route path={`/group/:_id`} element={<Group />} />
             </>
           )}
         </Routes>

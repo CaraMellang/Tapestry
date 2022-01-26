@@ -9,14 +9,13 @@ import {
 import Loading from "../Loading";
 
 export default function GroupFeed() {
-  const [posts, setPosts] = useState<object[]>([]);
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const groupSelector = useSelector(
+  const groupFeedSelector = useSelector(
     (state: any) => state.groupFeedSliceReducer
   );
   const userSelector = useSelector((state: any) => state.userSliceReducer);
+  const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
-  console.log(groupSelector);
 
   const onIntersect = useCallback(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
@@ -24,19 +23,19 @@ export default function GroupFeed() {
         return console.log("인터섹션라티오", entries[0].intersectionRatio);
       if (
         entries[0].isIntersecting &&
-        groupSelector.groupFeedLoading === false
+        groupFeedSelector.groupFeedLoading === false
       ) {
         const data = {
-          group_arr: userSelector.user.group,
-          page: groupSelector.groupPageNumber,
+          group_arr: groupSelector.group,
+          page: groupFeedSelector.groupPageNumber,
         };
         dispatch(GROUP_FEED_REQUEST(data));
       }
     },
     [
-      groupSelector.groupPageNumber,
-      groupSelector.groupFeedLoading,
-      userSelector.user.group,
+      groupFeedSelector.groupPageNumber,
+      groupFeedSelector.groupFeedLoading,
+      groupSelector.group,
     ]
   );
 
@@ -60,9 +59,9 @@ export default function GroupFeed() {
 
   return (
     <div>
-      <h1 className="dd">그룹피드{groupSelector.groupPageNumber}</h1>
+      <h1 className="dd">그룹피드{groupFeedSelector.groupPageNumber}</h1>
       <div>
-        {groupSelector.groupFeeds.map((item: any, index: number) => {
+        {groupFeedSelector.groupFeeds.map((item: any, index: number) => {
           return (
             <div
               style={{
@@ -95,8 +94,8 @@ export default function GroupFeed() {
             </div>
           );
         })}
-        {groupSelector.groupFeedLoading &&
-        groupSelector.groupPageEnd === false ? (
+        {groupFeedSelector.groupFeedLoading &&
+        groupFeedSelector.groupPageEnd === false ? (
           <Loading />
         ) : (
           <div>더이상 게시글이 없습니다.</div>

@@ -12,9 +12,8 @@ import {
 async function readGroupFeed(data: any) {
   const token = getCookie("access_token");
   return await axios.post(
-    `http://localhost:5000/post/readgroup`,
+    `http://localhost:5000/post/readgrouparr`,
     {
-      // group_id: "61cf23fade9e5f953c747b90",
       group_arr: data.group_arr,
       page: data.page,
     },
@@ -30,7 +29,6 @@ export function* groupFeed(action: PayloadAction): Generator {
     const { data }: any = yield call(readGroupFeed, action.payload);
     console.log(data);
     if (data.data.length === 0) {
-      console.log("ㅎㅇㅎㅇ");
       yield put(GROUP_FEED_FINISHED(action.payload));
       yield cancel();
     }
