@@ -1,42 +1,36 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  GROUP_FEED_EMPTY,
-  GROUP_FEED_REQUEST,
-} from "../../modules/redux/GroupFeed";
+import styled from "styled-components";
+import { GROUP_EMPTY, GROUP_REQUEST } from "../../modules/redux/Group";
 import Loading from "../Loading";
 
-export default function GroupFeed() {
+interface GroupBodyProps {
+  group_id: string | undefined;
+}
+
+export default function GroupBody({ group_id }: GroupBodyProps) {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const groupFeedSelector = useSelector(
-    (state: any) => state.groupFeedSliceReducer
-  );
-  const userSelector = useSelector((state: any) => state.userSliceReducer);
-  const groupsSelector = useSelector((state: any) => state.groupsSliceReducer);
+  const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
+  console.log(groupSelector);
 
   const onIntersect = useCallback(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       if (entries[0].intersectionRatio <= 0)
         return console.log("인터섹션라티오", entries[0].intersectionRatio);
-      if (
-        entries[0].isIntersecting &&
-        groupFeedSelector.groupFeedLoading === false
-      ) {
-        console.log(groupsSelector.groups);
+      if (entries[0].isIntersecting && groupSelector.groupLoading === false) {
         const data = {
-          group_arr: groupsSelector.groups,
-          page: groupFeedSelector.groupPageNumber,
+          group_id: group_id,
+          page: groupSelector.groupPageNumber,
         };
-        dispatch(GROUP_FEED_REQUEST(data));
+        dispatch(GROUP_REQUEST(data));
       }
     },
     [
-      groupFeedSelector.groupPageNumber,
-      groupFeedSelector.groupFeedLoading,
-      groupsSelector.group,
+      group_id,
+      groupSelector.groupPageNumber,
+      groupSelector.groupLoading,
+      dispatch,
     ]
   );
 
@@ -54,15 +48,16 @@ export default function GroupFeed() {
 
   useEffect(() => {
     return () => {
-      dispatch(GROUP_FEED_EMPTY("dummy"));
+      dispatch(GROUP_EMPTY("dummy"));
     };
   }, []);
 
   return (
-    <div>
-      <h1 className="dd">그룹피드{groupFeedSelector.groupPageNumber}</h1>
-      <div>
-        {groupFeedSelector.groupFeeds.map((item: any, index: number) => {
+    <GroupBodyWrap>
+      <div>에어리어</div>
+      <aside>그룹정보영역{groupSelector.groupPageNumber}</aside>
+      <main>
+        {groupSelector.groupPosts.map((item: any, index: number) => {
           return (
             <div
               style={{
@@ -95,14 +90,16 @@ export default function GroupFeed() {
             </div>
           );
         })}
-        {groupFeedSelector.groupFeedLoading &&
-        groupFeedSelector.groupPageEnd === false ? (
+        {groupSelector.groupLoading &&
+        groupSelector.groupPageEnd === false ? (
           <Loading />
         ) : (
           <div>더이상 게시글이 없습니다.</div>
         )}
         <div ref={setTarget}></div>
-      </div>
-    </div>
+      </main>
+    </GroupBodyWrap>
   );
 }
+
+const GroupBodyWrap = styled.div``;

@@ -12,7 +12,7 @@ import {
 export default function GroupList() {
   const [isLoading, setIsLoading] = useState(true);
   const userSelector = useSelector((state: any) => state.userSliceReducer);
-  const groupSelector = useSelector((state: any) => state.groupSliceReducer);
+  const groupsSelector = useSelector((state: any) => state.groupsSliceReducer);
   const dispatch = useDispatch();
   const [groups, setGroups] = useState([]);
 
@@ -21,13 +21,13 @@ export default function GroupList() {
   };
 
   useEffect(() => {
-    if (groupSelector.groupLoading === false && isLoading) {
+    if (groupsSelector.groupsLoading === false && isLoading) {
       const data = { page: 1 };
       dispatch(READ_GROUPS_REQUEST(data));
       console.log("gd");
       setIsLoading(false);
     }
-  }, [isLoading, groupSelector.groupLoading, dispatch]);
+  }, [isLoading, groupsSelector.groupsLoading, dispatch]);
 
   // useEffect(() => { 그룹피드랑 연동되었기에 보류
   //   return () => {
@@ -39,8 +39,8 @@ export default function GroupList() {
     <GroupListWrap>
       <div>그룹목록</div>
       <div className="box-list-layer">
-        {groupSelector.group ? (
-          groupSelector.group.map((item: any, index: number) => {
+        {groupsSelector.groups ? (
+          groupsSelector.groups.map((item: any, index: number) => {
             return (
               <div key={index} className="box-wrap">
                 <div className="box-padding">
