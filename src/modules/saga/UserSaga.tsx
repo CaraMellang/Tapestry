@@ -2,9 +2,10 @@ import { PayloadAction, Action } from "@reduxjs/toolkit";
 import axios from "axios";
 import { call, put } from "redux-saga/effects";
 import { SIGNIN_FAILED, SIGNIN_SUCCESS, TOKEN_FAILED, TOKEN_SUCCESS } from "../redux/User";
+import httpPath from '../../lib/mode'
 
 async function postUserData(data: any) {
-  return await axios.post(`http://localhost:5000/auth/signin`, data);
+  return await axios.post(`${httpPath}/auth/signin`, data);
 }
 
 export function* postUser(action: any): Generator {
@@ -19,7 +20,7 @@ export function* postUser(action: any): Generator {
 }
 
 async function postToken(data:any){
-  return await axios.post(`http://localhost:5000/auth/verify`,
+  return await axios.post(`${httpPath}/auth/verify`,
   { key: "value" },
   {
     headers: { Authorization: `Bearer ${data}` },

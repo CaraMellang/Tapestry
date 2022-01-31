@@ -8,11 +8,12 @@ import {
   READ_GROUPS_REQUEST,
   READ_GROUPS_SUCCESS,
 } from "../redux/Groups";
+import httpPath from '../../lib/mode'
 
 async function readGroups(data: any) {
   const token = getCookie("access_token");
   return await axios.post(
-    `http://localhost:5000/group/readgroup`,
+    `${httpPath}/group/readgroup`,
     {
       page: data.page,
     },

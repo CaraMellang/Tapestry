@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/header/header";
 import Profile from "./Profile";
@@ -7,6 +7,7 @@ import Home from "./Home";
 import SignForm from "./SignForm";
 import Feed from "./Feed";
 import Group from "./Group";
+import Search from "./Search";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -24,6 +25,7 @@ function Main() {
               <Route path={`/feed/*`} element={<Feed />} />
               <Route path={`/profile/:id`} element={<Profile />} />
               <Route path={`/group/:_id`} element={<Group />} />
+              <Route path={`/search/:search`} element={<Search />} />
             </>
           )}
         </Routes>

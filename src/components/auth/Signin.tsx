@@ -6,6 +6,7 @@ import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import { setCookie } from "../../lib/cookie";
 import { SIGNIN_REQUEST } from "../../modules/redux/User";
+import httpPath from "../../lib/mode";
 
 interface SignInProps {
   setIsSign: React.Dispatch<React.SetStateAction<boolean>>;
@@ -70,7 +71,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
             placeholder="Password"
           />
         </Form.Item>
-        <a href="http://localhost:5000/auth/google">google login</a>
+        <a href={`${httpPath}/auth/google`}>google login</a>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit

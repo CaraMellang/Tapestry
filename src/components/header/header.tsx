@@ -1,3 +1,5 @@
+import Form from "antd/lib/form/Form";
+import { Input } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -6,11 +8,17 @@ import styled from "styled-components";
 function Header() {
   const navigate = useNavigate();
   const selector = useSelector((state: any) => state.userSliceReducer);
+  const { Search } = Input;
 
   console.log();
+  const onSearch = (e: string) => {
+    console.log("Search test", e);
+    navigate(`/search/${e}`);
+  };
 
   return (
     <HeaderWrap>
+      <Search placeholder="input search text" onSearch={onSearch} enterButton />
       <NavLink
         to={`/`}
         style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
