@@ -23,9 +23,9 @@ function Main() {
             <>
               <Route path={`/*`} element={<Home />} />
               <Route path={`/feed/*`} element={<Feed />} />
-              <Route path={`/profile/:id`} element={<Profile />} />
-              <Route path={`/group/:_id`} element={<Group />} />
-              <Route path={`/search/:search`} element={<Search />} />
+              <Route path={`/profile/:id/*`} element={<Profile />} />
+              <Route path={`/group/:_id/*`} element={<Group />} />
+              <Route path={`/search/:search/*`} element={<Search />} />
             </>
           )}
         </Routes>
