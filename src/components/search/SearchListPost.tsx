@@ -5,13 +5,18 @@ import styled from "styled-components";
 import httpPath from "../../lib/mode";
 import Loading from "../Loading";
 
-export default function SearchList() {
+interface SearchListPostProps {
+  searchType: string;
+}
+
+export default function SearchListPost({ searchType }: SearchListPostProps) {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const [searchListArr, setSearchListArr] = useState<any>([]);
   let loading = false;
   let pageEnd = false;
   let pageNo = 0;
   const { search } = useParams();
+  console.log(searchType);
 
   const onIntersect = useCallback(
     async (
@@ -24,9 +29,9 @@ export default function SearchList() {
         loading = true;
         pageNo += 1;
         const data = {
-          search: "1",
+          search: search,
           page: pageNo,
-          type: "post",
+          type: searchType,
         };
         try {
           const resData = await axios.post(`${httpPath}/search/`, data);
@@ -63,12 +68,17 @@ export default function SearchList() {
     }
   }, [target, onIntersect]);
 
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <SearchListWrap>
       <h1>search list</h1>
       <h1>검색결과: {search}</h1>
       <div style={{ display: "flex", flexDirection: "column" }}>
         {searchListArr.map((item: any, index: number) => {
+          console.log(item);
           return (
             <div key={index} style={{ height: "100px" }}>
               {item.text}
@@ -77,11 +87,7 @@ export default function SearchList() {
         })}
       </div>
 
-      {loading && pageEnd === false ? (
-        <Loading />
-      ) : (
-        <div>더이상 게시글이 없습니다.</div>
-      )}
+      {loading && pageEnd === false ? <Loading /> : <div>검색결과 끝</div>}
       <div ref={setTarget}></div>
     </SearchListWrap>
   );

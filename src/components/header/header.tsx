@@ -13,7 +13,7 @@ function Header() {
   console.log();
   const onSearch = (e: string) => {
     console.log("Search test", e);
-    navigate(`/search/${e}`);
+    navigate(`/search/${e}/group`);
   };
 
   return (
