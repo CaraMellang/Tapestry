@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import httpPath from "../../lib/mode";
 import Loading from "../Loading";
@@ -16,6 +16,7 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
   let pageEnd = false;
   let pageNo = 0;
   const { search } = useParams();
+  const navigate = useNavigate();
   console.log(searchType);
 
   const onIntersect = useCallback(
@@ -56,6 +57,11 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
     [loading]
   );
 
+  const groupClick = (item: any) => {
+    console.log("그룹클릭", item);
+    navigate(`/groupdetail/${item._id}`);
+  };
+
   useEffect(() => {
     if (target) {
       let intersectionObserver = new IntersectionObserver(onIntersect, {
@@ -79,7 +85,13 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
       <div style={{ display: "flex", flexDirection: "column" }}>
         {searchListArr.map((item: any, index: number) => {
           return (
-            <div key={index} style={{ height: "100px" }}>
+            <div
+              key={index}
+              style={{ height: "100px", cursor: "pointer" }}
+              onClick={() => {
+                groupClick(item);
+              }}
+            >
               {item.group_name}
             </div>
           );

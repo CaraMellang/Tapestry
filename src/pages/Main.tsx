@@ -8,6 +8,7 @@ import SignForm from "./SignForm";
 import Feed from "./Feed";
 import Group from "./Group";
 import Search from "./Search";
+import GroupDetail from "./GroupDetail";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -26,6 +27,7 @@ function Main() {
               <Route path={`/profile/:id/*`} element={<Profile />} />
               <Route path={`/group/:_id/*`} element={<Group />} />
               <Route path={`/search/:search/*`} element={<Search />} />
+              <Route path={`/groupdetail/:_id/*`} element={<GroupDetail />} />
             </>
           )}
         </Routes>
