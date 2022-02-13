@@ -6,6 +6,8 @@ import GroupLeftSide from "../components/group/groupDetail/GroupLeftSide";
 import GroupMain from "../components/group/groupDetail/GroupMain";
 import { useDispatch, useSelector } from "react-redux";
 import httpPath from "../lib/mode";
+import { getCookie } from "../lib/cookie";
+import Loading from "../components/Loading";
 
 export interface groupDetailInterface {
   _id: string;
@@ -27,7 +29,7 @@ export interface groupDetailInterface {
 export default function GroupDetail() {
   const userSelector = useSelector((state: any) => state.userSliceReducer);
   const [groupDetail, setGroupDetail] = useState<groupDetailInterface>({
-    _id: "string;",
+    _id: "undefined",
     group_description: "string;",
     group_img: "string;",
     group_name: "string;",
@@ -42,49 +44,70 @@ export default function GroupDetail() {
     created_at: new Date(),
     updated_at: null,
   });
-  const [isJoinGroup,setIsJoinGroup] = useState(false);
+  const [isJoinGroup, setIsJoinGroup] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
   const { _id } = useParams();
   let groupLoading = true;
   let groupPostLoading = true;
 
   console.log(_id);
 
-  const readGroupDetail = async () => {
-    try {
-      const {
-        data: { Group },
-      } = await axios.post(`${httpPath}/group/groupdetail`, {
-        group_id: _id,
-        user_id: userSelector.user.userId,
-      });
-      if (
-        userSelector.user.group.find(
-          (element: any) => element._id === Group._id
-        )
-      ) {
-        setIsJoinGroup(true)
-      } else {
-        setIsJoinGroup(false)
+  useEffect(() => {
+    const readGroupDetail = async () => {
+      // 네트워크를 3g로 하면 콘솔에는 false로만 나오지만 Loading 프로그레스 컴포넌트는 잘 나오는걸 확인가능.
+      setDetailLoading(true);
+      try {
+        const {
+          data: { Group },
+        } = await axios.post(`${httpPath}/group/groupdetail`, {
+          group_id: _id,
+          user_id: userSelector.user.userId,
+        });
+
+        setGroupDetail(Group);
+        setDetailLoading(false);
+      } catch (err) {
+        console.log(err);
+        setDetailLoading(false);
       }
-      setGroupDetail(Group);
-    } catch (err) {
-      console.log(err);
+    };
+
+    if (!detailLoading && groupDetail._id === "undefined") {
+      readGroupDetail();
     }
-  };
+  }, [detailLoading, groupDetail._id, userSelector.user.userId, _id]);
 
   useEffect(() => {
-    readGroupDetail();
-  }, []);
+    if (
+      userSelector.user.group.find(
+        (element: any) => element._id === groupDetail._id
+      )
+    ) {
+      console.log("1");
+      setIsJoinGroup(true);
+    } else {
+      console.log("12", userSelector.user.group, groupDetail);
+      setIsJoinGroup(false);
+    }
+  }, [userSelector.user.group, groupDetail._id]);
 
   return (
     <GroupDetailWrap>
       <h1>그룹 디테일 페이지</h1>
       <div>해당 그룹의 아이디 {{ _id }._id}</div>
       <div className="layout_view">
-        <div className="main_layout">
-          <GroupLeftSide groupDetail={groupDetail} isJoinGroup={isJoinGroup} />
-          <GroupMain />
-        </div>
+        {detailLoading ? (
+          <Loading />
+        ) : (
+          <div className="main_layout">
+            <GroupLeftSide
+              groupDetail={groupDetail}
+              isJoinGroup={isJoinGroup}
+              setGroupDetail={setGroupDetail}
+            />
+            <GroupMain />
+          </div>
+        )}
       </div>
     </GroupDetailWrap>
   );
@@ -94,9 +117,11 @@ const GroupDetailWrap = styled.div`
   .layout_view {
     width: 100%;
     background-color: #f5f5f5;
+    min-height: 500px;
   }
   .main_layout {
     width: 1200px;
+    height: 100%;
     display: flex;
     margin: auto;
   }
