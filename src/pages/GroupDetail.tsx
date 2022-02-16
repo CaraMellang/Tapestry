@@ -89,7 +89,7 @@ export default function GroupDetail() {
       console.log("12", userSelector.user.group, groupDetail);
       setIsJoinGroup(false);
     }
-  }, [userSelector.user.group, groupDetail._id]);
+  }, [userSelector.user.group, groupDetail._id, _id]);
 
   return (
     <GroupDetailWrap>

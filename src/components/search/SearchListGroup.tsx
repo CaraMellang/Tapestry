@@ -54,13 +54,17 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
         }
       }
     },
-    [loading]
+    [loading, search]
   );
 
   const groupClick = (item: any) => {
     console.log("그룹클릭", item);
     navigate(`/groupdetail/${item._id}`);
   };
+
+  useEffect(() => {
+    setSearchListArr([]);
+  }, [search]);
 
   useEffect(() => {
     if (target) {
