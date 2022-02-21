@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import GroupBody from "../components/group/GroupBody";
 import GroupHeader from "../components/group/GroupHeader";
+import GroupDetail from "./GroupDetail";
 
 export default function Group() {
   const { _id } = useParams();
@@ -11,7 +12,8 @@ export default function Group() {
     <GroupWrap>
       <div>{_id}</div>
       <GroupHeader />
-      <GroupBody group_id={_id} />
+      {/* <GroupBody group_id={_id} /> */}
+      <GroupDetail />
     </GroupWrap>
   );
 }

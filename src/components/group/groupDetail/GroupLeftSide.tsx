@@ -21,9 +21,9 @@ export default function GroupLeftSide({
   setGroupDetail,
 }: GroupLeftSideProp) {
   const dispatch = useDispatch();
+  const token = getCookie("access_token");
 
   const onJoinGroupClick = async () => {
-    const token = getCookie("access_token");
     const isJoin = window.confirm("그룹에 가입하시겠습니까?");
     if (!isJoin) {
       return;
@@ -36,16 +36,30 @@ export default function GroupLeftSide({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      dispatch(TOKEN_REQUEST(token));
-      console.log(data);
+      dispatch(TOKEN_REQUEST(token)); //바뀐정보 갱신
       window.alert("가입완료");
-      setGroupDetail({ ...groupDetail, _id: "undefined" });
+      setGroupDetail({ ...groupDetail, _id: null });
     } catch (err) {
       console.log(err);
     }
   };
   const onLeaveGroupClick = async () => {
     const isLeave = window.confirm("정말로 그룹을 나가실건가요?");
+    if (!isLeave) return;
+    try {
+      const data = await axios.post(
+        `${httpPath}/group/leavegroup`,
+        { group_id: groupDetail._id },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(TOKEN_REQUEST(token));
+      window.alert("완료");
+      setGroupDetail({ ...groupDetail, _id: null });
+    } catch (err) {
+      console.log(err);
+    }
     console.log(isLeave);
   };
 
@@ -88,10 +102,10 @@ const GroupLeftSideWrap = styled.aside`
     position: fixed;
     box-sizing: border-box;
     width: inherit;
-    margin-right: 20px;
     background-color: white;
     border-radius: 12px;
     overflow: hidden;
+    transform: translateX(-16px);
   }
   .info_layout_cover_img {
     background-color: gray;

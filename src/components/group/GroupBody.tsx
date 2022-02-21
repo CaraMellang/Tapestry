@@ -5,7 +5,7 @@ import { GROUP_EMPTY, GROUP_REQUEST } from "../../modules/redux/Group";
 import Loading from "../Loading";
 
 interface GroupBodyProps {
-  group_id: string | undefined;
+  group_id: string | undefined | null;
 }
 
 export default function GroupBody({ group_id }: GroupBodyProps) {

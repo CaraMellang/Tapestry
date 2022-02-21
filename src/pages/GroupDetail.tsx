@@ -10,7 +10,7 @@ import { getCookie } from "../lib/cookie";
 import Loading from "../components/Loading";
 
 export interface groupDetailInterface {
-  _id: string;
+  _id: string | null;
   group_description: string;
   group_img: string;
   group_name: string;
@@ -29,7 +29,7 @@ export interface groupDetailInterface {
 export default function GroupDetail() {
   const userSelector = useSelector((state: any) => state.userSliceReducer);
   const [groupDetail, setGroupDetail] = useState<groupDetailInterface>({
-    _id: "undefined",
+    _id: null,
     group_description: "string;",
     group_img: "string;",
     group_name: "string;",
@@ -72,7 +72,7 @@ export default function GroupDetail() {
       }
     };
 
-    if (!detailLoading && groupDetail._id === "undefined") {
+    if (!detailLoading && groupDetail._id === null) {
       readGroupDetail();
     }
   }, [detailLoading, groupDetail._id, userSelector.user.userId, _id]);
@@ -105,7 +105,7 @@ export default function GroupDetail() {
               isJoinGroup={isJoinGroup}
               setGroupDetail={setGroupDetail}
             />
-            <GroupMain />
+            <GroupMain group_id={groupDetail._id} />
           </div>
         )}
       </div>
