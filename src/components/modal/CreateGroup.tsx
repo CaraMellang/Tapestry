@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface CreateGroupProps {
@@ -11,6 +11,8 @@ export default function CreateGroup({
   onOpenModalClick,
 }: CreateGroupProps) {
   const [description, setDescription] = useState("");
+  const [uploadImg, setUploadImg] = useState<File | null>(null);
+  const [fileImage, setFileImage] = useState("");
   const stopBubble = (e: any) => {
     e.stopPropagation();
   };
@@ -25,6 +27,34 @@ export default function CreateGroup({
     console.log("클릭", description);
   };
 
+  const onUploadFile = (e: any) => {
+    const {
+      target: { files },
+    } = e;
+    // console.log(files[0]);
+    setUploadImg(files[0]);
+    setFileImage(URL.createObjectURL(files[0]));
+  };
+
+  // const priview = () => {
+  //   if (!uploadImg) return;
+
+  //   console.log(uploadImg);
+  //   const imgElement = document.querySelector<HTMLElement>(".previewImg");
+  //   const reader = new FileReader();
+
+  //   if (!imgElement) return;
+
+  //   reader.onload = () =>
+  //     (imgElement.style.backgroundImage = `url(${reader.result})`);
+  //   reader.readAsDataURL(uploadImg);
+  // };
+
+  // useEffect(() => {
+  //   priview();
+  //   return () => priview();
+  // }, [uploadImg]);
+
   return (
     <CreateGroupWrap>
       <div
@@ -38,6 +68,18 @@ export default function CreateGroup({
             </div>
             <div className="modalMain" style={{ padding: "40px 10px" }}>
               <p>여기엔 사진</p>
+              {/* <div
+                className="previewImg"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div> */}
+              <div>
+                <img className="previewImg" alt="sample" src={fileImage}></img>
+              </div>
+              <input type="file" accept="image/*" onChange={onUploadFile} />
               <textarea onChange={onDescriptionChange} value={description} />
             </div>
             <div className="modalFooter" style={{ padding: "10px 10px" }}>
@@ -60,6 +102,9 @@ const CreateGroupWrap = styled.div`
     right: 0;
     bottom: 0;
     transition: all 0.2s ease-in-out;
+  }
+  .previewImg {
+    width: 100%;
   }
   .modal-box {
     position: absolute;
