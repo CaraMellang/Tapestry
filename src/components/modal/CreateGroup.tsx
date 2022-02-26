@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import useInput from "../../hook/useInput";
 
 interface CreateGroupProps {
   isOpenModal: boolean;
@@ -10,50 +11,42 @@ export default function CreateGroup({
   isOpenModal,
   onOpenModalClick,
 }: CreateGroupProps) {
-  const [description, setDescription] = useState("");
-  const [uploadImg, setUploadImg] = useState<File | null>(null);
+  // const [uploadImg, setUploadImg] = useState<File | null>(null);
   const [fileImage, setFileImage] = useState("");
+  const [titleValue, onTitleValueChange, setTitleValue] = useInput("");
+  const [descriptionValue, onDescriptionChange, setDescriptionValue] =
+    useInput("");
   const stopBubble = (e: any) => {
     e.stopPropagation();
   };
 
-  const onDescriptionChange = (e: any) => {
-    console.log(e);
-    setDescription(e.target.value);
-    console.log(description);
-  };
+  // const onDescriptionChange = (e: any) => {
+  //   console.log(e);
+  //   setDescription(e.target.value);
+  //   console.log(description);
+  // };
 
   const onCreateClick = () => {
-    console.log("클릭", description);
+    console.log("클릭", descriptionValue);
   };
 
   const onUploadFile = (e: any) => {
     const {
       target: { files },
     } = e;
-    // console.log(files[0]);
-    setUploadImg(files[0]);
+    console.log(files[0]);
+    // setUploadImg(files[0]);
     setFileImage(URL.createObjectURL(files[0]));
+    console.log(URL.createObjectURL(files[0]), fileImage);
   };
 
-  // const priview = () => {
-  //   if (!uploadImg) return;
-
-  //   console.log(uploadImg);
-  //   const imgElement = document.querySelector<HTMLElement>(".previewImg");
-  //   const reader = new FileReader();
-
-  //   if (!imgElement) return;
-
-  //   reader.onload = () =>
-  //     (imgElement.style.backgroundImage = `url(${reader.result})`);
-  //   reader.readAsDataURL(uploadImg);
-  // };
-
-  // useEffect(() => {
-  //   priview();
-  //   return () => priview();
-  // }, [uploadImg]);
+  useEffect(() => {
+    if (!isOpenModal) {
+      setTitleValue("");
+      setDescriptionValue("");
+      setFileImage("");
+    }
+  }, [isOpenModal]);
 
   return (
     <CreateGroupWrap>
@@ -63,28 +56,48 @@ export default function CreateGroup({
       >
         {isOpenModal && (
           <div className="modal-box " onClick={stopBubble}>
-            <div className="modalHeader" style={{ padding: "20px 0" }}>
+            {/* <div className="modalHeader" style={{ padding: "20px 0" }}>
               그룹 생성하기
-            </div>
+            </div> */}
             <div className="modalMain" style={{ padding: "40px 10px" }}>
-              <p>여기엔 사진</p>
-              {/* <div
-                className="previewImg"
-                style={{
-                  width: "100%",
-                  height: "200px",
-                  backgroundRepeat: "no-repeat",
-                }}
-              ></div> */}
-              <div>
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 <img className="previewImg" alt="sample" src={fileImage}></img>
+                <label className="uploadBtn" htmlFor="uploadButton">
+                  <div>사진 업로드</div>
+                  <div>30MB 이하 가능</div>
+                </label>
+                <input
+                  id="uploadButton"
+                  type="file"
+                  accept=".jpg,.png"
+                  onChange={onUploadFile}
+                  style={{ display: "none" }}
+                />
               </div>
-              <input type="file" accept="image/*" onChange={onUploadFile} />
-              <textarea onChange={onDescriptionChange} value={description} />
+              <input
+                className="groupTitle"
+                type="text"
+                placeholder="그룹 이름을 정해주세요"
+                value={titleValue}
+                onChange={onTitleValueChange}
+              />
+              <textarea
+                onChange={onDescriptionChange}
+                value={descriptionValue}
+                placeholder="그룹을 소개해보세요!"
+              />
             </div>
             <div className="modalFooter" style={{ padding: "10px 10px" }}>
-              <button onClick={() => onOpenModalClick(false)}>취소</button>
-              <button onClick={onCreateClick}>생성</button>
+              <button
+                className="cancelBtn"
+                style={{ marginRight: "12px" }}
+                onClick={() => onOpenModalClick(false)}
+              >
+                취소
+              </button>
+              <button className="createBtn" onClick={onCreateClick}>
+                그룹 만들기
+              </button>
             </div>
           </div>
         )}
@@ -105,6 +118,19 @@ const CreateGroupWrap = styled.div`
   }
   .previewImg {
     width: 100%;
+    height: 350px;
+    border-radius: 12px;
+  }
+  .uploadBtn {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    background-color: #00c471;
   }
   .modal-box {
     position: absolute;
@@ -123,10 +149,22 @@ const CreateGroupWrap = styled.div`
   }
   .modalMain {
   }
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid black;
+    margin-bottom: 16px;
+    padding: 4px;
+    transition: all 0.2s ease-in-out;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border: 1px solid pink;
+  }
   textarea {
     width: 100%;
     height: 6.25em;
     /* border: none; */
+    padding: 4px;
     resize: none;
     transition: all 0.2s ease-in-out;
   }
@@ -138,6 +176,18 @@ const CreateGroupWrap = styled.div`
     border-radius: 0 0 12px 12px;
     text-align: right;
     background-color: #ececec;
+  }
+  button {
+    border: none;
+    padding: 8px;
+    border-radius: 12px;
+  }
+  .cancelBtn {
+    background-color: white;
+  }
+  .createBtn {
+    color: white;
+    background-color: #00c471;
   }
   .modalback {
     position: fixed;
