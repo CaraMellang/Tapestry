@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
+import handlingDataForm from "../../lib/handlingDataForm";
+import httpPath from "../../lib/mode";
 
 interface CreateGroupProps {
   isOpenModal: boolean;
@@ -11,8 +14,8 @@ export default function CreateGroup({
   isOpenModal,
   onOpenModalClick,
 }: CreateGroupProps) {
-  // const [uploadImg, setUploadImg] = useState<File | null>(null);
-  const [fileImage, setFileImage] = useState("");
+  const [uploadImg, setUploadImg] = useState<Blob | null>(null);
+  const [fileImage, setFileImage] = useState<string | undefined>(undefined);
   const [titleValue, onTitleValueChange, setTitleValue] = useInput("");
   const [descriptionValue, onDescriptionChange, setDescriptionValue] =
     useInput("");
@@ -26,16 +29,46 @@ export default function CreateGroup({
   //   console.log(description);
   // };
 
-  const onCreateClick = () => {
-    console.log("클릭", descriptionValue);
+  const onCreateClick = async () => {
+    console.log("클릭", descriptionValue, fileImage);
+    const formData = new FormData();
+    if (uploadImg) {
+      formData.append("image", uploadImg);
+      formData.append("email","gosegu@naver.com이란다")
+    }
+
+    // if (uploadImg) {
+    //   const fileReader = new FileReader();
+    //   fileReader.readAsDataURL(uploadImg);
+    //   fileReader.onloadend = () => {
+    //     const base64Data = fileReader.result;
+    //     console.log(base64Data);
+    //     if (!base64Data) return;
+    //     // formData.append("image", base64Data);
+    //     handlingDataForm(formData,base64Data)
+    //   };
+    // }
+
+    try {
+      await axios.post(
+        `${httpPath}/group/uploadtest`,
+        formData ,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      window.alert("완료");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onUploadFile = (e: any) => {
     const {
       target: { files },
     } = e;
-    console.log(files[0]);
-    // setUploadImg(files[0]);
+    console.log(typeof files[0]);
+    setUploadImg(files[0]);
     setFileImage(URL.createObjectURL(files[0]));
     console.log(URL.createObjectURL(files[0]), fileImage);
   };
@@ -44,7 +77,10 @@ export default function CreateGroup({
     if (!isOpenModal) {
       setTitleValue("");
       setDescriptionValue("");
-      setFileImage("");
+      if (fileImage) {
+        URL.revokeObjectURL(fileImage);
+        setFileImage(undefined);
+      }
     }
   }, [isOpenModal]);
 
