@@ -66,7 +66,9 @@ export default function GroupLeftSide({
   return (
     <GroupLeftSideWrap>
       <div className="info_layout">
-        <div className="info_layout_cover_img">{groupDetail.group_img}</div>
+        <div className="info_layout_cover_img" style={{ overflow: "hidden" }}>
+          <img style={{ width: "100%" }} src={groupDetail.group_img} />{" "}
+        </div>
         <div className="info_layout_bot">
           <h2>{groupDetail.group_name}</h2>
           <p>{groupDetail.group_description}</p>

@@ -45,7 +45,12 @@ export default function GroupList() {
               <div key={index} className="box-wrap">
                 <div className="box-padding">
                   <Link to={`/group/${item._id}`} className="box">
-                    <div className="box-img">이미지입니다{item.group_img}</div>
+                    <div className="box-img">
+                      <img
+                        style={{ width: "100%", borderRadius: "12px 12px 0 0" }}
+                        src={item.group_img}
+                      />
+                    </div>
                     <div className="box-title">
                       <div>{item.group_name}</div>
                       <div>[그룹인원] {item.group_people_count} 명</div>
