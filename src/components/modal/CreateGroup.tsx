@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
+import { getCookie } from "../../lib/cookie";
 import handlingDataForm from "../../lib/handlingDataForm";
 import httpPath from "../../lib/mode";
 
@@ -16,26 +17,24 @@ export default function CreateGroup({
 }: CreateGroupProps) {
   const [uploadImg, setUploadImg] = useState<Blob | null>(null);
   const [fileImage, setFileImage] = useState<string | undefined>(undefined);
-  const [titleValue, onTitleValueChange, setTitleValue] = useInput("");
+  const [titleValue, onTitleValueChange, setTitleValue] = useInput(null);
   const [descriptionValue, onDescriptionChange, setDescriptionValue] =
-    useInput("");
+    useInput(null);
+  const formData = new FormData();
+
   const stopBubble = (e: any) => {
     e.stopPropagation();
   };
 
-  // const onDescriptionChange = (e: any) => {
-  //   console.log(e);
-  //   setDescription(e.target.value);
-  //   console.log(description);
-  // };
-
   const onCreateClick = async () => {
     console.log("클릭", descriptionValue, fileImage);
-    const formData = new FormData();
+    if (!titleValue || !descriptionValue)
+      return window.alert("그룹명 , 설명을 적어주세요.");
     if (uploadImg) {
-      formData.append("image", uploadImg);
-      formData.append("email","gosegu@naver.com이란다")
+      formData.append("group_img", uploadImg);
     }
+    formData.append("group_name", titleValue);
+    formData.append("group_description", descriptionValue);
 
     // if (uploadImg) {
     //   const fileReader = new FileReader();
@@ -49,14 +48,26 @@ export default function CreateGroup({
     //   };
     // }
 
+    // for (var pair of formData.values()) {
+    //   console.log("bb", pair);
+    // }
+    //tsconfig
+    // {
+    //   "compilerOptions": {
+    //     "target" : "es5",
+    //     "downlevelIteration": true,
+    //   },
+    // }
+
+    const cookiee = getCookie("access_token");
+
     try {
-      await axios.post(
-        `${httpPath}/group/uploadtest`,
-        formData ,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      await axios.post(`${httpPath}/group/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${cookiee}`,
+        },
+      });
       window.alert("완료");
     } catch (err) {
       console.log(err);
@@ -80,6 +91,9 @@ export default function CreateGroup({
       if (fileImage) {
         URL.revokeObjectURL(fileImage);
         setFileImage(undefined);
+      }
+      if (uploadImg) {
+        setUploadImg(null);
       }
     }
   }, [isOpenModal]);
