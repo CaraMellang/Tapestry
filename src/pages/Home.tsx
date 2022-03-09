@@ -13,6 +13,6 @@ function Home() {
   );
 }
 
-const HomeWrap = styled.div``
+const HomeWrap = styled.div``;
 
 export default Home;

@@ -1,35 +1,37 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Main from "./pages/Main";
-import { Routes } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { theme } from "./lib/theme";
 
 function App() {
   return (
-    <>
-      <GlobalStyled />
-      <Main />
-    </>
+    <ThemeProvider
+      theme={
+        localStorage.getItem("theme") === "dark"
+          ? theme.darkTheme
+          : theme.lightTheme
+      }
+    >
+      <>
+        <GlobalStyled />
+        <Main />
+      </>
+    </ThemeProvider>
   );
 }
 
 const GlobalStyled = createGlobalStyle`
+body {
+
+  background:${({ theme }: any) => theme.bgColor};
+  color:${({ theme }: any) => theme.textColor} ;
+  transition: all 0.2s ease-in-out;
+}
 html , body , #root{
   /* height:100%; */
-  /* background: #181818; */
-  /* background: rgb(241, 147, 147);
-  background: linear-gradient(
-    180deg,
-    rgba(19, 68, 88, 1) 10%,
-    rgba(182, 114, 114, 1) 100%
-  ); */
   background-repeat:no-repeat;
-  /* background: #181818; */
-  /* #121212 */
   width:100%;
-  /* height:100%; */
-  /* height:100vh; */
   font-family: 'Spoqa Han Sans Neo', 'sans-serif'; 
 }
 a, a:link, a:visited , a:hover , a:focus{
