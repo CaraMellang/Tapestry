@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import { getCookie } from "../../lib/cookie";
 import handlingDataForm from "../../lib/handlingDataForm";
 import httpPath from "../../lib/mode";
+import { READ_GROUPS_REQUEST } from "../../modules/redux/Groups";
 
 interface CreateGroupProps {
   isOpenModal: boolean;
@@ -20,6 +22,7 @@ export default function CreateGroup({
   const [titleValue, onTitleValueChange, setTitleValue] = useInput(null);
   const [descriptionValue, onDescriptionChange, setDescriptionValue] =
     useInput(null);
+    const dispatch = useDispatch()
   const formData = new FormData();
 
   const stopBubble = (e: any) => {
@@ -69,6 +72,8 @@ export default function CreateGroup({
         },
       });
       window.alert("완료");
+      const data = { page: 1 };
+      dispatch(READ_GROUPS_REQUEST(data));
     } catch (err) {
       console.log(err);
     }
