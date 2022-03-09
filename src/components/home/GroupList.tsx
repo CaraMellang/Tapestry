@@ -48,6 +48,7 @@ export default function GroupList() {
                     <div className="box-img">
                       <img
                         style={{ width: "100%", borderRadius: "12px 12px 0 0" }}
+                        alt=""
                         src={item.group_img}
                       />
                     </div>
