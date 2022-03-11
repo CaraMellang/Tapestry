@@ -1,6 +1,6 @@
 import Form from "antd/lib/form/Form";
 import { Input } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -21,19 +21,25 @@ function Header() {
       <Search placeholder="input search text" onSearch={onSearch} enterButton />
       <NavLink
         to={`/`}
-        style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
+        style={({ isActive }) => ({
+          color: isActive ? `green` : `inherit`,
+        })}
       >
         메인~
       </NavLink>
       <NavLink
         to={`/feed`}
-        style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
+        style={({ isActive }) => ({
+          color: isActive ? `green` : `inherit`,
+        })}
       >
         피드
       </NavLink>
       <NavLink
         to={`/profile/${selector.user.userId}`}
-        style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
+        style={({ isActive }) => ({
+          color: isActive ? `green` : `inherit`,
+        })}
       >
         프로파일
       </NavLink>
@@ -42,6 +48,4 @@ function Header() {
 }
 export default Header;
 
-const HeaderWrap = styled.div`
-  color: black;
-`;
+const HeaderWrap = styled.div``;

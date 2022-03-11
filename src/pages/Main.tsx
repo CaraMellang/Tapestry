@@ -14,6 +14,13 @@ function Main() {
   const [isSign, setIsSign] = useState(true);
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
+    document.body.dataset.theme = "light";
+  }
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.dataset.theme = "dark";
+  }
+  if (localStorage.getItem("theme") === "light") {
+    document.body.dataset.theme = "light";
   }
 
   return (

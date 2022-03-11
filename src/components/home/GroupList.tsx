@@ -42,12 +42,15 @@ export default function GroupList() {
         {groupsSelector.groups ? (
           groupsSelector.groups.map((item: any, index: number) => {
             return (
-              <div key={index} className="box-wrap">
+              <div key={index} className="box-wrap ">
                 <div className="box-padding">
-                  <Link to={`/group/${item._id}`} className="box">
+                  <Link to={`/group/${item._id}`} className="box div-box">
                     <div className="box-img">
                       <img
-                        style={{ width: "100%", borderRadius: "12px 12px 0 0" }}
+                        style={{
+                          width: "100%",
+                          borderRadius: "12px 12px 0 0",
+                        }}
                         alt=""
                         src={item.group_img}
                       />
@@ -103,9 +106,11 @@ const GroupListWrap = styled.div`
     background-color: white;
     width: 100%;
     height: 10rem;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
   }
   .box-title {
-    background-color: beige;
+    /* background-color: beige; */
     border-radius: 0 0 12px 12px;
     padding: 10px;
   }

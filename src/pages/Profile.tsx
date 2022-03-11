@@ -1,5 +1,5 @@
 import { Switch } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -19,22 +19,23 @@ function Profile() {
     console.log("ㅎㅇㅎㅇ", toggle);
     if (toggle === true) {
       localStorage.setItem("theme", "dark");
-      document.body.style.background = theme.darkTheme.bgColor;
-      document.body.style.color = theme.darkTheme.textColor;
+      document.body.dataset.theme = "dark";
+
       setswitchToggle(true);
     }
     if (toggle === false) {
       localStorage.setItem("theme", "light");
-      document.body.style.background = theme.lightTheme.bgColor;
-      document.body.style.color = theme.lightTheme.textColor;
+      document.body.dataset.theme = "light";
+
       setswitchToggle(false);
     }
   };
+
   console.log(params);
   return (
     <ProfileWrapper>
       <div>
-        <h1>Profile</h1>
+        <div style={{ fontSize: "36px", fontWeight: "bold" }}>Profile</div>
         <ProfileTop />
         <ProfileHeader />
         <ProfileBot />
