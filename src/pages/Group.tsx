@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import GroupBody from "../components/group/GroupBody";
+import GroupBody from "../components/group/groupDetail/groupMain/GroupBody";
 import GroupHeader from "../components/group/GroupHeader";
 import GroupDetail from "./GroupDetail";
 

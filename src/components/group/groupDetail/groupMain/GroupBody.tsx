@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { GROUP_EMPTY, GROUP_REQUEST } from "../../modules/redux/Group";
-import Loading from "../Loading";
+import { GROUP_EMPTY, GROUP_REQUEST } from "../../../../modules/redux/Group";
+import Loading from "../../../Loading";
+import GroupCreatePost from "./GroupCreatePost";
 
 interface GroupBodyProps {
   group_id: string | undefined | null;
@@ -53,10 +54,10 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
   }, []);
 
   return (
-    <GroupBodyWrap>
+    <GroupBodyWrap className="div-theme">
       <div>에어리어</div>
-      <aside>그룹정보영역{groupSelector.groupPageNumber}</aside>
-      <main>
+      <GroupCreatePost />
+      <div>
         {groupSelector.groupPosts.map((item: any, index: number) => {
           return (
             <div
@@ -90,14 +91,13 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
             </div>
           );
         })}
-        {groupSelector.groupLoading &&
-        groupSelector.groupPageEnd === false ? (
+        {groupSelector.groupLoading && groupSelector.groupPageEnd === false ? (
           <Loading />
         ) : (
           <div>더이상 게시글이 없습니다.</div>
         )}
         <div ref={setTarget}></div>
-      </main>
+      </div>
     </GroupBodyWrap>
   );
 }

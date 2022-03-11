@@ -4,11 +4,21 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  bgColor: "#1E1E22",
-  textColor: "#ccc",
+  bgColor: "#202020",
+  textColor: "#ffffff",
+};
+
+const lightBoxTheme = {
+  bgColor: "#FFFFFF",
+};
+
+const darkBoxTheme = {
+  bgColor: "#1E1E1E",
 };
 
 export const theme = {
   lightTheme,
   darkTheme,
+  lightBoxTheme,
+  darkBoxTheme,
 };

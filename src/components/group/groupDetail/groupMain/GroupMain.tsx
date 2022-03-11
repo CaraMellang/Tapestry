@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import GroupBody from "../GroupBody";
+import GroupBody from "./GroupBody";
 
 export default function GroupMain({ group_id }: { group_id: string | null }) {
   return (

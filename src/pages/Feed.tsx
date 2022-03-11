@@ -47,6 +47,4 @@ export default function Feed() {
   );
 }
 
-const FeedWrap = styled.div`
-  color: black;
-`;
+const FeedWrap = styled.div``;

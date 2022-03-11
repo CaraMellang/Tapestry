@@ -1,13 +1,13 @@
 import { Button } from "antd";
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { groupDetailInterface } from "../../../pages/GroupDetail";
+import { groupDetailInterface } from "../../../../pages/GroupDetail";
 import { MinusCircleOutlined } from "@ant-design/icons";
-import { getCookie } from "../../../lib/cookie";
+import { getCookie } from "../../../../lib/cookie";
 import axios from "axios";
-import httpPath from "../../../lib/mode";
+import httpPath from "../../../../lib/mode";
 import { useDispatch } from "react-redux";
-import { TOKEN_REQUEST } from "../../../modules/redux/User";
+import { TOKEN_REQUEST } from "../../../../modules/redux/User";
 
 interface GroupLeftSideProp {
   groupDetail: groupDetailInterface;
@@ -65,7 +65,7 @@ export default function GroupLeftSide({
 
   return (
     <GroupLeftSideWrap>
-      <div className="info_layout">
+      <div className="div-theme info_layout">
         <div className="info_layout_cover_img" style={{ overflow: "hidden" }}>
           <img style={{ width: "100%" }} src={groupDetail.group_img} />{" "}
         </div>
@@ -103,8 +103,6 @@ const GroupLeftSideWrap = styled.aside`
   .info_layout {
     position: fixed;
     box-sizing: border-box;
-    width: inherit;
-    background-color: white;
     border-radius: 12px;
     overflow: hidden;
     transform: translateX(-16px);

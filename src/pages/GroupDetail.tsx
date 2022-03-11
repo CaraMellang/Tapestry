@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import GroupLeftSide from "../components/group/groupDetail/GroupLeftSide";
-import GroupMain from "../components/group/groupDetail/GroupMain";
+import GroupLeftSide from "../components/group/groupDetail/groupLeft/GroupLeftSide";
+import GroupMain from "../components/group/groupDetail/groupMain/GroupMain";
 import { useDispatch, useSelector } from "react-redux";
 import httpPath from "../lib/mode";
 import { getCookie } from "../lib/cookie";
@@ -116,7 +116,7 @@ export default function GroupDetail() {
 const GroupDetailWrap = styled.div`
   .layout_view {
     width: 100%;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
     min-height: 500px;
   }
   .main_layout {

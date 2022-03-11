@@ -22,7 +22,7 @@ export default function CreateGroup({
   const [titleValue, onTitleValueChange, setTitleValue] = useInput(null);
   const [descriptionValue, onDescriptionChange, setDescriptionValue] =
     useInput(null);
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const formData = new FormData();
 
   const stopBubble = (e: any) => {
@@ -72,6 +72,7 @@ export default function CreateGroup({
         },
       });
       window.alert("완료");
+      onOpenModalClick(false);
       const data = { page: 1 };
       dispatch(READ_GROUPS_REQUEST(data));
     } catch (err) {
