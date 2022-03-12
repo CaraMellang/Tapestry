@@ -30,7 +30,7 @@ const groupSlice = createSlice({
     GROUP_SUCCESS: (state, action) => {
       state.groupLoading = false;
       state.groupSucceed = true;
-      state.groupPosts.push(...action.payload.data);
+        state.groupPosts.push(...action.payload.data);
       state.groupPageNumber += 1;
     },
     GROUP_FAILED: (state, action) => {

@@ -44,7 +44,10 @@ export default function GroupList() {
             return (
               <div key={index} className="box-wrap ">
                 <div className="box-padding">
-                  <Link to={`/group/${item._id}`} className="box div-box">
+                  <Link
+                    to={`/group/${item._id}`}
+                    className="box theme-bg-element2"
+                  >
                     <div className="box-img">
                       <img
                         style={{

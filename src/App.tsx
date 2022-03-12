@@ -13,10 +13,10 @@ function App() {
     //       : theme.lightTheme
     //   }
     // >
-      <>
-        <GlobalStyled />
-        <Main />
-      </>
+    <>
+      <GlobalStyled />
+      <Main />
+    </>
     // </ThemeProvider>
   );
 }
@@ -24,50 +24,49 @@ function App() {
 const GlobalStyled = createGlobalStyle`
 body {
 
-  /* background:${({ theme }: any) => theme.bgColor};
-  color:${({ theme }: any) => theme.textColor} ; */
   transition: all 0.2s ease-in-out;
 }
 body {
   --color-text: black;
-  --color-background: white; 
+  --color-background: #F8F9FA; 
+    --bg-element1:white;
+    --bg-element2:white;
 }
 
 @media (prefers-color-scheme: dark) { //사용자 시스템이 다크모드일경우.
   body {
     --color-text: white;
-    --color-background: black; 
+    --color-background: #121212; 
+    --bg-element1:#1E1E1E;
+    --bg-element2:#1E1E1E;
   }
 }
 body[data-theme="light"]{
   --color-text:black;
-  --color-background:white;
-  --color-box-background:#FFFFFF
+  --color-background:#F8F9FA;
+  --bg-element1:#f7f7f7;
+    --bg-element2:#ecedee;
 }
 body[data-theme="dark"]{
   --color-text:white;
-  --color-background:black;
-  --color-box-background:#1E1E1E
+  --color-background:#121212;
+  --bg-element1:#141414;
+  --bg-element2:#1E1E1E;
 }
 body{
   color:var(--color-text);
   background:var(--color-background);
-  .div-theme{
-    background:var(--color-box-background);
+  .theme-bg-element1{
+    background:var(--bg-element1);
   }
-  .div-box{
-    background:var(--color-box-background);
+  .theme-bg-element2{
+    background:var(--bg-element2);
   }
 }
-/* .div-theme{
-  background:${({ theme }: any) => theme.bgColor}
-}
-.div-box{
-  background:${({ theme }: any) => theme.darkBoxTheme}
-} */
 h1,h2,h3,h4,h5,h6 , a , input{
   color: inherit;
 }
+
 html , body , #root{
   /* height:100%; */
   background-repeat:no-repeat;
@@ -80,6 +79,7 @@ a, a:link, a:visited , a:hover , a:focus{
 }
 textarea{
   resize:none;
+  /* border:none; */
 }
 textarea:focus{
   outline:none;

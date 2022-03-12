@@ -84,10 +84,8 @@ export default function CreateGroup({
     const {
       target: { files },
     } = e;
-    console.log(typeof files[0]);
     setUploadImg(files[0]);
     setFileImage(URL.createObjectURL(files[0]));
-    console.log(URL.createObjectURL(files[0]), fileImage);
   };
 
   useEffect(() => {
@@ -111,7 +109,7 @@ export default function CreateGroup({
         onClick={() => onOpenModalClick(false)}
       >
         {isOpenModal && (
-          <div className="modal-box " onClick={stopBubble}>
+          <div className="modal-box theme-bg-element1" onClick={stopBubble}>
             {/* <div className="modalHeader" style={{ padding: "20px 0" }}>
               그룹 생성하기
             </div> */}
@@ -131,22 +129,25 @@ export default function CreateGroup({
                 />
               </div>
               <input
-                className="groupTitle"
+                className="groupTitle theme-bg-element2"
                 type="text"
                 placeholder="그룹 이름을 정해주세요"
                 value={titleValue}
                 onChange={onTitleValueChange}
               />
               <textarea
+                className="theme-bg-element2"
                 onChange={onDescriptionChange}
                 value={descriptionValue}
                 placeholder="그룹을 소개해보세요!"
               />
             </div>
-            <div className="modalFooter" style={{ padding: "10px 10px" }}>
+            <div
+              className="modalFooter theme-bg-element2"
+              style={{ padding: "10px 10px" }}
+            >
               <button
                 className="cancelBtn"
-                style={{ marginRight: "12px" }}
                 onClick={() => onOpenModalClick(false)}
               >
                 취소
@@ -197,7 +198,6 @@ const CreateGroupWrap = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 12px;
-    background-color: white;
   }
   .modalHeader {
     font-weight: bold;
@@ -207,31 +207,28 @@ const CreateGroupWrap = styled.div`
   }
   input[type="text"] {
     width: 100%;
-    border: 1px solid black;
+    border: 0;
     margin-bottom: 16px;
     padding: 4px;
-    transition: all 0.2s ease-in-out;
   }
   input[type="text"]:focus {
     outline: none;
-    border: 1px solid pink;
   }
   textarea {
     width: 100%;
     height: 6.25em;
+    border: 0;
     /* border: none; */
     padding: 4px;
     resize: none;
-    transition: all 0.2s ease-in-out;
   }
   textarea:focus {
     outline: none;
-    border: 1px solid pink;
   }
   .modalFooter {
     border-radius: 0 0 12px 12px;
     text-align: right;
-    background-color: #ececec;
+    /* background-color: #ececec; */
   }
   button {
     border: none;
@@ -239,11 +236,13 @@ const CreateGroupWrap = styled.div`
     border-radius: 12px;
   }
   .cancelBtn {
-    background-color: white;
+    color: white;
+    background: #c21842;
+    margin-right: 12px;
   }
   .createBtn {
     color: white;
-    background-color: #00c471;
+    background: #00c471;
   }
   .modalback {
     position: fixed;

@@ -65,9 +65,9 @@ export default function GroupLeftSide({
 
   return (
     <GroupLeftSideWrap>
-      <div className="div-theme info_layout">
+      <div className="info_layout theme-bg-element2">
         <div className="info_layout_cover_img" style={{ overflow: "hidden" }}>
-          <img style={{ width: "100%" }} src={groupDetail.group_img} />{" "}
+          <img style={{ width: "100%" }} src={groupDetail.group_img} />
         </div>
         <div className="info_layout_bot">
           <h2>{groupDetail.group_name}</h2>
@@ -101,6 +101,7 @@ const GroupLeftSideWrap = styled.aside`
   width: 250px;
   position: relative;
   .info_layout {
+    width: 250px;
     position: fixed;
     box-sizing: border-box;
     border-radius: 12px;

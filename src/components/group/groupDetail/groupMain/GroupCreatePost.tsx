@@ -7,21 +7,29 @@ export default function GroupCreatePost() {
   return (
     <GroupCreatePostWrap>
       <div
-        style={{
-          textAlign: "center",
-          height: "100px",
-          background: "#7a7979",
-        }}
+        className="posting-box"
+        style={{}}
         onClick={() => {
           setOpenModal(true);
-          document.body.style.overflow = "hidden"
+          document.body.style.overflow = "hidden";
         }}
       >
-        글쓰기 영역입니다.
+        포스팅하기
       </div>
       {openModal && <GroupPostModal setOpenModal={setOpenModal} />}
     </GroupCreatePostWrap>
   );
 }
 
-const GroupCreatePostWrap = styled.div``;
+const GroupCreatePostWrap = styled.div`
+  .posting-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    height: 100px;
+    background: #7a7979;
+    cursor: pointer;
+  }
+`;

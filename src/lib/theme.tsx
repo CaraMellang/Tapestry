@@ -6,6 +6,7 @@ export const lightTheme = {
 export const darkTheme = {
   bgColor: "#202020",
   textColor: "#ffffff",
+  bdLineColor:"#2A2A2A"
 };
 
 const lightBoxTheme = {
