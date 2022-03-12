@@ -13,7 +13,6 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
-  console.log(groupSelector);
 
   const onIntersect = useCallback(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
@@ -52,9 +51,10 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
       dispatch(GROUP_EMPTY("dummy"));
     };
   }, []);
+  console.log("리런델ㅇㄴㄹ",groupSelector);
 
   return (
-    <GroupBodyWrap className="div-theme">
+    <GroupBodyWrap className="theme-bg-element2">
       <div>에어리어</div>
       <GroupCreatePost />
       <div>
@@ -64,7 +64,6 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                height: "150px",
               }}
               key={index}
             >
@@ -75,6 +74,16 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
                   {item.owner_id !== null ? item.owner_id.user_name : "null"}
                 </div>
                 <div>{item.created_at}</div>
+                <div>
+                  {item.images.map((imgUrl: string, index: number) => (
+                    <img
+                      key={index}
+                      className="post-img"
+                      alt="??"
+                      src={imgUrl}
+                    />
+                  ))}
+                </div>
               </div>
               <div>
                 {item.comment.map((commentItem: any) => {
@@ -102,4 +111,8 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
   );
 }
 
-const GroupBodyWrap = styled.div``;
+const GroupBodyWrap = styled.div`
+  .post-img {
+    width: 20%;
+  }
+`;
