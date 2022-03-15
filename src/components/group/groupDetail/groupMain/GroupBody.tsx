@@ -51,7 +51,6 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
       dispatch(GROUP_EMPTY("dummy"));
     };
   }, []);
-  console.log("리런델ㅇㄴㄹ",groupSelector);
 
   return (
     <GroupBodyWrap className="theme-bg-element2">

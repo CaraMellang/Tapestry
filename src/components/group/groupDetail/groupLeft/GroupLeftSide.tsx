@@ -6,7 +6,7 @@ import { MinusCircleOutlined } from "@ant-design/icons";
 import { getCookie } from "../../../../lib/cookie";
 import axios from "axios";
 import httpPath from "../../../../lib/mode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TOKEN_REQUEST } from "../../../../modules/redux/User";
 
 interface GroupLeftSideProp {
@@ -22,6 +22,9 @@ export default function GroupLeftSide({
 }: GroupLeftSideProp) {
   const dispatch = useDispatch();
   const token = getCookie("access_token");
+  const userId = useSelector(
+    (state: any) => state.userSliceReducer.user.userId
+  );
 
   const onJoinGroupClick = async () => {
     const isJoin = window.confirm("그룹에 가입하시겠습니까?");
@@ -46,6 +49,8 @@ export default function GroupLeftSide({
   const onLeaveGroupClick = async () => {
     const isLeave = window.confirm("정말로 그룹을 나가실건가요?");
     if (!isLeave) return;
+    if (userId === groupDetail.owner_id._id)
+      return window.alert("그룹 생성자는 탈퇴가 불가합니다."); //이후 양도하는 방식, 그룹 삭제 추가예정
     try {
       const data = await axios.post(
         `${httpPath}/group/leavegroup`,
