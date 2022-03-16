@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GROUP_EMPTY, GROUP_REQUEST } from "../../../../modules/redux/Group";
 import Loading from "../../../Loading";
 import GroupCreatePost from "./GroupCreatePost";
+import GroupPostItem from "./GroupPostItem";
 
 interface GroupBodyProps {
   group_id: string | undefined | null;
@@ -36,6 +37,7 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
 
   useEffect(() => {
     if (target) {
+      //타겟이 안보이면 옵저빙이 해제되는듯, 개선의 필요가 있음.(몰?루)
       let intersectionObserver = new IntersectionObserver(onIntersect, {
         threshold: 0.4,
       });
@@ -59,43 +61,8 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
       <div>
         {groupSelector.groupPosts.map((item: any, index: number) => {
           return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-              key={index}
-            >
-              <div>
-                <div>{item.group_id.group_name}</div>
-                <div>{item.text}</div>
-                <div>
-                  {item.owner_id !== null ? item.owner_id.user_name : "null"}
-                </div>
-                <div>{item.created_at}</div>
-                <div>
-                  {item.images.map((imgUrl: string, index: number) => (
-                    <img
-                      key={index}
-                      className="post-img"
-                      alt="??"
-                      src={imgUrl}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div>
-                {item.comment.map((commentItem: any) => {
-                  return (
-                    <div
-                      key={commentItem._id}
-                      style={{ backgroundColor: "beige" }}
-                    >
-                      {commentItem.text}
-                    </div>
-                  );
-                })}
-              </div>
+            <div key={index}>
+              <GroupPostItem item={item} />
             </div>
           );
         })}
@@ -104,7 +71,7 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
         ) : (
           <div>더이상 게시글이 없습니다.</div>
         )}
-        <div ref={setTarget}></div>
+        <div ref={setTarget}>인식범위 입니다.(옵저버)</div>
       </div>
     </GroupBodyWrap>
   );

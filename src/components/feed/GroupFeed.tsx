@@ -101,7 +101,7 @@ export default function GroupFeed() {
         ) : (
           <div>더이상 게시글이 없습니다.</div>
         )}
-        <div ref={setTarget}></div>
+        <div ref={setTarget}>인식범위 입니다.(옵저버)</div>
       </div>
     </div>
   );
