@@ -50,8 +50,6 @@ export default function GroupDetail() {
   let groupLoading = true;
   let groupPostLoading = true;
 
-  console.log(_id);
-
   useEffect(() => {
     const readGroupDetail = async () => {
       // 네트워크를 3g로 하면 콘솔에는 false로만 나오지만 Loading 프로그레스 컴포넌트는 잘 나오는걸 확인가능.

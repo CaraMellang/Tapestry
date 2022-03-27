@@ -47,7 +47,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
 
   return (
     <SignInWrap>
-      <Form onFinish={onSubmit}>
+      <Form onFinish={onSubmit} style={{ color: "inherit" }}>
         <Form.Item
           // label="Email"
           name="email"
@@ -71,13 +71,18 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
             placeholder="Password"
           />
         </Form.Item>
-        <a href={`${httpPath}/auth/google`}>google login</a>
+        <a href={`${httpPath}/auth/google`} className="theme-bg-element2">
+          google login
+        </a>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
-        <div onClick={() => setSigninToggle(false)}>
+        <div
+          className="theme-bg-element2"
+          onClick={() => setSigninToggle(false)}
+        >
           아직 회원이 아니신가요?
         </div>
       </Form>

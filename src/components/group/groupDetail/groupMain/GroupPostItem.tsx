@@ -29,7 +29,6 @@ export default function GroupPostItem({ item }: GroupPostItemprops) {
       console.log(err);
     }
   };
-  console.log(item);
   return (
     <GroupPostItemWrap>
       <div
@@ -40,7 +39,16 @@ export default function GroupPostItem({ item }: GroupPostItemprops) {
         }}
       >
         <div>{item.group_id.group_name}</div>
-        <div>{item.text}</div>
+        <div>
+          {item.text.split("\n").map((item: string, index: number) => {
+            //나중에 섹쉬하게 코드를 정돈해보자
+            return (
+              <span key={index}>
+                {item} <br />
+              </span>
+            );
+          })}
+        </div>
         <div>{item.owner_id !== null ? item.owner_id.user_name : "null"}</div>
         <div>{item.created_at}</div>
         <div>

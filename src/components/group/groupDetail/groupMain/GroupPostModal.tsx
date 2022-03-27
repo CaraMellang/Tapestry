@@ -26,7 +26,7 @@ export default function GroupPostModal({ setOpenModal }: GroupPostModalProps) {
   };
   console.log();
 
-  const onPostingClick = async () => {
+  const onPostingClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const cookie = getCookie("access_token");
     if (!text) {
       return window.alert("글을 적어 주세요.");
