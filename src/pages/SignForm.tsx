@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Signin from "../components/auth/Signin";
 import Signup from "../components/auth/SignUp";
+import client from "../lib/api/client";
 import { deleteCookie, getCookie, setCookie } from "../lib/cookie";
 import { SIGNIN_SUCCESS, TOKEN_REQUEST } from "../modules/redux/User";
 
@@ -34,14 +35,24 @@ export default function SignForm({ setIsSign }: SignFormProps) {
       }
     }
     postAccessToken();
-    
-  if (userSelector.signinSucceed) {
-    const accessToken = userSelectorUser.accessToken;
-    setCookie("access_token", accessToken, 1);
-    setIsSign(false);
-  }
+
+    if (userSelector.signinSucceed) {
+      const accessToken = userSelectorUser.accessToken;
+      setCookie("access_token", accessToken, 1);
+      setIsSign(false);
+    }
   }, []);
 
+  // useEffect(() => {
+  //   async function dddd() {
+  //     try {
+  //       await client.post(`/profile/test`,".");
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  //   dddd();
+  // }, []);
 
   return (
     <SignFormWrap>

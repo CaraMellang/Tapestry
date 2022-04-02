@@ -8,10 +8,15 @@ import {
   GROUP_FEED_FINISHED,
   GROUP_FEED_SUCCESS,
 } from "../redux/GroupFeed";
-import httpPath from '../../lib/mode'
+import httpPath from "../../lib/mode";
+import client from "../../lib/api/client";
 
 async function readGroupFeed(data: any) {
   const token = getCookie("access_token");
+  return await client.post(`/post/readgrouparr`, {
+    group_arr: data.group_arr,
+    page: data.page,
+  });
   return await axios.post(
     `${httpPath}/post/readgrouparr`,
     {

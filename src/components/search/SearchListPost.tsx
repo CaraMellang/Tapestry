@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
+import client from "../../lib/api/client";
 import httpPath from "../../lib/mode";
 import Loading from "../Loading";
 
@@ -34,7 +35,8 @@ export default function SearchListPost({ searchType }: SearchListPostProps) {
           type: searchType,
         };
         try {
-          const resData = await axios.post(`${httpPath}/search/`, data);
+          const resData = await client.post(`/search/`, data);
+          // const resData = await axios.post(`${httpPath}/search/`, data);
           const resDataArr = resData.data.data;
           if (resDataArr.length <= 0) {
             pageNo -= 1;

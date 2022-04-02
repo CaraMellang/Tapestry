@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import client from "../../../../lib/api/client";
 import { getCookie } from "../../../../lib/cookie";
 import httpPath from "../../../../lib/mode";
 import { GROUP_EMPTY } from "../../../../modules/redux/Group";
@@ -20,10 +21,11 @@ export default function GroupPostItem({ item }: GroupPostItemprops) {
     if (!isDelete) return;
     try {
       const cookie = getCookie("access_token");
-      await axios.delete(`${httpPath}/post/delete`, {
-        data: { post_id: item._id },
-        headers: { Authorization: `Bearer ${cookie}` },
-      });
+      await client.delete(`/post/delete`,{data: { post_id: item._id }})
+      // await axios.delete(`${httpPath}/post/delete`, {
+      //   data: { post_id: item._id },
+      //   headers: { Authorization: `Bearer ${cookie}` },
+      // });
       dispatch(GROUP_EMPTY("dummy"));
     } catch (err) {
       console.log(err);

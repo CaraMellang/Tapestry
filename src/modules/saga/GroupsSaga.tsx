@@ -9,18 +9,20 @@ import {
   READ_GROUPS_SUCCESS,
 } from "../redux/Groups";
 import httpPath from '../../lib/mode'
+import client from "../../lib/api/client";
 
 async function readGroups(data: any) {
   const token = getCookie("access_token");
-  return await axios.post(
-    `${httpPath}/group/readgroup`,
-    {
-      page: data.page,
-    },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  return await client.post(`/group/readgroup`,{page:data.page})
+  // return await axios.post(
+  //   `${httpPath}/group/readgroup`,
+  //   {
+  //     page: data.page,
+  //   },
+  //   {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   }
+  // );
 }
 
 export function* groups(action: PayloadAction): Generator {

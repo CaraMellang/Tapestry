@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useInput from "../../../../hook/useInput";
+import client from "../../../../lib/api/client";
 import { getCookie } from "../../../../lib/cookie";
 import httpPath from "../../../../lib/mode";
 import { GROUP_REQUEST, GROUP_EMPTY } from "../../../../modules/redux/Group";
@@ -41,9 +42,10 @@ export default function GroupPostModal({ setOpenModal }: GroupPostModalProps) {
     formData.append("is_private", "false");
     formData.append("text", text);
     try {
-      await axios.post(`${httpPath}/post/create`, formData, {
-        headers: { Authorization: `Bearer ${cookie}` },
-      });
+      await client.post(`/post/create`,formData)
+      // await axios.post(`${httpPath}/post/create`, formData, {
+      //   headers: { Authorization: `Bearer ${cookie}` },
+      // });
       window.alert("게시 완료");
       dispatch(GROUP_EMPTY("dummy"));
       setOpenModal(false);
