@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ProfileBot from "../components/profile/ProfileBot";
 import ProfileHeader from "../components/profile/ProfileHeader";
+import ProfileInfo from "../components/profile/ProfileInfo";
 import ProfileTop from "../components/profile/ProfileTop";
 import { theme } from "../lib/theme";
 
@@ -39,7 +40,7 @@ function Profile() {
         <ProfileTop />
         <ProfileHeader />
         <ProfileBot />
-        <div>{selector.user.username}</div>
+        <div><ProfileInfo /></div>
         <div>
           다크모드 활성화
           <Switch defaultChecked={switchToggle} onChange={onSwitchChange} />

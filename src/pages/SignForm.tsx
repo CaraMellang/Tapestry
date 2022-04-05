@@ -43,16 +43,6 @@ export default function SignForm({ setIsSign }: SignFormProps) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   async function dddd() {
-  //     try {
-  //       await client.post(`/profile/test`,".");
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  //   dddd();
-  // }, []);
 
   return (
     <SignFormWrap>
