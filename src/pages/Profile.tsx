@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import ProfileBot from "../components/profile/ProfileBot";
 import ProfileHeader from "../components/profile/ProfileHeader";
+import ProfileImage from "../components/profile/ProfileImage";
+import ProfileImageCrop from "../components/profile/ProfileImageCrop";
 import ProfileInfo from "../components/profile/ProfileInfo";
-import ProfileTop from "../components/profile/ProfileTop";
 import { theme } from "../lib/theme";
 
 function Profile() {
@@ -37,10 +37,14 @@ function Profile() {
     <ProfileWrapper>
       <div>
         <div style={{ fontSize: "36px", fontWeight: "bold" }}>Profile</div>
-        <ProfileTop />
         <ProfileHeader />
-        <ProfileBot />
-        <div><ProfileInfo /></div>
+        <div>
+          {/* <ProfileImageCrop /> */}
+          <ProfileImage />
+        </div>
+        <div>
+          <ProfileInfo />
+        </div>
         <div>
           다크모드 활성화
           <Switch defaultChecked={switchToggle} onChange={onSwitchChange} />
