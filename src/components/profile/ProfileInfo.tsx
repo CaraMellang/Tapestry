@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import client from "../../lib/api/client";
+import { TOKEN_REQUEST } from "../../modules/redux/User";
 
 export default function ProfileInfo() {
   const [isToggle, setIsToggle] = useState(false);
   const userName = useSelector(
     (state: any) => state.userSliceReducer.user.username
   );
+  const dispatch = useDispatch()
   const [name, onChangeName, setName] = useInput(userName);
 
   const onClickSave = async () => {
     try {
       await client.patch(`/profile/setname`, { update_user_name: name });
       setIsToggle(false);
+      dispatch(TOKEN_REQUEST('.'))
     } catch (err) {
       window.alert("이름 저장중 오류가 발생했습니다!");
       console.log(err);
