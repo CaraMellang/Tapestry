@@ -75,13 +75,14 @@ const ProfileImageWrap = styled.div`
   }
   .uploadButton {
     display: inline-block;
-    background: #15b91d;
     width: 200px;
   }
   .ableCursor {
     cursor: pointer;
+    background: #15b91d;
   }
   .disableCursor {
     cursor: not-allowed;
+    background: #0e6d12;
   }
 `;

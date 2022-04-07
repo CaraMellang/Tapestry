@@ -1,17 +1,19 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import client from "../../../../lib/api/client";
 import { getCookie } from "../../../../lib/cookie";
 import httpPath from "../../../../lib/mode";
 import { GROUP_EMPTY } from "../../../../modules/redux/Group";
+import CommentLayout from "../../../comment/CommentLayout";
 
 interface GroupPostItemprops {
   item: any;
 }
 
 export default function GroupPostItem({ item }: GroupPostItemprops) {
+  const [showComment, setShowComment] = useState(false);
   const userId = useSelector(
     (state: any) => state.userSliceReducer.user.userId
   );
@@ -21,7 +23,7 @@ export default function GroupPostItem({ item }: GroupPostItemprops) {
     if (!isDelete) return;
     try {
       const cookie = getCookie("access_token");
-      await client.delete(`/post/delete`,{data: { post_id: item._id }})
+      await client.delete(`/post/delete`, { data: { post_id: item._id } });
       // await axios.delete(`${httpPath}/post/delete`, {
       //   data: { post_id: item._id },
       //   headers: { Authorization: `Bearer ${cookie}` },
@@ -58,23 +60,35 @@ export default function GroupPostItem({ item }: GroupPostItemprops) {
             <img key={index} className="post-img" alt="??" src={imgUrl} />
           ))}
         </div>
+        <button
+          className="theme-bg-element1"
+          onClick={() => {
+            setShowComment((prev) => !prev);
+          }}
+        >
+          댓글 나와주세요(댓글 수 {item.comment.length})
+        </button>
       </div>
       <div>
-        {item.comment.map((commentItem: any) => {
+        {showComment && (
+          <CommentLayout
+            commentArr={item.comment}
+            ownerId={item.owner_id._id}
+            postId={item._id}
+          />
+        )}
+        {/* {item.comment.map((commentItem: any) => {
+          console.log(commentItem)
           return (
             <div key={commentItem._id} className="theme-bg-element1">
               {commentItem.text}
             </div>
           );
-        })}
+        })} */}
       </div>
       <div>
         {userId === item.owner_id._id ? (
-          <button
-            className="theme-bg-element1"
-            style={{ border: 0 }}
-            onClick={onDeleteClick}
-          >
+          <button className="theme-bg-element1" onClick={onDeleteClick}>
             삭제
           </button>
         ) : (

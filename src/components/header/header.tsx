@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { deleteCookie } from "../../lib/cookie";
 
 function Header() {
   const navigate = useNavigate();
@@ -43,6 +44,15 @@ function Header() {
       >
         프로파일
       </NavLink>
+      <div
+        className="theme-bg-element2"
+        onClick={() => {
+          deleteCookie("access_token");
+          navigate(`/`, { replace: true });
+        }}
+      >
+        로그아웃
+      </div>
     </HeaderWrap>
   );
 }
