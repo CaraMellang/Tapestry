@@ -67,6 +67,10 @@ h1,h2,h3,h4,h5,h6 , a , input{
   color: inherit;
 }
 
+button{
+  border :0;
+}
+
 html , body , #root{
   /* height:100%; */
   background-repeat:no-repeat;
