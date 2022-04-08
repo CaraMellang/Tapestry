@@ -6,9 +6,19 @@ import client from "../../lib/api/client";
 
 interface WriteCommetProps {
   postId: string;
+  isChild?: boolean;
+  parantId?: string;
+  parantOwnerName?: string;
+  onReloading?: () => void;
 }
 
-export default function WriteComment({ postId }: WriteCommetProps) {
+export default function WriteComment({
+  postId,
+  isChild,
+  parantId,
+  parantOwnerName,
+  onReloading,
+}: WriteCommetProps) {
   const [text, onChangeText, setText] = useInput("");
   const [loading, setLoading] = useState(false);
   const userImg = useSelector(
@@ -21,6 +31,29 @@ export default function WriteComment({ postId }: WriteCommetProps) {
   const onClickCommentPost = async () => {
     if (loading) return;
     if (text === "") return window.alert("값을 채워");
+
+    if (isChild) {
+      try {
+        setLoading(true);
+        await client.post(`/comment/child/create`, {
+          post_id: postId,
+          parant_comment_id: parantId,
+          text,
+        });
+        setText("");
+        setLoading(false);
+        if (onReloading) {
+          onReloading();
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+      return window.alert("자식 포스팅 완료");
+    }
+
+    console.log("여기 넘어가는지 테스트");
+
     try {
       setLoading(true);
       await client.post(`/comment/parant/create`, {
@@ -52,7 +85,11 @@ export default function WriteComment({ postId }: WriteCommetProps) {
           <input
             type="text"
             className={`${loading && "disableElement"}`}
-            placeholder="댓글을 남겨주세요"
+            placeholder={
+              parantOwnerName
+                ? `${parantOwnerName}님에게 표현하세요!`
+                : "댓글을 남겨주세요"
+            }
             onChange={onChangeText}
             value={text}
             disabled={loading}
