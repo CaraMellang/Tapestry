@@ -13,7 +13,7 @@ export default function CommentLayout({commentArr,ownerId,postId}: CommentLayout
   console.log(commentArr)
   return (
     <CommentLayoutWrap>
-      <CommentItemList commentArr={commentArr} ownerId={ownerId} />
+      <CommentItemList commentArr={commentArr} ownerId={ownerId} postId={postId} />
       <WriteComment postId={postId} />
     </CommentLayoutWrap>
   );
