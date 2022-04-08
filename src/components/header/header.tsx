@@ -48,7 +48,7 @@ function Header() {
         className="theme-bg-element2"
         onClick={() => {
           deleteCookie("access_token");
-          navigate(`/`, { replace: true });
+          window.location.reload();
         }}
       >
         로그아웃
