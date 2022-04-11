@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import client from "../../lib/api/client";
+import useAllowGroupService from "../../lib/useAllowGroupService";
 
 interface WriteCommetProps {
   postId: string;
@@ -21,6 +24,8 @@ export default function WriteComment({
 }: WriteCommetProps) {
   const [text, onChangeText, setText] = useInput("");
   const [loading, setLoading] = useState(false);
+  const [allow, onCheckUser] = useAllowGroupService();
+  const { _id } = useParams();
   const userImg = useSelector(
     (state: any) => state.userSliceReducer.user.user_img
   );
@@ -69,44 +74,52 @@ export default function WriteComment({
     }
   };
 
+  useEffect(() => {
+    if (_id) onCheckUser(_id);
+  }, []);
+
   return (
     <WriteCommentWrap>
-      <div className="flexBox">
-        <div className="userImgBox">
-          <img
-            width={30}
-            height={30}
-            className="userImg"
-            style={{ borderRadius: "40px" }}
-            src={userImg}
-          />
+      {allow ? (
+        <div className="flexBox">
+          <div className="userImgBox">
+            <img
+              width={30}
+              height={30}
+              className="userImg"
+              style={{ borderRadius: "40px" }}
+              src={userImg}
+            />
+          </div>
+          <div className="writeArea">
+            <input
+              type="text"
+              className={`${loading && "disableElement"}`}
+              placeholder={
+                parantOwnerName
+                  ? `${parantOwnerName}님에게 표현하세요!`
+                  : "댓글을 남겨주세요"
+              }
+              onChange={onChangeText}
+              value={text}
+              disabled={loading}
+            />
+          </div>
+          <div style={{ width: "8%" }}>
+            <button
+              className={`theme-bg-element1 postButton ${
+                loading && "disableElement"
+              }`}
+              disabled={loading}
+              onClick={onClickCommentPost}
+            >
+              보내기
+            </button>
+          </div>
         </div>
-        <div className="writeArea">
-          <input
-            type="text"
-            className={`${loading && "disableElement"}`}
-            placeholder={
-              parantOwnerName
-                ? `${parantOwnerName}님에게 표현하세요!`
-                : "댓글을 남겨주세요"
-            }
-            onChange={onChangeText}
-            value={text}
-            disabled={loading}
-          />
-        </div>
-        <div style={{ width: "8%" }}>
-          <button
-            className={`theme-bg-element1 postButton ${
-              loading && "disableElement"
-            }`}
-            disabled={loading}
-            onClick={onClickCommentPost}
-          >
-            보내기
-          </button>
-        </div>
-      </div>
+      ) : (
+        <div>그룹가입 후 댓글을 작성하실 수 있습니다.</div>
+      )}
     </WriteCommentWrap>
   );
 }

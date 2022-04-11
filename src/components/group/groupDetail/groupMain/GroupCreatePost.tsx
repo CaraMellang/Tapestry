@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import useAllowGroupService from "../../../../lib/useAllowGroupService";
+import AllowGroupService from "../../../../lib/useAllowGroupService";
 import GroupPostModal from "./GroupPostModal";
 
 export default function GroupCreatePost() {
   const [openModal, setOpenModal] = useState(false);
+  const [allow, onCheckUser, setAllow] = useAllowGroupService();
+  const { _id } = useParams();
+
+  useEffect(() => {
+    if (_id) onCheckUser(_id);
+  }, []);
+
   return (
     <GroupCreatePostWrap>
       <div
         className="posting-box"
         style={{}}
         onClick={() => {
+          if (!allow) return window.alert("그룹 가입 후 이용가능합니다!");
           setOpenModal(true);
           document.body.style.overflow = "hidden";
         }}
