@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import httpPath from "../lib/mode";
 import { getCookie } from "../lib/cookie";
 import Loading from "../components/Loading";
+import client from "../lib/api/client";
+import { TOKEN_REQUEST } from "../modules/redux/User";
 
 export interface groupDetailInterface {
   _id: string | null;
@@ -28,6 +30,7 @@ export interface groupDetailInterface {
 
 export default function GroupDetail() {
   const userSelector = useSelector((state: any) => state.userSliceReducer);
+  const dispatch = useDispatch()
   const [groupDetail, setGroupDetail] = useState<groupDetailInterface>({
     _id: null,
     group_description: "string;",
@@ -57,12 +60,13 @@ export default function GroupDetail() {
       try {
         const {
           data: { Group },
-        } = await axios.post(`${httpPath}/group/groupdetail`, {
+        } = await client.post(`/group/groupdetail`, {
           group_id: _id,
           user_id: userSelector.user.userId,
         });
 
         setGroupDetail(Group);
+        dispatch(TOKEN_REQUEST(''))
         setDetailLoading(false);
       } catch (err) {
         console.log(err);

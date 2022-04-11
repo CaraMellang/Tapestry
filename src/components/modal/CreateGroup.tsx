@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
+import client from "../../lib/api/client";
 import { getCookie } from "../../lib/cookie";
 import handlingDataForm from "../../lib/handlingDataForm";
 import httpPath from "../../lib/mode";
@@ -65,10 +66,9 @@ export default function CreateGroup({
     const cookiee = getCookie("access_token");
 
     try {
-      await axios.post(`${httpPath}/group/create`, formData, {
+      await client.post(`/group/create`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${cookiee}`,
         },
       });
       window.alert("완료");

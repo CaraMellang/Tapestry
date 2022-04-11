@@ -8,6 +8,7 @@ import axios from "axios";
 import httpPath from "../../../../lib/mode";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN_REQUEST } from "../../../../modules/redux/User";
+import client from "../../../../lib/api/client";
 
 interface GroupLeftSideProp {
   groupDetail: groupDetailInterface;
@@ -32,12 +33,10 @@ export default function GroupLeftSide({
       return;
     }
     try {
-      const data = await axios.post(
-        `${httpPath}/group/joingroup`,
+      const data = await client.post(
+        `/group/joingroup`,
         { group_id: groupDetail._id },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        
       );
       dispatch(TOKEN_REQUEST(token)); //바뀐정보 갱신
       window.alert("가입완료");
@@ -52,12 +51,10 @@ export default function GroupLeftSide({
     if (userId === groupDetail.owner_id._id)
       return window.alert("그룹 생성자는 탈퇴가 불가합니다."); //이후 양도하는 방식, 그룹 삭제 추가예정
     try {
-      const data = await axios.post(
-        `${httpPath}/group/leavegroup`,
+      const data = await client.post(
+        `/group/leavegroup`,
         { group_id: groupDetail._id },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        
       );
       dispatch(TOKEN_REQUEST(token));
       window.alert("완료");
