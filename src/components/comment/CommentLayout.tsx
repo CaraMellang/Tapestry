@@ -4,17 +4,18 @@ import CommentItemList, { ParantComment } from "./CommentItemList";
 import WriteComment from "./WriteComment";
 
 interface CommentLayoutProps{
-  commentArr: ParantComment[]
+  commentArr: ParantComment[] | undefined
   ownerId:string
   postId:string
+  onParantReloading:()=>void
 }
 
-export default function CommentLayout({commentArr,ownerId,postId}: CommentLayoutProps) {
+export default function CommentLayout({commentArr,ownerId,postId,onParantReloading}: CommentLayoutProps) {
   console.log(commentArr)
   return (
     <CommentLayoutWrap>
-      <CommentItemList commentArr={commentArr} ownerId={ownerId} postId={postId} />
-      <WriteComment postId={postId} />
+      <CommentItemList commentArr={commentArr} ownerId={ownerId} postId={postId}  />
+      <WriteComment postId={postId} onReloading={onParantReloading} />
     </CommentLayoutWrap>
   );
 }

@@ -18,13 +18,13 @@ export default function ParantCommentItem({
   text,
   updated_at,
   ownerId,
-  postId,
+  postId
 }: ParantCommentItemProps) {
   const [isOwner, setIsOwner] = useState(false);
   const [isShowChild, setIsShowChild] = useState(false);
 
   useEffect(() => {
-    console.log("뭐임", owner_id._id, ownerId);
+    console.log("지지지지지",child_comment.length)
     if (owner_id._id === ownerId) {
       setIsOwner(true);
     }

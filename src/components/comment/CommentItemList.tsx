@@ -29,7 +29,7 @@ export interface ChildComment {
 }
 
 interface CommentItemListProps {
-  commentArr: ParantComment[];
+  commentArr: ParantComment[] | undefined;
   ownerId: string;
   postId:string
 }
@@ -41,7 +41,7 @@ export default function CommentItemList({
 }: CommentItemListProps) {
   return (
     <CommentItemListWrap>
-      {commentArr.length > 0 &&
+      {commentArr &&
         commentArr.map((ele) => {
           return <ParantCommentItem key={ele._id} {...ele} ownerId={ownerId} postId={postId} />;
         })}

@@ -12,7 +12,7 @@ interface ChildComLayoutProps {
   parantId: string;
   parantOwnerName: string;
   childLength: number;
-  ownerId:string;
+  ownerId: string;
 }
 
 export default function ChildComLayout({
@@ -20,7 +20,8 @@ export default function ChildComLayout({
   isShowChild,
   parantId,
   parantOwnerName,
-  childLength,ownerId
+  childLength,
+  ownerId,
 }: ChildComLayoutProps) {
   const [ChildArr, setChildArr] = useState<ChildComment[] | undefined>();
   const [reload, setReload] = useState(false);
@@ -30,26 +31,20 @@ export default function ChildComLayout({
         data: { data },
       } = await client.get(`/comment/child/read`, {
         params: { parant_comment_id: parantId },
-        validateStatus: function (status) {
-          return status < 400;
-        },
       });
-      console.log("하이하이", data);
       setChildArr(data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const onReloading = ()=>{
-    setReload(prev=>!prev)
-  }
+  const onReloading = () => {
+    setReload((prev) => !prev);
+  };
 
   useEffect(() => {
-    if (childLength !== 0) {
-      console.log("너 리로드하는 친구구나!")
       getChildCom();
-    }
+    
   }, [reload]);
 
   return (
