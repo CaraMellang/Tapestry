@@ -68,6 +68,9 @@ export default function WriteComment({
       });
       setText("");
       setLoading(false);
+      if (onReloading) {
+        onReloading();
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);
