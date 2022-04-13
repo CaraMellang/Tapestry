@@ -18,13 +18,16 @@ export default function ParantCommentItem({
   text,
   updated_at,
   ownerId,
-  postId
+  postId,
 }: ParantCommentItemProps) {
   const [isOwner, setIsOwner] = useState(false);
   const [isShowChild, setIsShowChild] = useState(false);
 
+  const onClickDelete = async () => {
+    //상위 컴포넌트, 레이아웃쪽에서 state를 관리하는게 더 좋을듯
+  };
+
   useEffect(() => {
-    console.log("지지지지지",child_comment.length)
     if (owner_id._id === ownerId) {
       setIsOwner(true);
     }
@@ -44,6 +47,13 @@ export default function ParantCommentItem({
       >
         <span style={{ background: "gray" }}>{owner_id.user_name}</span>
         {isOwner && <span>⭐이 사람은 작성자 입니다⭐</span>}
+        <button
+          className="theme-bg-element2"
+          style={{ cursor: "pointer" }}
+          onClick={onClickDelete}
+        >
+          삭제
+        </button>
         <div>{text}</div>
         <div
           style={{ color: "gray", cursor: "pointer" }}
@@ -59,6 +69,7 @@ export default function ParantCommentItem({
             postId={postId}
             isShowChild={isShowChild}
             parantOwnerName={owner_id.user_name}
+            childComment={child_comment}
             childLength={child_comment.length}
             ownerId={ownerId}
           />

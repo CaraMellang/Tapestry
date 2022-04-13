@@ -4,7 +4,7 @@ import ParantCommentItem from "./ParantCommentItem";
 
 export interface ParantComment {
   _id: string;
-  child_comment: string[];
+  child_comment: ChildComment[];
   created_at: Date;
   like_count: number;
   owner_id: { _id: string; email: string; user_name: string; user_img: string };
@@ -13,7 +13,7 @@ export interface ParantComment {
   updated_at: Date | null;
 }
 export interface ChildComment {
-  _id:string;
+  _id: string;
   post_id: string;
   parant_comment_id: string;
   owner_id: {
@@ -31,19 +31,26 @@ export interface ChildComment {
 interface CommentItemListProps {
   commentArr: ParantComment[] | undefined;
   ownerId: string;
-  postId:string
+  postId: string;
 }
 
 export default function CommentItemList({
   commentArr,
   ownerId,
-  postId
+  postId,
 }: CommentItemListProps) {
   return (
     <CommentItemListWrap>
       {commentArr &&
         commentArr.map((ele) => {
-          return <ParantCommentItem key={ele._id} {...ele} ownerId={ownerId} postId={postId} />;
+          return (
+            <ParantCommentItem
+              key={ele._id}
+              {...ele}
+              ownerId={ownerId}
+              postId={postId}
+            />
+          );
         })}
     </CommentItemListWrap>
   );

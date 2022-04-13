@@ -63,7 +63,7 @@ export default function GroupBody({ group_id }: GroupBodyProps) {
           //객체 자체를 넘기지 말고 게시글의 아이디만 리턴하는 방식으로 하여 갱신이 좀더 쉽게하도록 할 필요ㅇ있음,(변경가능성 있는 데이터는 최대한 자제)
           return (
             <div key={index}>
-              <GroupPostItem item={item} group_id={group_id} />
+              <GroupPostItem postItem={item} group_id={group_id} />
             </div>
           );
         })}

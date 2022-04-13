@@ -11,7 +11,6 @@ interface CommentLayoutProps{
 }
 
 export default function CommentLayout({commentArr,ownerId,postId,onParantReloading}: CommentLayoutProps) {
-  console.log(commentArr)
   return (
     <CommentLayoutWrap>
       <CommentItemList commentArr={commentArr} ownerId={ownerId} postId={postId}  />
