@@ -1,21 +1,29 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import client from "../../../../lib/api/client";
 import { getCookie } from "../../../../lib/cookie";
 import httpPath from "../../../../lib/mode";
 import useAllowGroupService from "../../../../lib/useAllowGroupService";
-import { GROUP_EMPTY, GROUP_REQUEST } from "../../../../modules/redux/Group";
+import {
+  GROUP_EMPTY,
+  GROUP_REQUEST,
+  Post,
+} from "../../../../modules/redux/Group";
 import { ParantComment } from "../../../comment/CommentItemList";
 import CommentLayout from "../../../comment/CommentLayout";
 
 interface GroupPostItemprops {
-  item: any;
+  postItem: Post;
   group_id: string | null | undefined;
 }
 
-export default function GroupPostItem({ item, group_id }: GroupPostItemprops) {
+export default function GroupPostItem({
+  postItem,
+  group_id,
+}: GroupPostItemprops) {
+  const [item, setItem] = useState(postItem);
   const [showComment, setShowComment] = useState(false);
   const [commentArr, setCommentArr] = useState<ParantComment[]>();
   const [parantReload, setParantReload] = useState(false);
@@ -26,29 +34,24 @@ export default function GroupPostItem({ item, group_id }: GroupPostItemprops) {
   );
   const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
+
   const onDeleteClick = async () => {
     let isDelete = window.confirm("정말로 삭제하시겠습니까?");
     if (!isDelete) return;
     try {
       const cookie = getCookie("access_token");
       await client.delete(`/post/delete`, { data: { post_id: item._id } });
-      // await axios.delete(`${httpPath}/post/delete`, {
-      //   data: { post_id: item._id },
-      //   headers: { Authorization: `Bearer ${cookie}` },
-      // });
       dispatch(GROUP_EMPTY("dummy"));
     } catch (err) {
       console.log(err);
     }
   };
-
   const onClickShowComment = async () => {
     try {
       const {
         data: { data },
       } = await client.post(`/comment/parant/read`, { post_id: item._id });
       setCommentArr(data);
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -58,8 +61,12 @@ export default function GroupPostItem({ item, group_id }: GroupPostItemprops) {
     if (!allow) return window.alert("그룹 가입 후 이용가능합니다.");
     try {
       await client.patch(`/post/like/like`, { post_id: item._id });
-      console.log("실행여부");
-      setIsLike(true);
+      const {
+        data: { data },
+      } = await client.get(`/post/getpost`, {
+        params: { group_id, post_id: item._id },
+      });
+      setItem(data);
     } catch (err) {
       console.log(err);
     }
@@ -68,35 +75,39 @@ export default function GroupPostItem({ item, group_id }: GroupPostItemprops) {
     if (!allow) return window.alert("그룹 가입 후 이용가능합니다.");
     try {
       await client.patch(`/post/like/dislike`, { post_id: item._id });
-      console.log("실행여부");
-      setIsLike(false);
+      const {
+        data: { data },
+      } = await client.get(`/post/getpost`, {
+        params: { group_id, post_id: item._id },
+      });
+      setItem(data);
     } catch (err) {
       console.log(err);
     }
   };
 
   const onParantReloading = () => {
-    setParantReload((prev) => !prev);
+    onClickShowComment();
   };
 
-  useEffect(() => {
-    if (showComment) {
-      onClickShowComment();
-    }
-  }, [parantReload, showComment]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (item.like_user.length > 0) {
       item.like_user.forEach((likeUserId: any) => {
         console.log("유저아이디 비교할거임", likeUserId, userId);
         if (likeUserId === userId) {
           setIsLike(true);
+        } else {
+          setIsLike(false);
         }
       });
+    } else if (item.like_user.length === 0) {
+      //배열이 비었으면 forEach 작동안함.
+      setIsLike(false);
     }
-  }, [isLike, item.like_user, userId]);
+  }, [item.like_user, userId]);
 
   useEffect(() => {
+    onClickShowComment();
     if (group_id) onCheckUser(group_id);
   }, []);
 
@@ -120,8 +131,10 @@ export default function GroupPostItem({ item, group_id }: GroupPostItemprops) {
             );
           })}
         </div>
-        <div>{item.owner_id !== null ? item.owner_id.user_name : "null"}</div>
-        <div>{item.created_at}</div>
+        <div>
+          {item.owner_id.user_name ? item.owner_id.user_name : "알수없음"}
+        </div>
+        <div>{new Date(item.created_at).getFullYear()}년</div>
         <div>
           {item.images.map((imgUrl: string, index: number) => (
             <img key={index} className="post-img" alt="??" src={imgUrl} />
@@ -153,14 +166,6 @@ export default function GroupPostItem({ item, group_id }: GroupPostItemprops) {
             onParantReloading={onParantReloading}
           />
         )}
-        {/* {item.comment.map((commentItem: any) => {
-          console.log(commentItem)
-          return (
-            <div key={commentItem._id} className="theme-bg-element1">
-              {commentItem.text}
-            </div>
-          );
-        })} */}
       </div>
       <div>
         {userId === item.owner_id._id ? (
