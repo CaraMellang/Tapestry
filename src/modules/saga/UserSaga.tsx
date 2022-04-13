@@ -26,9 +26,9 @@ export function* postUser(action: any): Generator {
   }
 }
 
-async function postToken(data: any) {
-  return await client.post(`/auth/verify`, ".");
-  return await axios.post(
+function postToken(data: any) {
+  return client.post(`/auth/verify`, ".");
+  return axios.post(
     `${httpPath}/auth/verify`,
     { key: "value" },
     {
@@ -39,7 +39,7 @@ async function postToken(data: any) {
 
 export function* postUserToken(action: any): Generator {
   try {
-    const { data }: any = yield call(postToken, action.payload);
+    const { data }: any = yield call(postToken, action.payload); //call은 동기적으로 실행(client.post().then() 효과. 결과값을 기다려줌.), fork는 비동기적으로 실행.
     console.log(data);
     yield put(TOKEN_SUCCESS(data));
   } catch (err) {

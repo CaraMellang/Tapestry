@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "./User";
 
 interface initialStateTypes {
   groupsLoading: boolean;
@@ -7,6 +8,18 @@ interface initialStateTypes {
   groups: [];
   groupsPageNumber: number;
   groupsPageEnd: boolean;
+}
+
+export interface Group {
+  _id:string;
+  owner_id: User | string;
+  group_name: string;
+  group_description: string;
+  group_img: string
+  group_people_count: number
+  group_peoples: User[]
+  created_at: string
+  updated_at: string
 }
 
 const initialState: initialStateTypes = {

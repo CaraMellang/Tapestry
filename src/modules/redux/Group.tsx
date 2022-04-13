@@ -1,12 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { ParantComment } from "../../components/comment/CommentItemList";
+import { Group } from "./Groups";
+import {User} from './User'
 interface initialStateTypes {
   groupLoading: boolean;
   groupSucceed: boolean;
   groupError: any;
-  groupPosts: object[];
+  groupPosts: Post[];
   groupPageNumber: number;
   groupPageEnd: boolean;
+}
+
+export interface Post {
+  _id:string;
+  group_id: Group ;
+  owner_id: User ;
+  is_private: boolean;
+  text: string,
+  comment: ParantComment[],
+  images: string[],
+  views: number,
+  like_count: number,
+  like_user: User[],
+  created_at: string,
+  updated_at: string,
 }
 
 const initialState: initialStateTypes = {
