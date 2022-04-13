@@ -13,6 +13,7 @@ interface ChildComLayoutProps {
   parantOwnerName: string;
   childLength: number;
   ownerId: string;
+  childComment: ChildComment[];
 }
 
 export default function ChildComLayout({
@@ -22,8 +23,9 @@ export default function ChildComLayout({
   parantOwnerName,
   childLength,
   ownerId,
+  childComment,
 }: ChildComLayoutProps) {
-  const [ChildArr, setChildArr] = useState<ChildComment[] | undefined>();
+  const [ChildArr, setChildArr] = useState<ChildComment[]>(childComment);
   const [reload, setReload] = useState(false);
   const getChildCom = async () => {
     try {
@@ -39,14 +41,12 @@ export default function ChildComLayout({
   };
 
   const onReloading = () => {
-    setReload((prev) => !prev);
+    getChildCom();
   };
 
   useEffect(() => {
-      getChildCom();
-    
-  }, [reload]);
-
+    if (childComment.length !== 0) getChildCom();
+  }, []);
   return (
     <ChildComLayoutWrap>
       <ChildComItem ChildArr={ChildArr} ownerId={ownerId} />
