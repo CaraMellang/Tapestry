@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import client from "../../lib/api/client";
 import ChildComLayout from "./ChildComLayout";
 import { ParantComment } from "./CommentItemList";
 
@@ -25,6 +26,12 @@ export default function ParantCommentItem({
 
   const onClickDelete = async () => {
     //상위 컴포넌트, 레이아웃쪽에서 state를 관리하는게 더 좋을듯
+    try {
+      await client.delete(`/comment/parant`, { data: { comment_id: _id } });
+      //부모댓글 재요청 작업필요
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
