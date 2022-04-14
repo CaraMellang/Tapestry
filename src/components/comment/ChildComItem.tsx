@@ -9,6 +9,7 @@ interface ChildComItemProps {
 
 export default function ChildComItem({ ChildArr, ownerId }: ChildComItemProps) {
   //상위 컴포넌트로 자식 리스트에서 map으로 써야함
+  console.log("확인용", ChildArr);
   return (
     <ChildComItemWrap>
       {ChildArr
