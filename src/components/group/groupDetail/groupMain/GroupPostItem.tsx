@@ -46,16 +46,6 @@ export default function GroupPostItem({
       console.log(err);
     }
   };
-  const onClickShowComment = async () => {
-    try {
-      const {
-        data: { data },
-      } = await client.post(`/comment/parant/read`, { post_id: item._id });
-      setCommentArr(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const onClickLike = async () => {
     if (!allow) return window.alert("그룹 가입 후 이용가능합니다.");
@@ -86,10 +76,6 @@ export default function GroupPostItem({
     }
   };
 
-  const onParantReloading = () => {
-    onClickShowComment();
-  };
-
   useLayoutEffect(() => {
     if (item.like_user.length > 0) {
       item.like_user.forEach((likeUserId: any) => {
@@ -107,7 +93,6 @@ export default function GroupPostItem({
   }, [item.like_user, userId]);
 
   useEffect(() => {
-    onClickShowComment();
     if (group_id) onCheckUser(group_id);
   }, []);
 
@@ -160,10 +145,9 @@ export default function GroupPostItem({
       <div>
         {showComment && (
           <CommentLayout
-            commentArr={commentArr}
+            firstCommentArr={item.comment}
             ownerId={item.owner_id._id}
             postId={item._id}
-            onParantReloading={onParantReloading}
           />
         )}
       </div>
