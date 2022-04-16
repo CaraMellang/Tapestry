@@ -7,6 +7,7 @@ import { ParantComment } from "./CommentItemList";
 interface ParantCommentItemProps extends ParantComment {
   ownerId: string;
   postId: string;
+  onParantReloading: () => void;
 }
 
 export default function ParantCommentItem({
@@ -20,15 +21,17 @@ export default function ParantCommentItem({
   updated_at,
   ownerId,
   postId,
+  onParantReloading,
 }: ParantCommentItemProps) {
   const [isOwner, setIsOwner] = useState(false);
   const [isShowChild, setIsShowChild] = useState(false);
 
   const onClickDelete = async () => {
-    //상위 컴포넌트, 레이아웃쪽에서 state를 관리하는게 더 좋을듯
+    const isDelete = window.confirm("정말 삭제하시겠습니까?")
+    if(!isDelete) return
     try {
-      await client.delete(`/comment/parant`, { data: { comment_id: _id } });
-      //부모댓글 재요청 작업필요
+      await client.delete(`/comment/parant/delete`, { data: { comment_id: _id } });
+      onParantReloading();
     } catch (err) {
       console.log(err);
     }
@@ -62,6 +65,7 @@ export default function ParantCommentItem({
           삭제
         </button>
         <div>{text}</div>
+        <div style={{ color: "gray" }}>{_id}</div>
         <div
           style={{ color: "gray", cursor: "pointer" }}
           onClick={() => {

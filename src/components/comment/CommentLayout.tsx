@@ -17,9 +17,8 @@ export default function CommentLayout({
 }: CommentLayoutProps) {
   const [commentArr, setCommentArr] =
     useState<ParantComment[]>(firstCommentArr);
-  // console.log("저 문제있나요", commentArr, firstCommentArr);
 
-  const showParantComment = async () => {
+  const requestParantComment = async () => {
     try {
       const {
         data: { data },
@@ -30,11 +29,11 @@ export default function CommentLayout({
     }
   };
   const onParantReloading = () => {
-    showParantComment();
+    requestParantComment();
   };
 
   useEffect(()=>{
-    showParantComment()
+    requestParantComment()
   },[])
 
   return (
@@ -43,6 +42,7 @@ export default function CommentLayout({
         commentArr={commentArr}
         ownerId={ownerId}
         postId={postId}
+        onParantReloading={onParantReloading}
       />
       <WriteComment postId={postId} onReloading={onParantReloading} />
     </CommentLayoutWrap>

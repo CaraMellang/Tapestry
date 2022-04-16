@@ -32,12 +32,14 @@ interface CommentItemListProps {
   commentArr: ParantComment[] | undefined;
   ownerId: string;
   postId: string;
+  onParantReloading: () => void;
 }
 
 export default function CommentItemList({
   commentArr,
   ownerId,
   postId,
+  onParantReloading,
 }: CommentItemListProps) {
   return (
     <CommentItemListWrap>
@@ -49,6 +51,7 @@ export default function CommentItemList({
               {...ele}
               ownerId={ownerId}
               postId={postId}
+              onParantReloading={onParantReloading}
             />
           );
         })}
