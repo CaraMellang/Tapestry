@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/header/header";
@@ -12,16 +12,19 @@ import GroupDetail from "./GroupDetail";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
-  if (localStorage.getItem("theme") === null) {
-    localStorage.setItem("theme", "light");
-    document.body.dataset.theme = "light";
-  }
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.dataset.theme = "dark";
-  }
-  if (localStorage.getItem("theme") === "light") {
-    document.body.dataset.theme = "light";
-  }
+
+  useLayoutEffect(() => {
+    if (localStorage.getItem("theme") === null) {
+      localStorage.setItem("theme", "light");
+      document.body.dataset.theme = "light";
+    }
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.dataset.theme = "dark";
+    }
+    if (localStorage.getItem("theme") === "light") {
+      document.body.dataset.theme = "light";
+    }
+  }, []);
 
   return (
     <BrowserRouter>
