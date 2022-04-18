@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Outlet, Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
 import SearchHeader from "../components/search/SearchHeader";
 import SearchListGroup from "../components/search/SearchListGroup";
@@ -11,11 +11,7 @@ export default function Search() {
   return (
     <SearchWrap>
       <SearchHeader setSearchType={setSearchType} />
-      <Routes>
-        <Route path={`group`} element={<SearchListGroup searchType={searchType} />} />
-        <Route path={`post`} element={<SearchListPost searchType={searchType} />} />
-        <Route path={`user`} element={<SearchListUser searchType={searchType} />} />
-      </Routes>
+      <Outlet />
       {/* <SearchList /> */}
     </SearchWrap>
   );

@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { GROUP_EMPTY, GROUP_REQUEST } from "../../../../modules/redux/Group";
 import Loading from "../../../Loading";
 import GroupCreatePost from "./GroupCreatePost";
 import GroupPostItem from "./GroupPostItem";
 
-interface GroupBodyProps {
-  group_id: string | undefined | null;
-}
+interface GroupBodyProps {}
 
-export default function GroupBody({ group_id }: GroupBodyProps) {
+export default function GroupBody() {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
+  const { _id: group_id } = useParams();
   const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
 

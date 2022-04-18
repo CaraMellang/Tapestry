@@ -10,14 +10,13 @@ interface SearchListUserProps {
   searchType: string;
 }
 
-export default function SearchListUser({ searchType }: SearchListUserProps) {
+export default function SearchListUser() {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const [searchListArr, setSearchListArr] = useState<any>([]);
   let loading = false;
   let pageEnd = false;
   let pageNo = 0;
   const { search } = useParams();
-  console.log(searchType);
 
   const onIntersect = useCallback(
     async (
@@ -32,7 +31,7 @@ export default function SearchListUser({ searchType }: SearchListUserProps) {
         const data = {
           search: search,
           page: pageNo,
-          type: searchType,
+          type: "user",
         };
         try {
           const resData = await client.post(`/search/`, data);

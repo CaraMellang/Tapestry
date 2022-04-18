@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import FeedHeader from "../components/feed/FeedHeader";
 import GroupFeed from "../components/feed/GroupFeed";
@@ -14,11 +14,6 @@ export default function Feed() {
       <div>새글, 인기글 , 내 그룹내 게시글(최신순 으로 정렬)</div>
       <FeedHeader />
       <div>
-        <Routes>
-          <Route path={`newfeed`} element={<NewFeed />} />
-          <Route path={`popular`} element={<Popular />} />
-          <Route path={`groupfeed`} element={<GroupFeed />} />
-        </Routes>
         {/* 1. 인기글
         <p>
           1) 인기글 인기글은 각 카페에서 멤버들이 관심을 갖고 많은 반응을 보인
@@ -43,6 +38,7 @@ export default function Feed() {
           비공개 카페인 경우
         </p> */}
       </div>
+      <Outlet />
     </FeedWrap>
   );
 }

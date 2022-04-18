@@ -9,6 +9,14 @@ import Feed from "./Feed";
 import Group from "./Group";
 import Search from "./Search";
 import GroupDetail from "./GroupDetail";
+import NewFeed from "../components/feed/NewFeed";
+import Popular from "../components/feed/Popular";
+import GroupFeed from "../components/feed/GroupFeed";
+import GroupBody from "../components/group/groupDetail/groupMain/GroupBody";
+import GroupMember from "../components/group/groupDetail/groupMain/GroupMember";
+import SearchListGroup from "../components/search/SearchListGroup";
+import SearchListPost from "../components/search/SearchListPost";
+import SearchListUser from "../components/search/SearchListUser";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -32,15 +40,27 @@ function Main() {
       <MainWrapper>
         <Routes>
           {isSign ? (
-            <Route path={`/*`} element={<SignForm setIsSign={setIsSign} />} />
+            <Route index element={<SignForm setIsSign={setIsSign} />} />
           ) : (
             <>
-              <Route path={`/*`} element={<Home />} />
-              <Route path={`/feed/*`} element={<Feed />} />
-              <Route path={`/profile/:id/*`} element={<Profile />} />
-              <Route path={`/group/:_id/*`} element={<Group />} />
-              <Route path={`/search/:search/*`} element={<Search />} />
-              <Route path={`/groupdetail/:_id/*`} element={<GroupDetail />} />
+              <Route index element={<Home />} />
+              <Route path={`feed`} element={<Feed />}>
+                <Route path={`newfeed`} element={<NewFeed />} />
+                <Route path={`popular`} element={<Popular />} />
+                <Route path={`groupfeed`} element={<GroupFeed />} />
+              </Route>
+              <Route path={`profile/:id`} element={<Profile />} />
+              <Route path={`group/:_id`} element={<Group />}>
+                <Route path="post" element={<GroupBody />} />
+                <Route path={`member`} element={<GroupMember />} />
+              </Route>
+              <Route path={`/search/:search`} element={<Search />}>
+                <Route path={`group`} element={<SearchListGroup />} />
+                <Route path={`post`} element={<SearchListPost />} />
+                <Route path={`user`} element={<SearchListUser />} />
+              </Route>
+              {/* <Route path={`/groupdetail/:_id/*`} element={<GroupDetail />} /> */}
+              <Route path="*" element={<div>없는 페이지입니다</div>} />
             </>
           )}
         </Routes>

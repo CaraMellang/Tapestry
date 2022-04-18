@@ -10,7 +10,7 @@ interface SearchListGroupProps {
   searchType: string;
 }
 
-export default function SearchListGroup({ searchType }: SearchListGroupProps) {
+export default function SearchListGroup() {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const [searchListArr, setSearchListArr] = useState<any>([]);
   let loading = false;
@@ -18,7 +18,6 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
   let pageNo = 0;
   const { search } = useParams();
   const navigate = useNavigate();
-  console.log(searchType);
 
   const onIntersect = useCallback(
     async (
@@ -33,7 +32,7 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
         const data = {
           search: search,
           page: pageNo,
-          type: searchType,
+          type: "group",
         };
         try {
           const resData = await client.post(`/search/`, data);
@@ -61,7 +60,7 @@ export default function SearchListGroup({ searchType }: SearchListGroupProps) {
 
   const groupClick = (item: any) => {
     console.log("그룹클릭", item);
-    navigate(`/groupdetail/${item._id}`);
+    navigate(`/group/${item._id}/post`);
   };
 
   useEffect(() => {
