@@ -12,7 +12,7 @@ interface initialStateTypes {
 
 export interface Group {
   _id:string;
-  owner_id: User | string;
+  owner_id: User;
   group_name: string;
   group_description: string;
   group_img: string
