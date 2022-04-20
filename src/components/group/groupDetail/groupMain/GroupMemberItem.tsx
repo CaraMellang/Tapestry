@@ -1,20 +1,54 @@
 import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
+import client from "../../../../lib/api/client";
 import { User } from "../../../../modules/redux/User";
 
 interface GroupMemberItemProps {
   group_owner_id: string;
   item: User;
-  follows: string[] | undefined;
+  userFollows: string[] | undefined;
+  userId: string;
 }
 
 export default function GroupMemberItem({
   group_owner_id,
   item,
-  follows,
+  userFollows,
+  userId,
 }: GroupMemberItemProps) {
   const [userItem, setUserItem] = useState<User>(item);
+  const [follows, setFollows] = useState<string[] | undefined>(userFollows);
   const [isFollow, setIsFollow] = useState(false);
+
+  const onClickFollow = async () => {
+    try {
+      const request = await client.patch(`/follow/following`, {
+        user_id: userId,
+        following_user_id: userItem._id,
+      });
+      if (request.status === 200) {
+        setIsFollow(true);
+      }
+    } catch (err: any) {
+      // console.log("Error Message:", err.response.data.message);
+      console.log(err)
+    }
+  };
+
+  const onClickUnFollow = async () => {
+    try {
+      const request = await client.patch(`/follow/unfollowing`, {
+        user_id: userId,
+        following_user_id: userItem._id,
+      });
+      if (request.status === 200) {
+        setIsFollow(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useLayoutEffect(() => {
     if (follows) {
       follows.forEach((Id) => {
@@ -38,12 +72,16 @@ export default function GroupMemberItem({
       </span>
       <span>
         &nbsp;{" "}
-        {userItem._id === group_owner_id ? (
-          "본인"
+        {userItem._id === userId ? (
+          "❤️본인❤️"
         ) : isFollow ? (
-          <button className="followBtn following ">팔로윙</button>
+          <button className="followBtn following" onClick={onClickUnFollow}>
+            팔로윙
+          </button>
         ) : (
-          <button className="followBtn follow">팔로우</button>
+          <button className="followBtn follow" onClick={onClickFollow}>
+            팔로우
+          </button>
         )}
       </span>
     </GroupMemberItemWrap>

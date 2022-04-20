@@ -9,12 +9,11 @@ import GroupMemberItem from "./GroupMemberItem";
 
 export default function GroupMember() {
   const [group, setGroup] = useState<Group>();
-  const [follows, setFollow] = useState<string[]>();
+  const [userFollows, setUserFollow] = useState<string[]>();
   const { _id } = useParams();
   const userId = useSelector(
     (state: any) => state.userSliceReducer.user.userId
   );
-
   const getGroup = async () => {
     try {
       const {
@@ -25,7 +24,7 @@ export default function GroupMember() {
         params: { group_id: _id, user_id: userId },
       });
       setGroup(group);
-      setFollow(follows);
+      setUserFollow(follows);
     } catch (err) {
       console.log(err);
     }
@@ -39,14 +38,16 @@ export default function GroupMember() {
         그룹 멤버
       </div>
       <div className="theme-bg-element2">
-        {group && follows &&
+        {group &&
+          userFollows &&
           group.group_peoples.map((item) => {
             return (
               <GroupMemberItem
                 key={item._id}
                 group_owner_id={group.owner_id._id}
                 item={item}
-                follows={follows}
+                userFollows={userFollows}
+                userId={userId}
               />
             );
           })}
