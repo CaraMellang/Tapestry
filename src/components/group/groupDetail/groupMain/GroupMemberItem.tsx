@@ -13,11 +13,11 @@ interface GroupMemberItemProps {
 export default function GroupMemberItem({
   group_owner_id,
   item,
-  userFollows,
+  userFollows: follows,
   userId,
 }: GroupMemberItemProps) {
   const [userItem, setUserItem] = useState<User>(item);
-  const [follows, setFollows] = useState<string[] | undefined>(userFollows);
+  // const [follows, setFollows] = useState<string[] | undefined>(follows);
   const [isFollow, setIsFollow] = useState(false);
 
   const onClickFollow = async () => {

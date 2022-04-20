@@ -60,9 +60,9 @@ export default function GroupList() {
                     </div>
                     <div className="box-title">
                       <div>{item.group_name}</div>
-                      <div>[그룹인원] {item.group_people_count} 명</div>
+                      {/* <div>[그룹인원] {item.group_people_count} 명</div>
                       <div>[주인장] {item.owner_id.user_name}</div>
-                      <div>[그룹설명] {item.group_description}</div>
+                      <div>[그룹설명] {item.group_description}</div> */}
                     </div>
                   </Link>
                 </div>
@@ -108,7 +108,7 @@ const GroupListWrap = styled.div`
   .box-img {
     background-color: white;
     width: 100%;
-    height: 10rem;
+    height: 15rem;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
   }
