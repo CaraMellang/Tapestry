@@ -5,7 +5,7 @@ import { groupDetailInterface } from "../../../../pages/GroupDetail";
 import { MinusCircleOutlined } from "@ant-design/icons";
 import { getCookie } from "../../../../lib/cookie";
 import axios from "axios";
-import httpPath from "../../../../lib/mode";
+import httpPath from "../../../../hook/useDesktop";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN_REQUEST } from "../../../../modules/redux/User";
 import client from "../../../../lib/api/client";

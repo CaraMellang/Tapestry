@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import client from "../../../../lib/api/client";
 import { getCookie } from "../../../../lib/cookie";
-import httpPath from "../../../../lib/mode";
+import httpPath from "../../../../hook/useDesktop";
 import useAllowGroupService from "../../../../lib/useAllowGroupService";
 import {
   GROUP_EMPTY,

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import GroupLeftSide from "../components/group/groupDetail/groupLeft/GroupLeftSide";
 import GroupMain from "../components/group/groupDetail/groupMain/GroupMain";
 import { useDispatch, useSelector } from "react-redux";
-import httpPath from "../lib/mode";
+import httpPath from "../hook/useDesktop";
 import { getCookie } from "../lib/cookie";
 import Loading from "../components/Loading";
 import client from "../lib/api/client";

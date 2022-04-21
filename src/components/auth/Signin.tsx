@@ -6,7 +6,7 @@ import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import { setCookie } from "../../lib/cookie";
 import { SIGNIN_REQUEST } from "../../modules/redux/User";
-import httpPath from "../../lib/mode";
+import httpPath from "../../hook/useDesktop";
 
 interface SignInProps {
   setIsSign: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,12 +46,13 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
   }, [userSelector]);
 
   return (
-    <SignInWrap>
+    <SignInWrap className="theme-bg-element2">
       <Form onFinish={onSubmit} style={{ color: "inherit" }}>
         <Form.Item
           // label="Email"
           name="email"
           rules={[{ required: true, message: "Required Email" }]}
+          style={{ marginBottom: "18px" }}
         >
           <Input
             type={"email"}
@@ -64,6 +65,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
           // label="Password"
           name="password"
           rules={[{ required: true, message: "Required Password" }]}
+          style={{ marginBottom: "18px" }}
         >
           <Input.Password
             value={password}
@@ -74,7 +76,10 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
         <a href={`${httpPath}/auth/google`} className="theme-bg-element2">
           google login
         </a>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item
+          wrapperCol={{ offset: 8, span: 16 }}
+          style={{ marginBottom: "18px" }}
+        >
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
@@ -92,5 +97,11 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
 
 const SignInWrap = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  width: 200px;
+  margin: auto;
+  box-sizing: content-box;
+  padding: 20px;
+  border: #9b9b9b solid 1px;
+  border-radius: 12px;
 `;

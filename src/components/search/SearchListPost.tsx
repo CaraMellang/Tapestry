@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
 import client from "../../lib/api/client";
-import httpPath from "../../lib/mode";
+import httpPath from "../../hook/useDesktop";
 import Loading from "../Loading";
 
 interface SearchListPostProps {

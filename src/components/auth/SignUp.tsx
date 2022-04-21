@@ -63,6 +63,7 @@ export default function Signup({ setSigninToggle }: SignupProps) {
           //   label="Username"
           name="Username"
           rules={[{ required: true, message: "Required Username" }]}
+          style={{ marginBottom: "18px" }}
         >
           <Input
             type={"text"}
@@ -75,6 +76,7 @@ export default function Signup({ setSigninToggle }: SignupProps) {
           //   label="Email"
           name="email"
           rules={[{ required: true, message: "Required Email" }]}
+          style={{ marginBottom: "18px" }}
         >
           <Input
             type={"email"}
@@ -87,6 +89,7 @@ export default function Signup({ setSigninToggle }: SignupProps) {
           //   label="Password"
           name="password"
           rules={[{ required: true, message: "Required Password" }]}
+          style={{ marginBottom: "18px" }}
         >
           <Input.Password
             value={password}
@@ -98,6 +101,7 @@ export default function Signup({ setSigninToggle }: SignupProps) {
           //   label="Confirm Password"
           name="confirmPassword"
           rules={[{ required: true, message: "Required confirmPassword" }]}
+          style={{ marginBottom: "18px" }}
         >
           <Input.Password
             value={confirmPassword}
@@ -105,7 +109,10 @@ export default function Signup({ setSigninToggle }: SignupProps) {
             placeholder="confirmPassword"
           />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item
+          wrapperCol={{ offset: 8, span: 16 }}
+          style={{ marginBottom: "18px" }}
+        >
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
@@ -123,8 +130,8 @@ export default function Signup({ setSigninToggle }: SignupProps) {
 
 const SignupWrap = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   width: 200px;
-  box-sizing: border-box;
-  margin: auto;
+  /* box-sizing: border-box;
+  margin: auto; */
 `;

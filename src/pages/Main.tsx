@@ -8,7 +8,6 @@ import SignForm from "./SignForm";
 import Feed from "./Feed";
 import Group from "./Group";
 import Search from "./Search";
-import GroupDetail from "./GroupDetail";
 import NewFeed from "../components/feed/NewFeed";
 import Popular from "../components/feed/Popular";
 import GroupFeed from "../components/feed/GroupFeed";
@@ -37,7 +36,7 @@ function Main() {
   return (
     <BrowserRouter>
       {!isSign && <Header />}
-      <MainWrapper>
+      <MainWrapper isSign={isSign}>
         <Routes>
           {isSign ? (
             <Route index element={<SignForm setIsSign={setIsSign} />} />
@@ -70,7 +69,8 @@ function Main() {
 }
 export default Main;
 
-const MainWrapper = styled.div`
+const MainWrapper = styled.div<{ isSign: boolean }>`
+  ${(props) => props.isSign && `height:100%;`}
   div {
     /* color: red; */
   }

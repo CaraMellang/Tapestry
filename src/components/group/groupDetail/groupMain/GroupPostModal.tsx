@@ -6,7 +6,7 @@ import styled from "styled-components";
 import useInput from "../../../../hook/useInput";
 import client from "../../../../lib/api/client";
 import { getCookie } from "../../../../lib/cookie";
-import httpPath from "../../../../lib/mode";
+import httpPath from "../../../../hook/useDesktop";
 import { GROUP_REQUEST, GROUP_EMPTY } from "../../../../modules/redux/Group";
 
 interface GroupPostModalProps {

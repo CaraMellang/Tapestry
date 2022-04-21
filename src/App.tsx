@@ -23,7 +23,6 @@ function App() {
 
 const GlobalStyled = createGlobalStyle`
 body {
-
   transition: all 0.2s ease-in-out;
 }
 body {
@@ -31,6 +30,7 @@ body {
   --color-background: #F8F9FA; 
     --bg-element1:white;
     --bg-element2:white;
+    --bg-element3:white;
 }
 
 @media (prefers-color-scheme: dark) { //사용자 시스템이 다크모드일경우.
@@ -39,19 +39,22 @@ body {
     --color-background: #121212; 
     --bg-element1:#1E1E1E;
     --bg-element2:#1E1E1E;
+    --bg-element3:#1E1C1C;
   }
 }
 body[data-theme="light"]{
   --color-text:black;
   --color-background:#F8F9FA;
   --bg-element1:#f7f7f7;
-    --bg-element2:#ecedee;
+  --bg-element2:#ecedee;
+    --bg-element3:#d8d8d8;
 }
 body[data-theme="dark"]{
   --color-text:white;
   --color-background:#121212;
   --bg-element1:#141414;
   --bg-element2:#1E1E1E;
+  --bg-element3:#1E1C1C;
 }
 body{
   color:var(--color-text);
@@ -75,6 +78,7 @@ html , body , #root{
   /* height:100%; */
   background-repeat:no-repeat;
   width:100%;
+  height:100%;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif'; 
 }
 a, a:link, a:visited , a:hover , a:focus{

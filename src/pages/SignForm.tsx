@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import SignBanner from "../components/auth/SignBanner";
 import Signin from "../components/auth/Signin";
 import Signup from "../components/auth/SignUp";
+import useDesktop from "../hook/useDesktop";
 import client from "../lib/api/client";
 import { deleteCookie, getCookie, setCookie } from "../lib/cookie";
 import { SIGNIN_SUCCESS, TOKEN_REQUEST } from "../modules/redux/User";
@@ -14,6 +16,7 @@ interface SignFormProps {
 
 export default function SignForm({ setIsSign }: SignFormProps) {
   const [signinToggle, setSigninToggle] = useState(true);
+  const isDesktop = useDesktop();
   const dispatch = useDispatch();
   const userSelector = useSelector((state: any) => state.userSliceReducer);
   const userSelectorUser: any = useSelector(
@@ -43,16 +46,25 @@ export default function SignForm({ setIsSign }: SignFormProps) {
     }
   }, []);
 
-
   return (
     <SignFormWrap>
-      {signinToggle ? (
-        <Signin setIsSign={setIsSign} setSigninToggle={setSigninToggle} />
-      ) : (
-        <Signup setSigninToggle={setSigninToggle} />
-      )}
+      {isDesktop ? <SignBanner /> : "응아니야"}
+      <div className="signLayout">
+        {signinToggle ? (
+          <Signin setIsSign={setIsSign} setSigninToggle={setSigninToggle} />
+        ) : (
+          <Signup setSigninToggle={setSigninToggle} />
+        )}
+      </div>
     </SignFormWrap>
   );
 }
 
-const SignFormWrap = styled.div``;
+const SignFormWrap = styled.div`
+  padding: 120px 0;
+  height: 100%;
+  .signLayout {
+    width: 1024px;
+    position: relative;
+  }
+`;

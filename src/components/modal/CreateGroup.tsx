@@ -6,7 +6,7 @@ import useInput from "../../hook/useInput";
 import client from "../../lib/api/client";
 import { getCookie } from "../../lib/cookie";
 import handlingDataForm from "../../lib/handlingDataForm";
-import httpPath from "../../lib/mode";
+import httpPath from "../../hook/useDesktop";
 import { READ_GROUPS_REQUEST } from "../../modules/redux/Groups";
 
 interface CreateGroupProps {

@@ -9,7 +9,7 @@ import {
   GROUP_REQUEST,
   GROUP_SUCCESS,
 } from "../redux/Group";
-import httpPath from "../../lib/mode";
+import httpPath from "../../hook/useDesktop";
 import client from "../../lib/api/client";
 
 async function readGroup(data: any) {

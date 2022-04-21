@@ -8,7 +8,7 @@ import {
   READ_GROUPS_REQUEST,
   READ_GROUPS_SUCCESS,
 } from "../redux/Groups";
-import httpPath from '../../lib/mode'
+import httpPath from '../../hook/useDesktop'
 import client from "../../lib/api/client";
 
 async function readGroups(data: any) {

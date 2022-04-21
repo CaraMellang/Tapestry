@@ -7,7 +7,7 @@ import {
   TOKEN_FAILED,
   TOKEN_SUCCESS,
 } from "../redux/User";
-import httpPath from "../../lib/mode";
+import httpPath from "../../hook/useDesktop";
 import client from "../../lib/api/client";
 
 async function postUserData(data: any) {

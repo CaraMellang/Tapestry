@@ -8,7 +8,7 @@ import {
   GROUP_FEED_FINISHED,
   GROUP_FEED_SUCCESS,
 } from "../redux/GroupFeed";
-import httpPath from "../../lib/mode";
+import httpPath from "../../hook/useDesktop";
 import client from "../../lib/api/client";
 
 async function readGroupFeed(data: any) {
