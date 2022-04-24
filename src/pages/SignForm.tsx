@@ -64,7 +64,7 @@ const SignFormWrap = styled.div`
   padding: 120px 0;
   height: 100%;
   .signLayout {
-    width: 1024px;
+    width: 1440px;
     position: relative;
   }
 `;
