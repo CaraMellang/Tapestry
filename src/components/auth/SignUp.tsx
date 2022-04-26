@@ -129,9 +129,9 @@ export default function Signup({ setSigninToggle }: SignupProps) {
 }
 
 const SignupWrap = styled.div`
-  display: flex;
+  /* display: flex; */
   /* justify-content: center; */
-  width: 200px;
+  /* width: 200px; */
   /* box-sizing: border-box;
   margin: auto; */
 `;

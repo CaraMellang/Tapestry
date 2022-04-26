@@ -48,13 +48,15 @@ export default function SignForm({ setIsSign }: SignFormProps) {
 
   return (
     <SignFormWrap>
-      {isDesktop ? <SignBanner /> : "응아니야"}
-      <div className="signLayout">
-        {signinToggle ? (
-          <Signin setIsSign={setIsSign} setSigninToggle={setSigninToggle} />
-        ) : (
-          <Signup setSigninToggle={setSigninToggle} />
-        )}
+      <div className="signFormLayout theme-bg-element2">
+        <div className="aa">{isDesktop ? <SignBanner /> : "응아니야"}</div>
+        <div className="signLayout">
+          {signinToggle ? (
+            <Signin setIsSign={setIsSign} setSigninToggle={setSigninToggle} />
+          ) : (
+            <Signup setSigninToggle={setSigninToggle} />
+          )}
+        </div>
       </div>
     </SignFormWrap>
   );
@@ -62,9 +64,20 @@ export default function SignForm({ setIsSign }: SignFormProps) {
 
 const SignFormWrap = styled.div`
   padding: 120px 0;
-  height: 100%;
+  min-height: 100%;
+  .signFormLayout {
+    display: flex;
+    width: 1024px;
+    height: 100%;
+    margin: auto;
+    border-radius: 1rem;
+  }
   .signLayout {
-    width: 1440px;
     position: relative;
+    width: 50%;
+    /* border-left: 1px solid #9b9b9b; */
+  }
+  .aa {
+    width: 50%;
   }
 `;

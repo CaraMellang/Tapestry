@@ -46,7 +46,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
   }, [userSelector]);
 
   return (
-    <SignInWrap className="theme-bg-element2">
+    <SignInWrap>
       <Form onFinish={onSubmit} style={{ color: "inherit" }}>
         <Form.Item
           // label="Email"
@@ -96,12 +96,12 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
 }
 
 const SignInWrap = styled.div`
-  display: flex;
   /* justify-content: center; */
-  width: 200px;
-  margin: auto;
-  box-sizing: content-box;
-  padding: 20px;
-  border: #9b9b9b solid 1px;
+  /* width: 200px; */
+  /* margin: auto; */
+  /* box-sizing: content-box; */
+  /* padding: 20px; */
+  /* border: #9b9b9b solid 1px; */
   border-radius: 12px;
+  padding: 4rem;
 `;
