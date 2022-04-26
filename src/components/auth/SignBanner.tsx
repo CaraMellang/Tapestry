@@ -18,7 +18,7 @@ const SignBannerWrap = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background: #3aad6d;
+  background: var(--primary1);
   border-radius: 1rem 0 0 1rem;
   overflow: hidden;
   .circle {
@@ -35,7 +35,7 @@ const SignBannerWrap = styled.div`
   }
   .innetCircle {
     position: absolute;
-    background: #3aad6d;
+    background: var(--primary1);
     width: 126px;
     height: 126px;
     top: 50%;
