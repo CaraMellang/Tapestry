@@ -31,6 +31,7 @@ body {
     --bg-element1:white;
     --bg-element2:white;
     --bg-element3:white;
+    --primary1:#816BFF;
 }
 
 @media (prefers-color-scheme: dark) { //사용자 시스템이 다크모드일경우.
