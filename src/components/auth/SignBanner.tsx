@@ -4,8 +4,8 @@ import styled from "styled-components";
 export default function SignBanner() {
   return (
     <SignBannerWrap>
-      <div>welcome to tapestry</div>
-      <div className="circle circle1 theme-bg-element2">
+      {/* <div>welcome to tapestry</div> */}
+      <div className="circle circle1 theme-bg-element1">
         <div className="innetCircle" />
       </div>
       {/* <div className="circle circle2" />
