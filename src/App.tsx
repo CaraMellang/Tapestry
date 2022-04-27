@@ -23,6 +23,7 @@ function App() {
 
 const GlobalStyled = createGlobalStyle`
 body {
+  width:100%;
   transition: all 0.2s ease-in-out;
 }
 body {
@@ -32,6 +33,7 @@ body {
     --bg-element2:white;
     --bg-element3:white;
     --primary1:#816BFF;
+    /* --primary1:#772CE8; */
 }
 
 @media (prefers-color-scheme: dark) { //사용자 시스템이 다크모드일경우.
