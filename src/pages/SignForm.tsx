@@ -9,6 +9,7 @@ import useDesktop from "../hook/useDesktop";
 import client from "../lib/api/client";
 import { deleteCookie, getCookie, setCookie } from "../lib/cookie";
 import { SIGNIN_SUCCESS, TOKEN_REQUEST } from "../modules/redux/User";
+import media from "../lib/media";
 
 interface SignFormProps {
   setIsSign: React.Dispatch<React.SetStateAction<boolean>>;
@@ -47,9 +48,13 @@ export default function SignForm({ setIsSign }: SignFormProps) {
   }, []);
 
   return (
-    <SignFormWrap>
-      <div className="signFormLayout theme-bg-element2">
-        <div className="aa">{isDesktop ? <SignBanner /> : "응아니야"}</div>
+    <SignFormWrap isDesktop={isDesktop}>
+      <div className="signFormLayout theme-bg-element1">
+        {isDesktop && (
+          <div className="bannerLayout">
+            <SignBanner />
+          </div>
+        )}
         <div className="signLayout">
           {signinToggle ? (
             <Signin setIsSign={setIsSign} setSigninToggle={setSigninToggle} />
@@ -62,22 +67,32 @@ export default function SignForm({ setIsSign }: SignFormProps) {
   );
 }
 
-const SignFormWrap = styled.div`
-  padding: 120px 0;
+const SignFormWrap = styled.div<{ isDesktop: boolean }>`
+  padding: 4rem 0;
   min-height: 100%;
   .signFormLayout {
     display: flex;
-    width: 1024px;
+    max-width: 1024px;
     height: 100%;
     margin: auto;
     border-radius: 1rem;
+    box-shadow: 0 0.15rem 0.75rem black;
+    /* box-shadow: 0 0.15rem 1.75rem rgba(34 39 46); */
   }
   .signLayout {
     position: relative;
     width: 50%;
     /* border-left: 1px solid #9b9b9b; */
   }
-  .aa {
+  .bannerLayout {
     width: 50%;
+  }
+  ${media.large} {
+    .signFormLayout {
+      max-width: 425px;
+    }
+    .signLayout {
+      width: 100%;
+    }
   }
 `;
