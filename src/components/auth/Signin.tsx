@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import { setCookie } from "../../lib/cookie";
+import media from "../../lib/media";
 import { SIGNIN_REQUEST } from "../../modules/redux/User";
-import httpPath from "../../hook/useDesktop";
+import { ReactComponent as GoogleIcon } from "../static/svg/googleIcon.svg";
+import { ReactComponent as GithubIcon } from "../static/svg/githubIcon.svg";
+import useDesktop from "../../hook/useDesktop";
 
 interface SignInProps {
   setIsSign: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +21,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
   const [password, setPassword] = useInput("");
   const [emailError, setEmailError] = useState<null | string>(null);
   const dispatch = useDispatch();
+  const isDesktop = useDesktop();
 
   const userSelector: any = useSelector((state: any) => state.userSliceReducer);
   const userSelectorUser: any = useSelector(
@@ -31,12 +35,12 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
       window.alert("require Email && Password!");
       return;
     }
-    let reg =
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-    if (!reg.test(email)) {
-      setEmailError("잘못된 형식의 이메일입니다.");
-      return;
-    }
+    // let reg =
+    //   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    // if (!reg.test(email)) {
+    //   setEmailError("잘못된 형식의 이메일입니다.");
+    //   return;
+    // }
 
     const data = {
       email: email,
@@ -45,6 +49,15 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
 
     dispatch(SIGNIN_REQUEST(data));
   };
+
+  // useEffect(() => {
+  //   document.querySelectorAll("input").forEach((item) =>
+  //     item.addEventListener("invalid", (e) => {
+  //       e.preventDefault();
+  //     })
+  //   );
+  // }, []);
+
   useEffect(() => {
     if (userSelector.signinSucceed) {
       const accessToken = userSelectorUser.accessToken;
@@ -55,55 +68,9 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
 
   return (
     <SignInWrap>
-      <div style={{ marginBottom: "32px" }}>
-        <div className="signInHead">SignIn</div>
+      <div style={{ marginBottom: "40px" }}>
+        <div className="signInHead">{isDesktop ? "SignIn" : "Tapestry"}</div>
       </div>
-      {/* <Form onFinish={onSubmit} className="signInFormTag">
-        <Form.Item
-          // label="Email"
-          name="email"
-          rules={[{ required: true, message: "Required Email" }]}
-          style={{ marginBottom: "18px" }}
-        >
-          <Input
-            type={"email"}
-            value={email}
-            onChange={setEmail}
-            placeholder="Email"
-            className="signInFormTagInput"
-          />
-        </Form.Item>
-        <Form.Item
-          // label="Password"
-          name="password"
-          rules={[{ required: true, message: "Required Password" }]}
-          style={{ marginBottom: "18px" }}
-        >
-          <Input.Password
-            value={password}
-            onChange={setPassword}
-            placeholder="Password"
-            className="signInFormTagInput"
-          />
-        </Form.Item>
-        <a href={`${httpPath}/auth/google`} className="theme-bg-element2">
-          google login
-        </a>
-        <Form.Item
-          wrapperCol={{ offset: 8, span: 16 }}
-          style={{ marginBottom: "18px" }}
-        >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-        <div
-          className="theme-bg-element2"
-          onClick={() => setSigninToggle(false)}
-        >
-          아직 회원이 아니신가요?
-        </div>
-      </Form> */}
       <form onSubmit={onSubmit}>
         <div style={{ marginBottom: "28px" }}>
           <input
@@ -112,6 +79,8 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
             value={email}
             onChange={setEmail}
             placeholder="Email"
+            spellCheck={false}
+            required
           />
           <div className="inputWarning">{emailError}</div>
         </div>
@@ -122,6 +91,8 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
             value={password}
             onChange={setPassword}
             placeholder="Password"
+            spellCheck={false}
+            required
           />
           <div className="inputWarning"></div>
         </div>
@@ -129,9 +100,64 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
           <button type="submit">로그인</button>
         </div>
       </form>
-      <div className="theme-bg-element2" onClick={() => setSigninToggle(false)}>
-        아직 회원이 아니신가요?
+      <div
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginBottom: "18px",
+        }}
+      >
+        SNS계정으로 로그인
       </div>
+      <div style={{ display: "flex" }}>
+        <a
+          href={`http://localhost:5000/auth/google`}
+          className="theme-bg-element2"
+          style={{
+            width: "2rem",
+            height: "2rem",
+            background: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "1rem",
+            margin: "auto",
+          }}
+        >
+          <GoogleIcon />
+        </a>
+        <div
+          // href={`http://localhost:5000/auth/google`}
+          className="theme-bg-element2"
+          style={{
+            width: "2rem",
+            height: "2rem",
+            background: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "1rem",
+            margin: "auto",
+            color: "black",
+          }}
+          onClick={() => window.alert("준비중 입니다.")}
+        >
+          <GithubIcon />
+        </div>
+      </div>
+      <span
+        style={{
+          cursor: "pointer",
+          width: "fit-content",
+          margin: "auto",
+          marginTop: "18px",
+          color: "var(--primary1)",
+          fontWeight: "bold",
+        }}
+        onClick={() => setSigninToggle(false)}
+      >
+        아직 회원이 아니신가요?
+      </span>
     </SignInWrap>
   );
 }
@@ -146,7 +172,7 @@ const SignInWrap = styled.div`
     font-size: 24px;
     font-weight: bold;
     color: var(--primary1);
-    border-bottom: 5px solid var(--primary1);
+    /* border-bottom: 2px solid var(--primary1); */
     padding-bottom: 2px;
     margin: auto;
   }
@@ -155,7 +181,7 @@ const SignInWrap = styled.div`
   }
   .signInFormTagInput {
     width: 100%;
-    background-color: var(--bg-element2);
+    background-color: var(--bg-element1);
     color: var(--color-text);
     border: 0;
     padding-bottom: 0.5rem;
@@ -169,8 +195,13 @@ const SignInWrap = styled.div`
   button {
     width: 100%;
     background: var(--primary1);
+    color: white;
     padding: 12px 0;
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  ${media.small} {
+    padding: 4rem 0.5rem;
   }
 `;
