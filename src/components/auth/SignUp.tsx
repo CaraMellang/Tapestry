@@ -169,6 +169,9 @@ const SignupWrap = styled.div`
     border-radius: 4px;
     cursor: pointer;
   }
+  button:hover {
+    background: var(--primary2);
+  }
   ${media.small} {
     padding: 4rem 0.5rem;
   }

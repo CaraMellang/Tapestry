@@ -111,7 +111,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
       </div>
       <div style={{ display: "flex" }}>
         <a
-          href={`http://localhost:5000/auth/google`}
+          href={`http://localhost:4000/auth/google`}
           className="theme-bg-element2"
           style={{
             width: "2rem",
@@ -127,7 +127,7 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
           <GoogleIcon />
         </a>
         <div
-          // href={`http://localhost:5000/auth/google`}
+          // href={`http://localhost:4000/auth/google`}
           className="theme-bg-element2"
           style={{
             width: "2rem",
@@ -199,6 +199,9 @@ const SignInWrap = styled.div`
     padding: 12px 0;
     border-radius: 4px;
     cursor: pointer;
+  }
+  button:hover {
+    background: var(--primary2);
   }
 
   ${media.small} {
