@@ -33,6 +33,7 @@ body {
     --bg-element2:white;
     --bg-element3:white;
     --primary1:#816BFF;
+    --primary2:#6E58FF;
     /* --primary1:#772CE8; */
 }
 
@@ -43,6 +44,7 @@ body {
     --bg-element1:#1E1E1E;
     --bg-element2:#1E1E1E;
     --bg-element3:#1E1C1C;
+    --bg-element4:#303030;
   }
 }
 body[data-theme="light"]{
