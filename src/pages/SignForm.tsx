@@ -68,11 +68,12 @@ export default function SignForm({ setIsSign }: SignFormProps) {
 }
 
 const SignFormWrap = styled.div<{ isDesktop: boolean }>`
-  padding: 4rem 0;
+  display: flex;
+  align-items: center;
   min-height: 100%;
   .signFormLayout {
     display: flex;
-    max-width: 1024px;
+    width: 1024px;
     height: 100%;
     margin: auto;
     border-radius: 1rem;
