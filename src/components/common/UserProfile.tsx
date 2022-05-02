@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import UserProfileDropDown from "./UserProfileDropDown";
 
 export default function UserProfile() {
   const [isActive, setIsActive] = useState(false);
+  const profileRef = useRef(null);
   const userImg = useSelector(
     (state: any) => state.userSliceReducer.user.user_img
   );
 
+  const onClickOutSide = () => {
+    if (profileRef.current !== null && isActive === true) {
+      setIsActive(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", onClickOutSide);
+    return () => {
+      window.removeEventListener("click", onClickOutSide);
+    };
+  }, [isActive, profileRef]);
+
   return (
-    <UserProfileWrap>
-      {/* <details>
-      <summary
-        className="profile-img"
-        onClick={() => setIsActive((prev) => !prev)}
-      >
-        <img src={userImg} />
-        <span className="profile-dropdown-caret"></span>
-      </summary>
-      {<UserProfileDropDown />}
-    </details> */}
+    <UserProfileWrap ref={profileRef}>
       <div style={{ cursor: "pointer" }}>
         <div
           className="profile-img-area"
@@ -41,17 +45,6 @@ const UserProfileWrap = styled.div`
   .profile-img {
     height: 100%;
   }
-  /* details {
-    list-style: none;
-    cursor: pointer;
-  }
-  summary::marker {
-    font-size: 0;
-  }
-  summary {
-    display: flex;
-    align-items: center;
-  } */
   .profile-img-area {
     display: flex;
     align-items: center;
