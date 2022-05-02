@@ -53,10 +53,10 @@ function Main() {
                 <Route path="post" element={<GroupBody />} />
                 <Route path={`member`} element={<GroupMember />} />
               </Route>
-              <Route path={`/search/:search`} element={<Search />}>
-                <Route path={`group`} element={<SearchListGroup />} />
-                <Route path={`post`} element={<SearchListPost />} />
-                <Route path={`user`} element={<SearchListUser />} />
+              <Route path={`/search`} element={<Search />}>
+                <Route path={`group/:search`} element={<SearchListGroup />} />
+                <Route path={`post/:search`} element={<SearchListPost />} />
+                <Route path={`user/:search`} element={<SearchListUser />} />
               </Route>
               {/* <Route path={`/groupdetail/:_id/*`} element={<GroupDetail />} /> */}
               <Route path="*" element={<div>없는 페이지입니다</div>} />
