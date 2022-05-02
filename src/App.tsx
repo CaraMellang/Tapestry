@@ -32,6 +32,7 @@ body {
     --bg-element1:white;
     --bg-element2:white;
     --bg-element3:white;
+    --fixed-bg1:#1E1E1E;
     --primary1:#816BFF;
     --primary2:#6E58FF;
     /* --primary1:#772CE8; */
