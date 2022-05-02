@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Outlet, Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
+import SearchInput from "../components/common/SearchInput";
 import SearchHeader from "../components/search/SearchHeader";
 import SearchListGroup from "../components/search/SearchListGroup";
 import SearchListPost from "../components/search/SearchListPost";
 import SearchListUser from "../components/search/SearchListUser";
+import media from "../lib/media";
 
 export default function Search() {
   const [searchType, setSearchType] = useState("group");
   return (
     <SearchWrap>
+      <SearchInput />
       <SearchHeader setSearchType={setSearchType} />
       <Outlet />
       {/* <SearchList /> */}
@@ -17,4 +20,11 @@ export default function Search() {
   );
 }
 
-const SearchWrap = styled.div``;
+const SearchWrap = styled.div`
+  width: 1024px;
+  margin: auto;
+  ${media.large} {
+    width: 100%;
+    padding: 0 1rem;
+  }
+`;
