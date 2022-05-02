@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 interface SearchHeaderProps {
@@ -7,12 +7,15 @@ interface SearchHeaderProps {
 }
 
 export default function SearchHeader({ setSearchType }: SearchHeaderProps) {
+  const { search } = useParams();
   return (
     <SearchHeaderWrap>
       <h1>search hedaer</h1>
       <NavLink
-        to={`group`}
-        style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
+        to={`group/${search}`}
+        style={({ isActive }) => ({
+          color: isActive ? `green` : `inherit`,
+        })}
         onClick={() => {
           setSearchType("group");
         }}
@@ -20,8 +23,10 @@ export default function SearchHeader({ setSearchType }: SearchHeaderProps) {
         그룹
       </NavLink>
       <NavLink
-        to={`post`}
-        style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
+        to={`post/${search}`}
+        style={({ isActive }) => ({
+          color: isActive ? `green` : `inherit`,
+        })}
         onClick={() => {
           setSearchType("post");
         }}
@@ -29,8 +34,10 @@ export default function SearchHeader({ setSearchType }: SearchHeaderProps) {
         게시글
       </NavLink>
       <NavLink
-        to={`user`}
-        style={({ isActive }) => ({ color: isActive ? `green` : `black` })}
+        to={`user/${search}`}
+        style={({ isActive }) => ({
+          color: isActive ? `green` : `inherit`,
+        })}
         onClick={() => {
           setSearchType("user");
         }}
