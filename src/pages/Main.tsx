@@ -16,9 +16,11 @@ import GroupMember from "../components/group/groupDetail/groupMain/GroupMember";
 import SearchListGroup from "../components/search/SearchListGroup";
 import SearchListPost from "../components/search/SearchListPost";
 import SearchListUser from "../components/search/SearchListUser";
+import useScroll from "../hook/useScroll";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
+  const [scrollY, topDirection] = useScroll();
 
   useLayoutEffect(() => {
     if (localStorage.getItem("theme") === null) {
@@ -36,7 +38,7 @@ function Main() {
   return (
     <BrowserRouter>
       {!isSign && <Header />}
-      <MainWrapper isSign={isSign}>
+      <MainWrapper isSign={isSign} scrollY={scrollY}>
         <Routes>
           {isSign ? (
             <Route index element={<SignForm setIsSign={setIsSign} />} />
@@ -69,9 +71,7 @@ function Main() {
 }
 export default Main;
 
-const MainWrapper = styled.div<{ isSign: boolean }>`
+const MainWrapper = styled.div<{ isSign: boolean; scrollY: number }>`
   ${(props) => props.isSign && `height:100%;`}
-  div {
-    /* color: red; */
-  }
+  ${({ scrollY }) => (scrollY > 64 ? "margin-top: 64px" : "")};
 `;
