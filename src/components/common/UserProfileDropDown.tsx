@@ -55,6 +55,11 @@ const UserProfileDropDownWrap = styled.div`
   background: var(--bg-element2);
   z-index: 22;
   .dropdown-menu-item {
+    display: block;
     padding: 0.75rem 1rem;
+    transition: none;
+  }
+  .dropdown-menu-item:hover {
+    color: var(--primary1);
   }
 `;
