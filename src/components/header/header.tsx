@@ -1,109 +1,70 @@
-import Form from "antd/lib/form/Form";
-import { Input } from "antd";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { deleteCookie } from "../../lib/cookie";
-import SearchInput from "../common/SearchInput";
 import { ReactComponent as FeedIcon } from "../static/svg/feedIcon.svg";
 import useDesktop from "../../hook/useDesktop";
 import SearchBtn from "../common/SearchBtn";
 import UserProfile from "../common/UserProfile";
+import useScroll from "../../hook/useScroll";
 
 function Header() {
   const navigate = useNavigate();
-  const selector = useSelector((state: any) => state.userSliceReducer);
   const isDesktop = useDesktop();
-  // const { Search } = Input;
-
-  console.log();
-  const onSearch = (e: string) => {
-    console.log("Search test", e);
-    navigate(`/search/${e}/group`);
-  };
+  const [scrollY, topDirection] = useScroll();
 
   return (
-    <HeaderWrap>
-      <div>
-        <Link className="header-item" to={`/`}>
-          Tapestry
-        </Link>
-      </div>
-      {/* <div style={{ width: "33.3%" }}>Tapestry</div> */}
-      {/* <Search placeholder="input search text" onSearch={onSearch} enterButton /> */}
-      <div style={{ display: "flex" }}>
-        {/* <NavLink
-          to={`/`}
-          style={({ isActive }) => ({
-            color: isActive ? `green` : `inherit`,
-          })}
-        >
-          메인~
-        </NavLink>
-        <NavLink
-          to={`/feed`}
-          style={({ isActive }) => ({
-            color: isActive ? `green` : `inherit`,
-          })}
-        >
-          피드
-        </NavLink> */}
-        <Link className="header-item" to={`/feed`}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {isDesktop ? (
-              <div>새글피드</div>
-            ) : (
-              <FeedIcon
-                style={{
-                  width: "24px",
-                  height: "24px",
-                }}
-              />
-            )}
-          </div>
-        </Link>
-        <NavLink
-          className={"header-item"}
-          to={`/profile/${selector.user.userId}`}
-          style={({ isActive }) => ({
-            color: isActive ? `green` : `inherit`,
-          })}
-        >
-          프로파일
-        </NavLink>
-        {/* <Search /> */}
-        <Link className="header-item search-item" to={`/search`}>
-          <SearchBtn />
-        </Link>
-        <UserProfile />
-        {/* <div
-          className="theme-bg-element2 header-item"
-          onClick={() => {
-            deleteCookie("access_token");
-            window.location.replace(`/`);
-          }}
-        >
-          로그아웃
-        </div> */}
+    <HeaderWrap scrollY={scrollY}>
+      <div className="header-wrap">
+        <div>
+          <Link className="header-item" to={`/`}>
+            Tapestry
+          </Link>
+        </div>
+        <div style={{ display: "flex" }}>
+          <Link className="header-item" to={`/feed`}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {isDesktop ? (
+                <div>새글피드</div>
+              ) : (
+                <FeedIcon
+                  style={{
+                    width: "24px",
+                    height: "24px",
+                  }}
+                />
+              )}
+            </div>
+          </Link>
+          <Link className="header-item search-item" to={`/search`}>
+            <SearchBtn />
+          </Link>
+          <UserProfile />
+        </div>
       </div>
     </HeaderWrap>
   );
 }
 export default Header;
 
-const HeaderWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 1340px;
-  height: 50px;
-  align-items: center;
-  margin: auto;
+const HeaderWrap = styled.div<{ scrollY: number }>`
+  position: ${({ scrollY }) => (scrollY >= 64 ? "fixed" : "static")};
+  top: 0;
+  width: 100%;
+  background: var(--bg-element2);
+  z-index: 22;
+  .header-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 1340px;
+    height: 4rem;
+    align-items: center;
+    margin: auto;
+  }
   .header-item {
     display: flex;
     align-items: center;
