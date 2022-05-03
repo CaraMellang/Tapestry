@@ -79,10 +79,12 @@ const HeaderWrap = styled.div<{ scrollY: number }>`
     background: var(--fixed-bg1);
   }
   @media (max-width: 1440px) {
-    width: 1024px;
+    padding: 0 1rem;
+    .header-wrap {
+      width: 100%;
+    }
   }
   @media (max-width: 1024px) {
     width: 100%;
-    padding: 0 1rem;
   }
 `;
