@@ -37,7 +37,6 @@ export default function GroupList() {
 
   return (
     <GroupListWrap>
-      <div>그룹목록</div>
       <div className="box-list-layer">
         {groupsSelector.groups ? (
           groupsSelector.groups.map((item: any, index: number) => {
@@ -49,20 +48,10 @@ export default function GroupList() {
                     className="box theme-bg-element2"
                   >
                     <div className="box-img">
-                      <img
-                        style={{
-                          width: "100%",
-                          borderRadius: "12px 12px 0 0",
-                        }}
-                        alt=""
-                        src={item.group_img}
-                      />
+                      <img alt="그룹의 대표 이미지" src={item.group_img} />
                     </div>
                     <div className="box-title">
                       <div>{item.group_name}</div>
-                      {/* <div>[그룹인원] {item.group_people_count} 명</div>
-                      <div>[주인장] {item.owner_id.user_name}</div>
-                      <div>[그룹설명] {item.group_description}</div> */}
                     </div>
                   </Link>
                 </div>
@@ -81,6 +70,7 @@ export default function GroupList() {
 }
 
 const GroupListWrap = styled.div`
+  padding-top: 4rem;
   .box-list-layer {
     width: 100%;
     display: flex;
@@ -108,7 +98,7 @@ const GroupListWrap = styled.div`
   .box-img {
     background-color: white;
     width: 100%;
-    height: 15rem;
+    height: 20rem;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
   }
@@ -116,5 +106,11 @@ const GroupListWrap = styled.div`
     /* background-color: beige; */
     border-radius: 0 0 12px 12px;
     padding: 10px;
+  }
+  img {
+    width: 100%;
+    color: black;
+    height: 20rem;
+    border-radius: 12px 12px 0 0;
   }
 `;
