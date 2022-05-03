@@ -33,11 +33,9 @@ export default function GroupLeftSide({
       return;
     }
     try {
-      const data = await client.post(
-        `/group/joingroup`,
-        { group_id: groupDetail._id },
-        
-      );
+      const data = await client.post(`/group/joingroup`, {
+        group_id: groupDetail._id,
+      });
       dispatch(TOKEN_REQUEST(token)); //바뀐정보 갱신
       window.alert("가입완료");
       setGroupDetail({ ...groupDetail, _id: null });
@@ -51,11 +49,9 @@ export default function GroupLeftSide({
     if (userId === groupDetail.owner_id._id)
       return window.alert("그룹 생성자는 탈퇴가 불가합니다."); //이후 양도하는 방식, 그룹 삭제 추가예정
     try {
-      const data = await client.post(
-        `/group/leavegroup`,
-        { group_id: groupDetail._id },
-        
-      );
+      const data = await client.post(`/group/leavegroup`, {
+        group_id: groupDetail._id,
+      });
       dispatch(TOKEN_REQUEST(token));
       window.alert("완료");
       setGroupDetail({ ...groupDetail, _id: null });
@@ -69,7 +65,11 @@ export default function GroupLeftSide({
     <GroupLeftSideWrap>
       <div className="info_layout theme-bg-element2">
         <div className="info_layout_cover_img" style={{ overflow: "hidden" }}>
-          <img style={{ width: "100%" }} src={groupDetail.group_img} />
+          <img
+            style={{ width: "100%", height: "150px" }}
+            src={groupDetail.group_img}
+            alt={`그룹의 대표이미지`}
+          />
         </div>
         <div className="info_layout_bot">
           <h2>{groupDetail.group_name}</h2>
@@ -106,13 +106,13 @@ const GroupLeftSideWrap = styled.aside`
     width: 250px;
     position: fixed;
     box-sizing: border-box;
-    border-radius: 12px;
+    border-radius: 0.5rem;
     overflow: hidden;
-    transform: translateX(-16px);
+    /* transform: translateX(-16px); */
   }
   .info_layout_cover_img {
     background-color: gray;
-    height: 100px;
+    height: 150px;
   }
   .info_layout_bot {
     box-sizing: border-box;
@@ -125,7 +125,7 @@ const GroupLeftSideWrap = styled.aside`
     width: 100%;
     border: none;
     padding: 6px 15px;
-    border-radius: 12px;
+    border-radius: 0.5rem;
     background-color: #00c471;
     color: white;
     cursor: pointer;
