@@ -17,8 +17,8 @@ interface SignInProps {
 }
 
 export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
-  const [email, setEmail] = useInput("");
-  const [password, setPassword] = useInput("");
+  const [email, onChangeEmail, setEmail] = useInput("");
+  const [password, onChangePassword, setPassword] = useInput("");
   const [emailError, setEmailError] = useState<null | string>(null);
   const dispatch = useDispatch();
   const isDesktop = useDesktop();
@@ -48,6 +48,8 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
     };
 
     dispatch(SIGNIN_REQUEST(data));
+    setEmail("");
+    setPassword("");
   };
 
   // useEffect(() => {
@@ -77,37 +79,31 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
             type={"email"}
             className="signInFormTagInput"
             value={email}
-            onChange={setEmail}
+            onChange={onChangeEmail}
             placeholder="Email"
             spellCheck={false}
             required
           />
-          <div className="inputWarning">{emailError}</div>
+          <div className="input-warning">{emailError}</div>
         </div>
         <div style={{ marginBottom: "28px" }}>
           <input
             type={"password"}
             className="signInFormTagInput"
             value={password}
-            onChange={setPassword}
+            onChange={onChangePassword}
             placeholder="Password"
             spellCheck={false}
             required
           />
-          <div className="inputWarning"></div>
+          <div className="input-warning"></div>
         </div>
         <div style={{ marginBottom: "28px" }}>
           <button type="submit">로그인</button>
         </div>
       </form>
-      <div
-        style={{
-          fontWeight: "bold",
-          textAlign: "center",
-          marginBottom: "18px",
-        }}
-      >
-        SNS계정으로 로그인
+      <div className="sns-signin-wrap">
+        <span className="sns-signin-text">SNS계정으로 로그인</span>
       </div>
       <div style={{ display: "flex" }}>
         <a
@@ -187,10 +183,33 @@ const SignInWrap = styled.div`
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--primary1);
   }
-  .inputWarning {
+  .input-warning {
     margin: 8px 0;
     color: #c21842;
     height: 25px;
+  }
+  .sns-signin-wrap {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sns-signin-wrap:before {
+    content: "";
+    position: absolute;
+    border-top: 1px solid #d0d1d4;
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+  .sns-signin-text {
+    padding: 0 0.5rem;
+    background-color: var(--bg-element1);
+    z-index: 20;
   }
   button {
     width: 100%;
