@@ -22,19 +22,13 @@ export function* postUser(action: any): Generator {
     yield put(SIGNIN_SUCCESS(data));
   } catch (err) {
     console.log(err);
+    window.alert("아이디 혹은 패스워드가 틀립니다!");
     yield put(SIGNIN_FAILED(err));
   }
 }
 
 function postToken(data: any) {
   return client.post(`/auth/verify`, ".");
-  return axios.post(
-    `${httpPath}/auth/verify`,
-    { key: "value" },
-    {
-      headers: { Authorization: `Bearer ${data}` },
-    }
-  );
 }
 
 export function* postUserToken(action: any): Generator {
