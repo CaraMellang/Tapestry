@@ -30,7 +30,7 @@ export interface groupDetailInterface {
 
 export default function GroupDetail() {
   const userSelector = useSelector((state: any) => state.userSliceReducer);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [groupDetail, setGroupDetail] = useState<groupDetailInterface>({
     _id: null,
     group_description: "string;",
@@ -66,7 +66,7 @@ export default function GroupDetail() {
         });
 
         setGroupDetail(Group);
-        dispatch(TOKEN_REQUEST(''))
+        dispatch(TOKEN_REQUEST(""));
         setDetailLoading(false);
       } catch (err) {
         console.log(err);
@@ -95,8 +95,6 @@ export default function GroupDetail() {
 
   return (
     <GroupDetailWrap>
-      <h1>그룹 디테일 페이지</h1>
-      <div>해당 그룹의 아이디 {{ _id }._id}</div>
       <div className="layout_view">
         {detailLoading ? (
           <Loading />
@@ -122,9 +120,8 @@ const GroupDetailWrap = styled.div`
     min-height: 500px;
   }
   .main_layout {
-    width: 1200px;
     height: 100%;
     display: flex;
-    margin: auto;
+    justify-content: space-between;
   }
 `;

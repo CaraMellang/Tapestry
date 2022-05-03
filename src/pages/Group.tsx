@@ -10,7 +10,6 @@ export default function Group() {
   console.log(_id);
   return (
     <GroupWrap>
-      <div>{_id}</div>
       <GroupHeader />
       {/* <GroupBody group_id={_id} /> */}
       <GroupDetail />
@@ -18,4 +17,7 @@ export default function Group() {
   );
 }
 
-const GroupWrap = styled.div``;
+const GroupWrap = styled.div`
+  width: 1200px;
+  margin: auto;
+`;
