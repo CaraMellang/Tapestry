@@ -96,21 +96,23 @@ const GroupListWrap = styled.div`
     transition: 0.3s;
   }
   .box-img {
-    background-color: white;
     width: 100%;
-    height: 20rem;
+    height: 15rem;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
   }
   .box-title {
     /* background-color: beige; */
     border-radius: 0 0 12px 12px;
-    padding: 10px;
+    padding: 1.5rem 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
   }
   img {
     width: 100%;
     color: black;
-    height: 20rem;
+    height: 100%;
     border-radius: 12px 12px 0 0;
   }
 `;
