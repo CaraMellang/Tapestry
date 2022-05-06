@@ -41,6 +41,7 @@ const GroupCreatePostWrap = styled.div`
     font-weight: bold;
     height: 100px;
     background: #7a7979;
+    border-radius: 0.5rem;
     cursor: pointer;
   }
 `;
