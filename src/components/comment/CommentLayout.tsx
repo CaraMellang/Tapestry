@@ -32,9 +32,9 @@ export default function CommentLayout({
     requestParantComment();
   };
 
-  useEffect(()=>{
-    requestParantComment()
-  },[])
+  useEffect(() => {
+    requestParantComment();
+  }, []);
 
   return (
     <CommentLayoutWrap>
@@ -49,4 +49,6 @@ export default function CommentLayout({
   );
 }
 
-const CommentLayoutWrap = styled.section``;
+const CommentLayoutWrap = styled.section`
+  margin-top: 1rem;
+`;

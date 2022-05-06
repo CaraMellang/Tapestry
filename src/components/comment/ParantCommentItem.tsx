@@ -27,10 +27,12 @@ export default function ParantCommentItem({
   const [isShowChild, setIsShowChild] = useState(false);
 
   const onClickDelete = async () => {
-    const isDelete = window.confirm("정말 삭제하시겠습니까?")
-    if(!isDelete) return
+    const isDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (!isDelete) return;
     try {
-      await client.delete(`/comment/parant/delete`, { data: { comment_id: _id } });
+      await client.delete(`/comment/parant/delete`, {
+        data: { comment_id: _id },
+      });
       onParantReloading();
     } catch (err) {
       console.log(err);
@@ -65,7 +67,7 @@ export default function ParantCommentItem({
           삭제
         </button>
         <div>{text}</div>
-        <div style={{ color: "gray" }}>{_id}</div>
+        {/* <div style={{ color: "gray" }}>{_id}</div> */}
         <div
           style={{ color: "gray", cursor: "pointer" }}
           onClick={() => {
@@ -92,7 +94,7 @@ export default function ParantCommentItem({
 
 const ParantCommentItmeWrap = styled.div`
   display: flex;
-  background: #553f3f;
+  /* background: #553f3f; */
   .parantUserImg {
     margin-left: 5px;
     margin-top: 5px;
