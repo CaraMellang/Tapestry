@@ -13,6 +13,8 @@ import {
 } from "../../../../modules/redux/Group";
 import { ParantComment } from "../../../comment/CommentItemList";
 import CommentLayout from "../../../comment/CommentLayout";
+import PostMain from "./PostMain";
+import PostBottom from "./PostBottom";
 
 interface GroupPostItemprops {
   postItem: Post;
@@ -23,7 +25,7 @@ export default function GroupPostItem({
   postItem,
   group_id,
 }: GroupPostItemprops) {
-  const [item, setItem] = useState(postItem);
+  const [item, setItem] = useState<Post>(postItem);
   const [showComment, setShowComment] = useState(false);
   const [commentArr, setCommentArr] = useState<ParantComment[]>();
   const [parantReload, setParantReload] = useState(false);
@@ -98,34 +100,16 @@ export default function GroupPostItem({
 
   return (
     <GroupPostItemWrap>
-      <div
-        style={{
-          border: "1px solid white",
-          padding: "10px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div>{item.group_id.group_name}</div>
-        <div>
-          {item.text.split("\n").map((item: string, index: number) => {
-            //나중에 섹쉬하게 코드를 정돈해보자
-            return (
-              <span key={index}>
-                {item} <br />
-              </span>
-            );
-          })}
-        </div>
-        <div>
-          {item.owner_id.user_name ? item.owner_id.user_name : "알수없음"}
-        </div>
-        <div>{new Date(item.created_at).getFullYear()}년</div>
-        <div>
-          {item.images.map((imgUrl: string, index: number) => (
-            <img key={index} className="post-img" alt="??" src={imgUrl} />
-          ))}
-        </div>
-        <div>
+      <PostMain item={item} />
+      <PostBottom
+        item={item}
+        isLike={isLike}
+        onClickLike={onClickLike}
+        onClickDislike={onClickDislike}
+        showComment={showComment}
+        setShowComment={setShowComment}
+      />
+      {/* <div>
           {isLike ? (
             <div onClick={onClickDislike}>♥좋아요</div>
           ) : (
@@ -141,7 +125,6 @@ export default function GroupPostItem({
         >
           댓글 나와주세요(댓글 수 {item.comment.length})
         </button>
-      </div>
       <div>
         {showComment && (
           <CommentLayout
@@ -150,8 +133,8 @@ export default function GroupPostItem({
             postId={item._id}
           />
         )}
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         {userId === item.owner_id._id ? (
           <button className="theme-bg-element1" onClick={onDeleteClick}>
             삭제
@@ -159,7 +142,7 @@ export default function GroupPostItem({
         ) : (
           "삭제권한 없음"
         )}
-      </div>
+      </div> */}
     </GroupPostItemWrap>
   );
 }
@@ -168,4 +151,7 @@ const GroupPostItemWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 10px;
+  background: var(--bg-element4);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 `;
