@@ -19,9 +19,13 @@ export default function DateFormat(dateValue: string | Date) {
       currentDate.getDate() === itemDate.get("date") &&
       currentDate.getHours() - dayjs(itemDate).get("hour") === 0
     ) {
-      setFormat(
-        `${currentDate.getMinutes() - dayjs(itemDate).get("minute")}분 전`
-      );
+      if(currentDate.getMinutes() - dayjs(itemDate).get("minute") === 0){
+        setFormat("방금 전");
+      }else{
+        setFormat(
+          `${currentDate.getMinutes() - dayjs(itemDate).get("minute")}분 전`
+        );
+      }
     } else if (
       currentDate.getFullYear() === itemDate.get("year") &&
       currentDate.getMonth() + 1 === itemDate.get("month") + 1 &&
