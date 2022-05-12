@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import React from "react";
 import styled from "styled-components";
 import { Post } from "../../../../modules/redux/Group";
-import DateFormat from "../../../common/DateFormat";
+import DateFormat from "../../../../hook/DateFormat";
 import { ReactComponent as MenuOption } from "../../../static/svg/menuOption.svg";
 
 interface PostBodyProps {
