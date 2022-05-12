@@ -13,7 +13,7 @@ import {
 } from "../../../../modules/redux/Group";
 import { ParantComment } from "../../../comment/CommentItemList";
 import CommentLayout from "../../../comment/CommentLayout";
-import PostMain from "./PostMain";
+import PostBody from "./PostBody";
 import PostBottom from "./PostBottom";
 
 interface GroupPostItemprops {
@@ -100,7 +100,7 @@ export default function GroupPostItem({
 
   return (
     <GroupPostItemWrap>
-      <PostMain item={item} />
+      <PostBody item={item} />
       <PostBottom
         item={item}
         isLike={isLike}
