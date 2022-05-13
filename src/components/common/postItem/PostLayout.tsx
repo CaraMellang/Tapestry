@@ -1,36 +1,60 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import client from "../../../lib/api/client";
 import { Post } from "../../../modules/redux/Group";
 import Loading from "../../Loading";
 import PostCard from "./PostCard";
 
 interface PostLayoutProps {
-  option: "groupfeed" | "newfeed" | "popularfeed";
+  option?: "groupfeed" | "newfeed" | "popularfeed";
 }
 
 export default function PostLayout({ option }: PostLayoutProps) {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const [feeds,setFeeds] = useState<Post[]>([]);
+  const [feeds, setFeeds] = useState<Post[]>([]);
+  // let feeds: Post[] = [];
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [pageEnd, setPageEnd] = useState<boolean>(false);
   const userGroups = useSelector(
     (state: any) => state.userSliceReducer.user.group
   ); //groupfeed인 경우
 
   const onIntersect = useCallback(
-    (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    async (
+      entries: IntersectionObserverEntry[],
+      observer: IntersectionObserver
+    ) => {
+      console.log("실행");
       if (entries[0].intersectionRatio <= 0)
         return console.log("인터섹션라티오", entries[0].intersectionRatio);
-      if (entries[0].isIntersecting && loading === false) {
-        const data = {
-          group_arr: userGroups, //배열 | string
+      if (entries[0].isIntersecting && loading === false && pageEnd === false) {
+        const sendData = {
+          search: userGroups, //배열 | string
           page: pageNumber,
         };
+        console.log(pageEnd);
+        try {
+          setLoading(true);
+          const { data } = await client.get(`/post/feeds`, {
+            params: sendData,
+          });
+          console.log(data);
+          setFeeds((prev) => [...prev, ...data.data]);
+          // feeds.push(...data.data);
+          setPageNumber((prev) => prev + 1);
+          setPageEnd(data.page_end);
+          console.log("시밤", feeds, pageEnd, pageNumber, loading);
+          setLoading(false);
+        } catch (err: any) {
+          setLoading(false);
+          console.dir(err);
+          setPageEnd(err.response.data.page_end); //페이지 종료여부
+        }
       }
     },
-    []
+    [feeds, loading, pageNumber, userGroups, pageEnd]
   );
   useEffect(() => {
     if (target) {
@@ -43,9 +67,12 @@ export default function PostLayout({ option }: PostLayoutProps) {
       };
     }
   }, [target, onIntersect]);
+
   return (
     <PostLayoutWrap>
-      <PostCard />
+      {feeds.map((item) => (
+        <PostCard key={item._id} item={item} />
+      ))}
       {loading && pageEnd === false ? (
         <Loading />
       ) : (
