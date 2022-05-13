@@ -1,17 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import PostLayout from "../common/postItem/PostLayout";
 import Loading from "../Loading";
 
 export default function NewFeed() {
-  const [posts, setPosts] = useState<Object[]>([{}]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
   return (
-    <div>
-      <h1>새로운피드</h1>
-    </div>
+    <NewFeedWrap>
+      <PostLayout />
+    </NewFeedWrap>
   );
 }
+
+const NewFeedWrap = styled.div``
