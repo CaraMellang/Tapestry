@@ -10,8 +10,8 @@ interface PostBodyProps {
 }
 
 export default function PostBody({ item }: PostBodyProps) {
-  const testDate = DateFormat(item.created_at);
-  console.log("z", testDate);
+  const formatDate = DateFormat(item.created_at);
+  console.log("z", formatDate);
 
   return (
     <PostBodyWrap>
@@ -37,7 +37,7 @@ export default function PostBody({ item }: PostBodyProps) {
             <div>
               {item.owner_id.user_name ? item.owner_id.user_name : "알수없음"}
             </div>
-            <div>{testDate}</div>
+            <div>{formatDate}</div>
             {/* <div>
               {dayjs(item.created_at).get("hour") < 12
                 ? dayjs(item.created_at).format("YYYY년MM월DD일 A오전 HH:mm")

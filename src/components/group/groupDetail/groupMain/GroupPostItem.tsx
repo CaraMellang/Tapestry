@@ -110,31 +110,6 @@ export default function GroupPostItem({
         setShowComment={setShowComment}
       />
       {/* <div>
-          {isLike ? (
-            <div onClick={onClickDislike}>♥좋아요</div>
-          ) : (
-            <div onClick={onClickLike}>♡좋아요 누르기</div>
-          )}
-        </div>
-        <div>좋아요 수{item.like_count}</div>
-        <button
-          className="theme-bg-element1"
-          onClick={() => {
-            setShowComment((prev) => !prev);
-          }}
-        >
-          댓글 나와주세요(댓글 수 {item.comment.length})
-        </button>
-      <div>
-        {showComment && (
-          <CommentLayout
-            firstCommentArr={item.comment}
-            ownerId={item.owner_id._id}
-            postId={item._id}
-          />
-        )}
-      </div> */}
-      {/* <div>
         {userId === item.owner_id._id ? (
           <button className="theme-bg-element1" onClick={onDeleteClick}>
             삭제
