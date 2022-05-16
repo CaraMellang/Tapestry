@@ -68,7 +68,7 @@ export default function PostLayout({ option }: PostLayoutProps) {
   return (
     <PostLayoutWrap>
       {feeds.map((item) => (
-        <PostCard key={item._id} item={item} />
+        <PostCard key={item._id} postItem={item} />
       ))}
       {loading && pageEnd === false ? (
         <Loading />
