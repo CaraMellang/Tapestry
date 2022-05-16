@@ -26,9 +26,7 @@ export default function PostLayout({ option }: PostLayoutProps) {
       entries: IntersectionObserverEntry[],
       observer: IntersectionObserver
     ) => {
-      console.log("실행");
-      if (entries[0].intersectionRatio <= 0)
-        return console.log("인터섹션라티오", entries[0].intersectionRatio);
+      if (entries[0].intersectionRatio <= 0) return;
       if (entries[0].isIntersecting && loading === false && pageEnd === false) {
         const sendData = {
           search: userGroups, //배열 | string
@@ -45,7 +43,6 @@ export default function PostLayout({ option }: PostLayoutProps) {
           // feeds.push(...data.data);
           setPageNumber((prev) => prev + 1);
           setPageEnd(data.page_end);
-          console.log("시밤", feeds, pageEnd, pageNumber, loading);
           setLoading(false);
         } catch (err: any) {
           setLoading(false);
@@ -83,4 +80,6 @@ export default function PostLayout({ option }: PostLayoutProps) {
   );
 }
 
-const PostLayoutWrap = styled.div``;
+const PostLayoutWrap = styled.div`
+  width: 950px;
+`;

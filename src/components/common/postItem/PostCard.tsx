@@ -7,12 +7,7 @@ interface PostCardProps {
 }
 
 export default function PostCard({ item }: PostCardProps) {
-  return (
-    <PostCardWrap>
-      {item.group_id.group_name}
-      {item.text}
-    </PostCardWrap>
-  );
+  return <PostCardWrap>{item.text}</PostCardWrap>;
 }
 
 const PostCardWrap = styled.div``;
