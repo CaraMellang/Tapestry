@@ -35,7 +35,7 @@ export default function PostLayout({ option }: PostLayoutProps) {
         console.log(pageEnd);
         try {
           setLoading(true);
-          const { data } = await client.get(`/post/feeds`, {
+          const { data } = await client.get(`/post/${option}`, {
             params: sendData,
           });
           console.log(data);
