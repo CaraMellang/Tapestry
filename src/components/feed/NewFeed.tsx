@@ -7,7 +7,7 @@ import Loading from "../Loading";
 export default function NewFeed() {
   return (
     <NewFeedWrap>
-      <PostLayout />
+      <PostLayout option="newfeed" />
     </NewFeedWrap>
   );
 }

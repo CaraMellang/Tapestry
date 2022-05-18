@@ -8,7 +8,7 @@ export default function GroupFeed() {
   return (
     <GroupFeedWrap>
       <MyGroupList />
-      <PostLayout />
+      <PostLayout option="groupfeed" />
     </GroupFeedWrap>
   );
 }
