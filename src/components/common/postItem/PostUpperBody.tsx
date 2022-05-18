@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DateFormat from "../../../hook/DateFormat";
 import { Post } from "../../../modules/redux/Group";
@@ -25,20 +26,39 @@ export default function PostUpperBody({ item }: PostUpperBodyProps) {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>{item.owner_id.user_name}</div>
-            <div>{formatDate}</div>
+            <div>
+              <span>{item.owner_id.user_name} </span>
+              <Link to={`/group/${item.group_id._id}/post`}>
+                - {item.group_id.group_name}
+              </Link>
+            </div>
+            <div style={{ color: "gray" }}>{formatDate}</div>
           </div>
           <div className="menuoption-wrap">
             <MenuOption width={40} height={40} />
           </div>
         </div>
       </div>
-      <div>{item.text}</div>
+      <div style={{ marginTop: "1rem" }}>
+        {item.text.split("\n").map((item: string, index: number) => {
+          return (
+            <span key={index}>
+              {item} <br />
+            </span>
+          );
+        })}
+      </div>
+      <div>
+        {item.images.map((imgUrl: string, index: number) => (
+          <img key={index} className="post-img" alt="??" src={imgUrl} />
+        ))}
+      </div>
     </PostUpperBodyWrap>
   );
 }
 
 const PostUpperBodyWrap = styled.section`
+  margin-bottom: 1.25rem;
   .author-area {
     display: flex;
     width: 100%;
@@ -52,6 +72,9 @@ const PostUpperBodyWrap = styled.section`
   }
   img {
     border-radius: 20px;
+  }
+  .post-img {
+    width: 20%;
   }
   .menuoption-wrap {
     display: flex;

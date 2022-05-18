@@ -30,6 +30,7 @@ export default function PostLowerBody({
             width: "50%",
             borderRight: "1px solid white",
             borderTop: "2px solid white",
+            background: "var(--bg-element2)",
             justifyContent: "center",
             padding: "0.5rem",
           }}
@@ -38,16 +39,17 @@ export default function PostLowerBody({
             isLike={isLike}
             onClickLike={onClickLike}
             onClickDislike={onClickDislike}
+            likeCount={item.like_count}
           />
-          <span>{item.like_count}</span>
         </div>
         <button
           style={{
             width: "50%",
-            background: "var(--bg-element4)",
+            background: "var(--bg-element2)",
             borderLeft: "1px solid white",
             borderTop: "2px solid white",
             padding: "0.5rem",
+            cursor: "pointer",
           }}
           onClick={() => {
             setShowComment((prev) => !prev);
@@ -58,11 +60,12 @@ export default function PostLowerBody({
         </button>
       </div>
       {showComment && (
-        <CommentLayout
-          firstCommentArr={item.comment}
-          ownerId={item.owner_id._id}
-          postId={item._id}
-        />
+        <div>댓글기능을 현재는 사용하실수 없습니다. 그룹에 직접 방문해 주세요.</div>
+        // <CommentLayout
+        //   firstCommentArr={item.comment}
+        //   ownerId={item.owner_id._id}
+        //   postId={item._id}
+        // />
       )}
     </PostLowerBodyWrap>
   );

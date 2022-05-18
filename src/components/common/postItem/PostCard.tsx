@@ -104,4 +104,5 @@ const PostCardWrap = styled.div`
   background: var(--bg-element2);
   padding: 1rem;
   margin-bottom: 1rem;
+  border-radius: 0.5rem;
 `;

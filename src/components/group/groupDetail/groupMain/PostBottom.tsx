@@ -38,6 +38,7 @@ export default function PostBottom({
             isLike={isLike}
             onClickLike={onClickLike}
             onClickDislike={onClickDislike}
+            likeCount={item.like_count}
           />
           <span>{item.like_count}</span>
         </div>
@@ -57,13 +58,13 @@ export default function PostBottom({
           {/* (댓글 수 {item.comment.length}) */}
         </button>
       </div>
-        {showComment && (
-          <CommentLayout
-            firstCommentArr={item.comment}
-            ownerId={item.owner_id._id}
-            postId={item._id}
-          />
-        )}
+      {showComment && (
+        <CommentLayout
+          firstCommentArr={item.comment}
+          ownerId={item.owner_id._id}
+          postId={item._id}
+        />
+      )}
     </PostBottomWrap>
   );
 }
