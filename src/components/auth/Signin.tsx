@@ -107,7 +107,11 @@ export default function Signin({ setIsSign, setSigninToggle }: SignInProps) {
       </div>
       <div style={{ display: "flex" }}>
         <a
-          href={`http://localhost:4000/auth/google`}
+          href={
+            process.env.NODE_ENV === `development`
+              ? `http://localhost:4000/auth/google`
+              : `http://mellang.xyz/auth/google`
+          }
           className="theme-bg-element2"
           style={{
             width: "2rem",
