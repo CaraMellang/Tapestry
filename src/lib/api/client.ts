@@ -7,7 +7,7 @@ const client = axios.create({
 client.defaults.baseURL =
   process.env.NODE_ENV === `development`
     ? "http://localhost:4000"
-    : "http://ec2-3-39-127-10.ap-northeast-2.compute.amazonaws.com:4000";
+    : "http://mellang.xyz";
 export default client;
 
 // httpPath = "http://ec2-3-34-46-33.ap-northeast-2.compute.amazonaws.com:5000";
