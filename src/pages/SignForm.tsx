@@ -41,8 +41,8 @@ export default function SignForm({ setIsSign }: SignFormProps) {
     postAccessToken();
 
     if (userSelector.signinSucceed) {
-      const accessToken = userSelectorUser.accessToken;
-      setCookie("access_token", accessToken, 1);
+      // const accessToken = userSelectorUser.accessToken;
+      // setCookie("access_token", accessToken, 1);
       setIsSign(false);
     }
   }, []);

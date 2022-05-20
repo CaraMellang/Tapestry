@@ -28,7 +28,7 @@ export function* postUser(action: any): Generator {
 }
 
 function postToken(data: any) {
-  return client.post(`/auth/verify`, ".", { withCredentials: true });
+  return client.post(`/auth/verify`, ".", { headers: { Cookie: data } });
 }
 
 export function* postUserToken(action: any): Generator {

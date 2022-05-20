@@ -2,6 +2,10 @@ import axios from "axios";
 
 const client = axios.create({
   withCredentials: true,
+  headers: {crossOriginIsolated,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
 });
 
 client.defaults.baseURL =
