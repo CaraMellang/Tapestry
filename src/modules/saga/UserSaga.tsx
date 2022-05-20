@@ -28,7 +28,7 @@ export function* postUser(action: any): Generator {
 }
 
 function postToken(data: any) {
-  return client.post(`/auth/verify`, ".");
+  return client.post(`/auth/verify`, ".", { withCredentials: true });
 }
 
 export function* postUserToken(action: any): Generator {
