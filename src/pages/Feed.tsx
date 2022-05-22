@@ -10,8 +10,6 @@ import Popular from "../components/feed/Popular";
 export default function Feed() {
   return (
     <FeedWrap>
-      <h1>feed</h1>
-      <div>새글, 인기글 , 내 그룹내 게시글(최신순 으로 정렬)</div>
       <FeedHeader />
       <div>
         {/* 1. 인기글

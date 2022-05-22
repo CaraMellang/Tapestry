@@ -43,6 +43,10 @@ export default function ProfileImage() {
   }, []);
   return (
     <ProfileImageWrap>
+      <img
+        src={userImg}
+        style={{ width: "128px", height: "128px", borderRadius: "200px" }}
+      />
       <div>
         <label
           className={`uploadButton ${
@@ -50,7 +54,7 @@ export default function ProfileImage() {
           } `}
           htmlFor="fileInput"
         >
-          파일 업로드
+          이미지 업로드
         </label>
         <input
           id="fileInput"
@@ -61,28 +65,38 @@ export default function ProfileImage() {
           disabled={loading}
         />
       </div>
-      <img
-        src={userImg}
-        style={{ width: "200px", height: "200px", borderRadius: "200px" }}
-      />
     </ProfileImageWrap>
   );
 }
 
 const ProfileImageWrap = styled.div`
+  padding-right: 1.5rem;
   .crop {
     background: white;
   }
+  img {
+    margin-bottom: 1rem;
+  }
   .uploadButton {
     display: inline-block;
-    width: 200px;
+    font-weight: bold;
+    font-size: 1rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    padding: 0 1.25rem;
   }
   .ableCursor {
     cursor: pointer;
-    background: #15b91d;
+    background: var(--primary1);
+  }
+  .ableCursor:hover {
+    background: var(--primary2);
   }
   .disableCursor {
     cursor: not-allowed;
-    background: #0e6d12;
+    background: gray;
   }
 `;
