@@ -8,7 +8,8 @@ export default function FeedHeader() {
       <NavLink
         to={`/feed/newfeed`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
+          background: isActive ? `var(--primary1)` : `inherit`,
+          color: isActive ? `white` : `inherit`,
         })}
       >
         새글
@@ -16,7 +17,8 @@ export default function FeedHeader() {
       <NavLink
         to={`/feed/popular`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
+          background: isActive ? `var(--primary1)` : `inherit`,
+          color: isActive ? `white` : `inherit`,
         })}
       >
         인기글
@@ -24,7 +26,8 @@ export default function FeedHeader() {
       <NavLink
         to={`/feed/groupfeed`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
+          background: isActive ? `var(--primary1)` : `inherit`,
+          color: isActive ? `white` : `inherit`,
         })}
       >
         내 그룹
@@ -33,4 +36,16 @@ export default function FeedHeader() {
   );
 }
 
-const FeedHeaderWrap = styled.div``;
+const FeedHeaderWrap = styled.div`
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  a {
+    width: 5rem;
+    text-align: center;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    transition: all 0.3s;
+  }
+`;

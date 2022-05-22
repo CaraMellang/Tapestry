@@ -9,8 +9,10 @@ export default function GroupHeader() {
       <NavLink
         to={`/group/${_id}/post`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
-          borderBottom: `2px solid ${isActive ? "green" : "var(--color-text)"}`,
+          color: isActive ? `var(--primary1)` : `inherit`,
+          borderBottom: `2px solid ${
+            isActive ? "var(--primary1)" : "var(--color-text)"
+          }`,
         })}
       >
         게시글
@@ -18,8 +20,10 @@ export default function GroupHeader() {
       <NavLink
         to={`/group/${_id}/member`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
-          borderBottom: `2px solid ${isActive ? "green" : "var(--color-text)"}`,
+          color: isActive ? `var(--primary1)` : `inherit`,
+          borderBottom: `2px solid ${
+            isActive ? "var(--primary1)" : "var(--color-text)"
+          }`,
         })}
       >
         멤버

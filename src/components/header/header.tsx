@@ -21,7 +21,7 @@ function Header() {
           </Link>
         </div>
         <div style={{ display: "flex" }}>
-          <Link className="header-item" to={`/feed`}>
+          <Link className="header-item" to={`/feed/newfeed`}>
             <div
               style={{
                 display: "flex",
