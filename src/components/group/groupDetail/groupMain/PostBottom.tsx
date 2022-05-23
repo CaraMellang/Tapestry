@@ -40,7 +40,6 @@ export default function PostBottom({
             onClickDislike={onClickDislike}
             likeCount={item.like_count}
           />
-          <span>{item.like_count}</span>
         </div>
         <button
           style={{

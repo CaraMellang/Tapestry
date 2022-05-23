@@ -6,41 +6,34 @@ interface SearchHeaderProps {
   setSearchType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function SearchHeader({ setSearchType }: SearchHeaderProps) {
+export default function SearchHeader() {
   const { search } = useParams();
   return (
     <SearchHeaderWrap>
-      <h1>search hedaer</h1>
       <NavLink
         to={`group/${search}`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
+          background: isActive ? `var(--primary1)` : `inherit`,
+          color: isActive ? `white` : `inherit`,
         })}
-        onClick={() => {
-          setSearchType("group");
-        }}
       >
         그룹
       </NavLink>
       <NavLink
         to={`post/${search}`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
+          background: isActive ? `var(--primary1)` : `inherit`,
+          color: isActive ? `white` : `inherit`,
         })}
-        onClick={() => {
-          setSearchType("post");
-        }}
       >
         게시글
       </NavLink>
       <NavLink
         to={`user/${search}`}
         style={({ isActive }) => ({
-          color: isActive ? `green` : `inherit`,
+          background: isActive ? `var(--primary1)` : `inherit`,
+          color: isActive ? `white` : `inherit`,
         })}
-        onClick={() => {
-          setSearchType("user");
-        }}
       >
         사용자
       </NavLink>
@@ -48,4 +41,16 @@ export default function SearchHeader({ setSearchType }: SearchHeaderProps) {
   );
 }
 
-const SearchHeaderWrap = styled.div``;
+const SearchHeaderWrap = styled.div`
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  a {
+    width: 5rem;
+    text-align: center;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    transition: all 0.3s;
+  }
+`;

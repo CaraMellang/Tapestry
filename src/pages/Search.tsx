@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet, Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
 import SearchInput from "../components/common/SearchInput";
@@ -9,11 +9,10 @@ import SearchListUser from "../components/search/SearchListUser";
 import media from "../lib/media";
 
 export default function Search() {
-  const [searchType, setSearchType] = useState("group");
   return (
     <SearchWrap>
       <SearchInput />
-      <SearchHeader setSearchType={setSearchType} />
+      <SearchHeader />
       <Outlet />
       {/* <SearchList /> */}
     </SearchWrap>
