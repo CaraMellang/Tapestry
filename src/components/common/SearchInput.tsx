@@ -1,6 +1,5 @@
 import React, {
   KeyboardEventHandler,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -39,6 +38,7 @@ export default function SearchInput() {
           setIsFocus(false);
         }}
         ref={inputRef}
+        autoFocus
       />
       <div style={{ display: "flex", alignItems: "center" }}>
         <SearchIcon
