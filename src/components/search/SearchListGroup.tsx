@@ -85,8 +85,11 @@ export default function SearchListGroup() {
 
   return (
     <SearchListWrap>
-      <h1>search list</h1>
-      <h1>검색결과: {search}</h1>
+      <div
+        style={{ textAlign: "center", fontSize: "3.5rem", fontWeight: "bold" }}
+      >
+        {search}
+      </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         {searchListArr.map((item: any, index: number) => {
           return (
@@ -102,7 +105,6 @@ export default function SearchListGroup() {
           );
         })}
       </div>
-
       {loading && pageEnd === false ? <Loading /> : <div>검색결과 끝</div>}
       <div ref={setTarget}></div>
     </SearchListWrap>
