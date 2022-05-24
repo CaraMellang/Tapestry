@@ -24,7 +24,6 @@ export default function GroupList() {
     if (groupsSelector.groupsLoading === false && isLoading) {
       const data = { page: 1 };
       dispatch(READ_GROUPS_REQUEST(data));
-      console.log("gd");
       setIsLoading(false);
     }
   }, [isLoading, groupsSelector.groupsLoading, dispatch]);

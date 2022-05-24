@@ -29,7 +29,10 @@ export default function ProfileInfo() {
       {isToggle ? (
         <input value={name} onChange={onChangeName} />
       ) : (
-        <h1>{userName}</h1>
+        <>
+          <h1>{userName}</h1>
+          <h3>유저 설명란 입니다.</h3>
+        </>
       )}
       <div className="btn-wrap">
         {isToggle ? (
@@ -76,5 +79,8 @@ const ProfileInfoWrap = styled.div`
   h1 {
     font-size: 2.5rem;
     font-weight: bold;
+  }
+  h3{
+    color:#777777;
   }
 `;
