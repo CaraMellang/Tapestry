@@ -24,9 +24,13 @@ export default function UserProfileDropDown({
       <div className="dropdown-menu-item" onClick={onClickClose}>
         하잉~
       </div>
-      <div className="dropdown-menu-item" onClick={onClickClose}>
+      <Link
+        to={`/wroted`}
+        className="dropdown-menu-item"
+        onClick={onClickClose}
+      >
         내글 보기
-      </div>
+      </Link>
       <Link
         to={`/profile/${userId}`}
         className="dropdown-menu-item"

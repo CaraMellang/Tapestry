@@ -10,13 +10,14 @@ import Group from "./Group";
 import Search from "./Search";
 import NewFeed from "../components/feed/NewFeed";
 import Popular from "../components/feed/Popular";
-import GroupFeed from "../components/feed/GroupFeed";
+import FollowerFeed from "../components/feed/FollowerFeed";
 import GroupBody from "../components/group/groupDetail/groupMain/GroupBody";
 import GroupMember from "../components/group/groupDetail/groupMain/GroupMember";
 import SearchListGroup from "../components/search/SearchListGroup";
 import SearchListPost from "../components/search/SearchListPost";
 import SearchListUser from "../components/search/SearchListUser";
 import useScroll from "../hook/useScroll";
+import WrotedPost from "../components/profile/WrotedPost";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -48,9 +49,10 @@ function Main() {
               <Route path={`feed`} element={<Feed />}>
                 <Route path={`newfeed`} element={<NewFeed />} />
                 <Route path={`popular`} element={<Popular />} />
-                <Route path={`groupfeed`} element={<GroupFeed />} />
+                <Route path={`followerfeed`} element={<FollowerFeed />} />
               </Route>
               <Route path={`profile/:id`} element={<Profile />} />
+              <Route path={`wroted`} element={<WrotedPost />} />
               <Route path={`group/:_id`} element={<Group />}>
                 <Route path="post" element={<GroupBody />} />
                 <Route path={`member`} element={<GroupMember />} />

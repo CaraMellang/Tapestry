@@ -24,13 +24,13 @@ export default function FeedHeader() {
         인기글
       </NavLink>
       <NavLink
-        to={`/feed/groupfeed`}
+        to={`/feed/followerfeed`}
         style={({ isActive }) => ({
           background: isActive ? `var(--primary1)` : `inherit`,
           color: isActive ? `white` : `inherit`,
         })}
       >
-        내 그룹
+        팔로워
       </NavLink>
     </FeedHeaderWrap>
   );
