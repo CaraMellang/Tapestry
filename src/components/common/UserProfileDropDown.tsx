@@ -21,9 +21,13 @@ export default function UserProfileDropDown({
 
   return (
     <UserProfileDropDownWrap>
-      <div className="dropdown-menu-item" onClick={onClickClose}>
-        하잉~
-      </div>
+      <Link
+        to={`/myfollowers`}
+        className="dropdown-menu-item"
+        onClick={onClickClose}
+      >
+        내 팔로워
+      </Link>
       <Link
         to={`/wroted`}
         className="dropdown-menu-item"
