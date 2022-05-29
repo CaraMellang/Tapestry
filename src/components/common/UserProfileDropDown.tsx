@@ -22,11 +22,11 @@ export default function UserProfileDropDown({
   return (
     <UserProfileDropDownWrap>
       <Link
-        to={`/myfollowers`}
+        to={`/myfollowing`}
         className="dropdown-menu-item"
         onClick={onClickClose}
       >
-        내 팔로워
+        내 팔로잉
       </Link>
       <Link
         to={`/wroted`}

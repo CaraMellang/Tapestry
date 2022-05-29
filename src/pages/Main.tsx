@@ -18,6 +18,7 @@ import SearchListPost from "../components/search/SearchListPost";
 import SearchListUser from "../components/search/SearchListUser";
 import useScroll from "../hook/useScroll";
 import WrotedPost from "../components/profile/WrotedPost";
+import MyFollowing from "../components/profile/MyFollowing";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -53,6 +54,7 @@ function Main() {
               </Route>
               <Route path={`profile/:id`} element={<Profile />} />
               <Route path={`wroted`} element={<WrotedPost />} />
+              <Route path={`myfollowing`} element={<MyFollowing />} />
               <Route path={`group/:_id`} element={<Group />}>
                 <Route path="post" element={<GroupBody />} />
                 <Route path={`member`} element={<GroupMember />} />
