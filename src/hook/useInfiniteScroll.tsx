@@ -1,25 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import client from "../../../lib/api/client";
-import { Post } from "../../../modules/redux/Group";
-import Loading from "../../Loading";
-import PostCard from "./PostCard";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import client from "../lib/api/client";
+import { Post } from "../modules/redux/Group";
 
-interface PostLayoutProps {
-  option?: "followerfeed" | "newfeed" | "popularfeed";
+interface useInfiniteScrollProps {
+  path: string;
 }
 
-export default function PostLayout({ option }: PostLayoutProps) {
+export default function useInfiniteScroll<T>({ path }: useInfiniteScrollProps) {
+  //중단
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const [feeds, setFeeds] = useState<Post[]>([]);
-  // let feeds: Post[] = [];
+  const [items, setItems] = useState<T>();
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [pageEnd, setPageEnd] = useState<boolean>(false);
-  const userGroups = useSelector(
-    (state: any) => state.userSliceReducer.user.group
-  ); //groupfeed인 경우
 
   const onIntersect = useCallback(
     async (
@@ -35,11 +28,11 @@ export default function PostLayout({ option }: PostLayoutProps) {
         console.log(pageEnd);
         try {
           setLoading(true);
-          const { data } = await client.get(`/post/${option}`, {
+          const { data } = await client.get(path, {
             params: sendData,
           });
           console.log(data);
-          setFeeds((prev) => [...prev, ...data.data]);
+          //   setItems((prev) => [...prev, ...data.data]);
           // feeds.push(...data.data);
           setPageNumber((prev) => prev + 1);
           setPageEnd(data.page_end);
@@ -51,8 +44,9 @@ export default function PostLayout({ option }: PostLayoutProps) {
         }
       }
     },
-    [feeds, loading, pageNumber, userGroups, pageEnd]
+    []
   );
+
   useEffect(() => {
     if (target) {
       let intersectionObserver = new IntersectionObserver(onIntersect, {
@@ -63,23 +57,6 @@ export default function PostLayout({ option }: PostLayoutProps) {
         intersectionObserver && intersectionObserver.disconnect();
       };
     }
-  }, [target, onIntersect]);
-
-  return (
-    <PostLayoutWrap>
-      {feeds.map((item) => (
-        <PostCard key={item._id} postItem={item} />
-      ))}
-      {loading && pageEnd === false ? (
-        <Loading />
-      ) : (
-        <div>더이상 게시글이 없습니다.</div>
-      )}
-      <div ref={setTarget}>인식범위 입니다.(옵저버)</div>
-    </PostLayoutWrap>
-  );
+  }, [onIntersect, target]);
+  return;
 }
-
-const PostLayoutWrap = styled.div`
-  width: 950px;
-`;
