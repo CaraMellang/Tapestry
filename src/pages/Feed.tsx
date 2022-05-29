@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import FeedHeader from "../components/feed/FeedHeader";
-import GroupFeed from "../components/feed/GroupFeed";
+import FollowingFeed from "../components/feed/FollowingFeed";
 import NewFeed from "../components/feed/NewFeed";
 import Popular from "../components/feed/Popular";
 

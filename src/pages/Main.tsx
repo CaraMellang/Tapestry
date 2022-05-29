@@ -10,7 +10,7 @@ import Group from "./Group";
 import Search from "./Search";
 import NewFeed from "../components/feed/NewFeed";
 import Popular from "../components/feed/Popular";
-import FollowerFeed from "../components/feed/FollowerFeed";
+import FollowingFeed from "../components/feed/FollowingFeed";
 import GroupBody from "../components/group/groupDetail/groupMain/GroupBody";
 import GroupMember from "../components/group/groupDetail/groupMain/GroupMember";
 import SearchListGroup from "../components/search/SearchListGroup";
@@ -50,7 +50,7 @@ function Main() {
               <Route path={`feed`} element={<Feed />}>
                 <Route path={`newfeed`} element={<NewFeed />} />
                 <Route path={`popular`} element={<Popular />} />
-                <Route path={`followerfeed`} element={<FollowerFeed />} />
+                <Route path={`followerfeed`} element={<FollowingFeed />} />
               </Route>
               <Route path={`profile/:id`} element={<Profile />} />
               <Route path={`wroted`} element={<WrotedPost />} />

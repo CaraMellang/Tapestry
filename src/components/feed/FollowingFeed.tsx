@@ -4,16 +4,17 @@ import styled from "styled-components";
 import MyGroupList from "../common/myGroupList/MyGroupList";
 import PostLayout from "../common/postItem/PostLayout";
 
-export default function GroupFeed() {
+export default function FollowingFeed() {
+  //팔로워 피드로 바뀔예정.
   return (
-    <GroupFeedWrap>
+    <FollowerFeedWrap>
       <MyGroupList />
-      <PostLayout option="groupfeed" />
-    </GroupFeedWrap>
+      <PostLayout option="followerfeed" />
+    </FollowerFeedWrap>
   );
 }
 
-const GroupFeedWrap = styled.div`
+const FollowerFeedWrap = styled.div`
   display: flex;
   position: relative;
   width: 1200px;
