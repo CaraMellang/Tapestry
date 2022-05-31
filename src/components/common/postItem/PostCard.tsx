@@ -22,7 +22,6 @@ export default function PostCard({ postItem }: PostCardProps) {
   );
   const groupSelector = useSelector((state: any) => state.groupSliceReducer);
   const dispatch = useDispatch();
-  console.log(postItem, item);
 
   const onDeleteClick = async () => {
     let isDelete = window.confirm("정말로 삭제하시겠습니까?");

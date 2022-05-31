@@ -44,7 +44,7 @@ export default function PostBottom({
         <button
           style={{
             width: "50%",
-            background: "var(--bg-element4)",
+            background: "var(--bg-element2)",
             borderLeft: "1px solid white",
             borderTop: "2px solid white",
             padding: "0.5rem",

@@ -56,7 +56,7 @@ export default function MyGroupList() {
         </div>
         <div style={{ margin: "0 1rem" }}>
           {groups.map((item) => (
-            <MyGroupListItem item={item} />
+            <MyGroupListItem key={item._id} item={item} />
           ))}
         </div>
       </div>

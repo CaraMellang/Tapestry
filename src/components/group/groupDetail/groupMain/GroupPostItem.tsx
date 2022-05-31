@@ -126,7 +126,7 @@ const GroupPostItemWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 10px;
-  background: var(--bg-element4);
+  background: var(--bg-element2);
   padding: 0.5rem;
   border-radius: 0.5rem;
 `;

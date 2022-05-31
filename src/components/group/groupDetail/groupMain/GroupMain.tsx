@@ -6,7 +6,7 @@ import GroupMember from "./GroupMember";
 
 export default function GroupMain({ group_id }: { group_id: string | null }) {
   return (
-    <GroupMainWrap className="theme-bg-element2">
+    <GroupMainWrap>
       {/* <GroupBody group_id={group_id} /> */}
       <Outlet />
     </GroupMainWrap>
@@ -15,7 +15,6 @@ export default function GroupMain({ group_id }: { group_id: string | null }) {
 
 const GroupMainWrap = styled.main`
   width: 940px;
-  background-color: white;
   padding: 0.5rem;
   border-radius: 0.5rem;
 `;

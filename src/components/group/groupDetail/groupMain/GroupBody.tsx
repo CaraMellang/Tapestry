@@ -55,7 +55,7 @@ export default function GroupBody() {
   }, []);
 
   return (
-    <GroupBodyWrap className="theme-bg-element2">
+    <GroupBodyWrap>
       <GroupCreatePost />
       <div>
         {groupSelector.groupPosts.map((item: any, index: number) => {
@@ -68,9 +68,9 @@ export default function GroupBody() {
         {groupSelector.groupLoading && groupSelector.groupPageEnd === false ? (
           <Loading />
         ) : (
-          <div>더이상 게시글이 없습니다.</div>
+          <div></div>
         )}
-        <div ref={setTarget}>인식범위 입니다.(옵저버)</div>
+        <div ref={setTarget} style={{ height: "1rem" }}></div>
       </div>
     </GroupBodyWrap>
   );

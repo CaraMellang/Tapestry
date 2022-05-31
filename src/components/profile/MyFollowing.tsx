@@ -14,7 +14,6 @@ export default function MyFollowing() {
   const userId = useSelector((state: any) => state.userSliceReducer.user._id);
 
   const getFollowing = async () => {
-    if (pageEnd) return;
     if (loading) return;
     setLoading(true);
     try {
@@ -34,7 +33,6 @@ export default function MyFollowing() {
   };
   const nextPage = () => {
     setPage((prev) => prev + 1);
-    console.log(page);
   };
   const prevPage = () => {
     setPage((prev) => prev - 1);

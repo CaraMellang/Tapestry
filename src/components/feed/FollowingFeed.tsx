@@ -9,7 +9,7 @@ export default function FollowingFeed() {
   return (
     <FollowerFeedWrap>
       <MyGroupList />
-      <PostLayout option="followerfeed" />
+      <PostLayout option="followingfeed" />
     </FollowerFeedWrap>
   );
 }
