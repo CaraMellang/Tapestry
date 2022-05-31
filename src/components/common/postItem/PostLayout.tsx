@@ -7,7 +7,7 @@ import Loading from "../../Loading";
 import PostCard from "./PostCard";
 
 interface PostLayoutProps {
-  option?: "followerfeed" | "newfeed" | "popularfeed";
+  option?: "followingfeed" | "newfeed" | "popularfeed";
 }
 
 export default function PostLayout({ option }: PostLayoutProps) {
@@ -17,6 +17,7 @@ export default function PostLayout({ option }: PostLayoutProps) {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [pageEnd, setPageEnd] = useState<boolean>(false);
+  const [morePosts, setMorePosts] = useState<boolean>(false);
   const userGroups = useSelector(
     (state: any) => state.userSliceReducer.user.group
   ); //groupfeed인 경우
@@ -26,23 +27,23 @@ export default function PostLayout({ option }: PostLayoutProps) {
       entries: IntersectionObserverEntry[],
       observer: IntersectionObserver
     ) => {
+      if (morePosts) return console.log("아잉", morePosts, pageNumber);
       if (entries[0].intersectionRatio <= 0) return;
       if (entries[0].isIntersecting && loading === false && pageEnd === false) {
         const sendData = {
           // search: userGroups, //배열 | string
           page: pageNumber,
         };
-        console.log(pageEnd);
         try {
           setLoading(true);
           const { data } = await client.get(`/post/${option}`, {
             params: sendData,
           });
-          console.log(data);
           setFeeds((prev) => [...prev, ...data.data]);
           // feeds.push(...data.data);
           setPageNumber((prev) => prev + 1);
           setPageEnd(data.page_end);
+
           setLoading(false);
         } catch (err: any) {
           setLoading(false);
@@ -51,8 +52,12 @@ export default function PostLayout({ option }: PostLayoutProps) {
         }
       }
     },
-    [feeds, loading, pageNumber, userGroups, pageEnd]
+    [feeds, loading, pageNumber, userGroups, pageEnd, morePosts]
   );
+
+  useEffect(() => {
+    if (pageNumber % 2 === 0) setMorePosts(true);
+  }, [pageNumber]);
   useEffect(() => {
     if (target) {
       let intersectionObserver = new IntersectionObserver(onIntersect, {
@@ -70,12 +75,20 @@ export default function PostLayout({ option }: PostLayoutProps) {
       {feeds.map((item) => (
         <PostCard key={item._id} postItem={item} />
       ))}
-      {loading && pageEnd === false ? (
-        <Loading />
-      ) : (
-        <div>더이상 게시글이 없습니다.</div>
+      {morePosts && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "var(--primary1)",
+            cursor: "pointer",
+          }}
+          onClick={() => setMorePosts(false)}
+        >
+          더보기
+        </div>
       )}
-      <div ref={setTarget}>인식범위 입니다.(옵저버)</div>
+      {loading && pageEnd === false ? <Loading /> : <div></div>}
+      <div ref={setTarget} style={{ height: "1rem" }}></div>
     </PostLayoutWrap>
   );
 }
