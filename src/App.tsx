@@ -3,6 +3,9 @@ import "./App.css";
 import Main from "./pages/Main";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./lib/theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -14,8 +17,10 @@ function App() {
     //   }
     // >
     <>
-      <GlobalStyled />
-      <Main />
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyled />
+        <Main />
+      </QueryClientProvider>
     </>
     // </ThemeProvider>
   );

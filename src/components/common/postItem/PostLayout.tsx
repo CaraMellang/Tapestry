@@ -43,6 +43,7 @@ export default function PostLayout({ option }: PostLayoutProps) {
           // feeds.push(...data.data);
           setPageNumber((prev) => prev + 1);
           setPageEnd(data.page_end);
+          console.log(data.page_end);
 
           setLoading(false);
         } catch (err: any) {
@@ -56,8 +57,8 @@ export default function PostLayout({ option }: PostLayoutProps) {
   );
 
   useEffect(() => {
-    if (pageNumber % 2 === 0) setMorePosts(true);
-  }, [pageNumber]);
+    if (pageNumber % 2 === 0 && pageEnd === false) setMorePosts(true);
+  }, [pageNumber, pageEnd]);
   useEffect(() => {
     if (target) {
       let intersectionObserver = new IntersectionObserver(onIntersect, {

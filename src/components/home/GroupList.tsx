@@ -61,7 +61,6 @@ export default function GroupList() {
           <div>없음</div>
         )}
         <div onClick={onPaging} style={{ cursor: "pointer" }}>
-          페이징
         </div>
       </div>
     </GroupListWrap>

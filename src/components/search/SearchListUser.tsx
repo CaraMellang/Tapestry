@@ -5,6 +5,7 @@ import styled from "styled-components";
 import client from "../../lib/api/client";
 import httpPath from "../../hook/useDesktop";
 import Loading from "../Loading";
+import { User } from "../../modules/redux/User";
 
 interface SearchListUserProps {
   searchType: string;
@@ -12,7 +13,7 @@ interface SearchListUserProps {
 
 export default function SearchListUser() {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const [searchListArr, setSearchListArr] = useState<any>([]);
+  const [searchListArr, setSearchListArr] = useState<User[]>([]);
   let loading = false;
   let pageEnd = false;
   let pageNo = 0;
@@ -81,10 +82,16 @@ export default function SearchListUser() {
         {search}
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {searchListArr.map((item: any, index: number) => {
+        {searchListArr.map((item) => {
           return (
-            <div key={index} style={{ height: "100px" }}>
-              {item.user_name}
+            <div className="item-box" key={item._id}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img width={40} height={40} src={item.user_img} />
+                <div style={{ marginLeft: "0.5rem" }}>{item.user_name}</div>
+              </div>
+              <div>
+                <button className="following">팔로잉</button>
+              </div>
             </div>
           );
         })}
@@ -96,4 +103,29 @@ export default function SearchListUser() {
   );
 }
 
-const SearchListWrap = styled.div``;
+const SearchListWrap = styled.div`
+  .item-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    background: var(--bg-element2);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+  }
+  .item-box:hover {
+    transform: scale(1.02);
+  }
+  img {
+    border-radius: 20px;
+  }
+  .following {
+    color: white;
+    background: #ff5757;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+`;

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import client from "../../lib/api/client";
 import httpPath from "../../hook/useDesktop";
 import Loading from "../Loading";
+import { useQuery } from "react-query";
 
 interface SearchListPostProps {
   searchType: string;
