@@ -17,9 +17,9 @@ export default function LikeBtn({
   return (
     <LikeBtnWrap>
       {isLike ? (
-        <button onClick={onClickDislike}>좋아요♥{likeCount}</button>
+        <button onClick={onClickDislike}>❤️ {likeCount}</button>
       ) : (
-        <button onClick={onClickLike}>좋아요♡{likeCount}</button>
+        <button onClick={onClickLike}>🤍 {likeCount}</button>
       )}
     </LikeBtnWrap>
   );

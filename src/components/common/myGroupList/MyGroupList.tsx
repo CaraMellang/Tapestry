@@ -54,7 +54,10 @@ export default function MyGroupList() {
             }}
           />
         </div>
-        <div style={{ margin: "0 1rem" }}>
+        <div
+          className="mygroup-list"
+          style={{ margin: "0 1rem", maxHeight: "400px", overflowY: "auto" }}
+        >
           {groups.map((item) => (
             <MyGroupListItem key={item._id} item={item} />
           ))}
@@ -68,4 +71,17 @@ const MyGroupListWrap = styled.div`
   width: 250px;
   box-sizing: border-box;
   padding: 0 1rem;
+
+  .mygroup-list::-webkit-scrollbar {
+    width: 6px;
+    /* border-radius: 10px; */
+  }
+  .mygroup-list::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 4px;
+  }
+  .mygroup-list::-webkit-scrollbar-track {
+    background-color: #2f3542;
+    border-radius: 4px;
+  }
 `;

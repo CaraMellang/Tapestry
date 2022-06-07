@@ -47,7 +47,11 @@ export default function GroupList() {
                     className="box theme-bg-element2"
                   >
                     <div className="box-img">
-                      <img alt="그룹의 대표 이미지" src={item.group_img} />
+                      {item.group_img !== null ? (
+                        <img alt="그룹의 대표 이미지" src={item.group_img} />
+                      ) : (
+                        <div>이미지를 찾을수 없습니다.</div>
+                      )}
                     </div>
                     <div className="box-title">
                       <div>{item.group_name}</div>
@@ -60,8 +64,7 @@ export default function GroupList() {
         ) : (
           <div>없음</div>
         )}
-        <div onClick={onPaging} style={{ cursor: "pointer" }}>
-        </div>
+        <div onClick={onPaging} style={{ cursor: "pointer" }}></div>
       </div>
     </GroupListWrap>
   );
@@ -94,6 +97,10 @@ const GroupListWrap = styled.div`
     transition: 0.3s;
   }
   .box-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5f5f5f;
     width: 100%;
     height: 15rem;
     overflow: hidden;

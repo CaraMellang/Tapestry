@@ -114,11 +114,11 @@ input:focus{
     /* border-radius: 10px; */
   }
   body::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
+    background-color: grey;
     /* border-radius: 10px; */
   }
   body::-webkit-scrollbar-track {
-    background-color: grey;
+    background-color: #2f3542;
     /* border-radius: 10px; */
   }
 `;
