@@ -58,3 +58,7 @@
 - 내가 쓴 글 모아보기
 - 그룹 
 
+## 프로젝트 아키텍쳐
+
+![image](https://user-images.githubusercontent.com/51808985/172795633-8a8d2848-1518-43a1-8762-3285a12dcda9.png)
+
