@@ -1,3 +1,4 @@
+import { TextareaAutosize } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -54,10 +55,9 @@ export default function WriteComment({
         setLoading(false);
         console.log(err);
       }
-      return window.alert("자식 포스팅 완료");
+      return;
     }
 
-    console.log("여기 넘어가는지 테스트");
 
     try {
       setLoading(true);
@@ -95,8 +95,19 @@ export default function WriteComment({
             />
           </div>
           <div className="writeArea">
-            <input
+            {/* <input
               type="text"
+              className={`${loading && "disableElement"}`}
+              placeholder={
+                parantOwnerName
+                  ? `${parantOwnerName}님에게 표현하세요!`
+                  : "댓글을 남겨주세요"
+              }
+              onChange={onChangeText}
+              value={text}
+              disabled={loading}
+            /> */}
+            <TextareaAutosize
               className={`${loading && "disableElement"}`}
               placeholder={
                 parantOwnerName
@@ -142,6 +153,7 @@ const WriteCommentWrap = styled.div`
   }
   .writeArea {
     width: 88%;
+    display: flex;
   }
   input[type="text"] {
     width: 100%;
@@ -150,6 +162,14 @@ const WriteCommentWrap = styled.div`
     border: 0;
     border-radius: 8px;
     padding: 0 8px;
+  }
+  textarea {
+    color: black;
+    resize: none;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 4px 8px;
   }
   button {
     width: 100%;

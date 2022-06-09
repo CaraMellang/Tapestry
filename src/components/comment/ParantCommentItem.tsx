@@ -66,7 +66,15 @@ export default function ParantCommentItem({
         >
           삭제
         </button>
-        <div>{text}</div>
+        <div>
+          {text.split("\n").map((item, index: number) => {
+            return (
+              <span key={index}>
+                {item} <br />
+              </span>
+            );
+          })}
+        </div>
         {/* <div style={{ color: "gray" }}>{_id}</div> */}
         <div
           style={{ color: "gray", cursor: "pointer" }}

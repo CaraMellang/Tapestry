@@ -33,7 +33,15 @@ export default function ChildComItem({ ChildArr, ownerId }: ChildComItemProps) {
                       ? "⭐이 사람은 작성자 입니다⭐"
                       : ""}
                   </span>
-                  <div>{item.text}</div>
+                  <div>
+                    {item.text.split("\n").map((item, index: number) => {
+                      return (
+                        <span key={index}>
+                          {item} <br />
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             );
