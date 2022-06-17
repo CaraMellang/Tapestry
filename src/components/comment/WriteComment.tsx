@@ -7,6 +7,7 @@ import styled from "styled-components";
 import useInput from "../../hook/useInput";
 import client from "../../lib/api/client";
 import useAllowGroupService from "../../lib/useAllowGroupService";
+import UserAvatar from "../common/UserAvatar";
 
 interface WriteCommetProps {
   postId: string;
@@ -58,7 +59,6 @@ export default function WriteComment({
       return;
     }
 
-
     try {
       setLoading(true);
       await client.post(`/comment/parant/create`, {
@@ -86,13 +86,7 @@ export default function WriteComment({
       {allow ? (
         <div className="flexBox">
           <div className="userImgBox">
-            <img
-              width={30}
-              height={30}
-              className="userImg"
-              style={{ borderRadius: "40px" }}
-              src={userImg}
-            />
+            <UserAvatar src={userImg} />
           </div>
           <div className="writeArea">
             {/* <input
@@ -146,8 +140,6 @@ const WriteCommentWrap = styled.div`
     display: flex;
   }
   .userImgBox {
-    width: 4%;
-    position: relative;
   }
   .userImg {
   }

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import client from "../../lib/api/client";
 import { User } from "../../modules/redux/User";
+import UserAvatar from "../common/UserAvatar";
 
 interface MyFollowingItemProps {
   item: User;
@@ -31,7 +32,7 @@ export default function MyFollowingItem({ item,getFollowing }: MyFollowingItemPr
   return (
     <MyFollowingItemWrap>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <img width={40} height={40} src={item.user_img} />
+        <UserAvatar src={item.user_img} />
         <div style={{ marginLeft: "0.5rem" }}>{item.user_name}</div>
       </div>
       <div>

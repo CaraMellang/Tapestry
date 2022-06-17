@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import client from "../../lib/api/client";
 import { TOKEN_REQUEST } from "../../modules/redux/User";
+import UserAvatar from "../common/UserAvatar";
 
 export default function ProfileImage() {
   const [uploadImg, setUploadImg] = useState<[Blob] | [] | null>(null);
@@ -43,10 +44,11 @@ export default function ProfileImage() {
   }, []);
   return (
     <ProfileImageWrap>
-      <img
+      {/* <img
         src={userImg}
         style={{ width: "128px", height: "128px", borderRadius: "200px" }}
-      />
+      /> */}
+      <UserAvatar className="avatar-img" src={userImg} sx={{ width: "128px", height: "128px" }} />
       <div>
         <label
           className={`uploadButton ${
@@ -74,7 +76,7 @@ const ProfileImageWrap = styled.div`
   .crop {
     background: white;
   }
-  img {
+  .avatar-img {
     margin-bottom: 1rem;
   }
   .uploadButton {

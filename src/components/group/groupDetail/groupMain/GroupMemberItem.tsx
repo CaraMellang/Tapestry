@@ -1,7 +1,17 @@
+import {
+  Avatar,
+  IconButton,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import client from "../../../../lib/api/client";
 import { User } from "../../../../modules/redux/User";
+import UserAvatar from "../../../common/UserAvatar";
 
 interface GroupMemberItemProps {
   group_owner_id: string;
@@ -31,7 +41,7 @@ export default function GroupMemberItem({
       }
     } catch (err: any) {
       // console.log("Error Message:", err.response.data.message);
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -60,7 +70,29 @@ export default function GroupMemberItem({
   }, []);
   return (
     <GroupMemberItemWrap>
-      <img
+      <ListItem>
+        <ListItemAvatar>
+          <UserAvatar src={userItem.user_img} />
+        </ListItemAvatar>
+        <ListItemText>
+          {userItem.user_name}{" "}
+          {userItem._id === group_owner_id ? "⭐그룹 주인⭐" : ""}
+        </ListItemText>
+        <ListItemText sx={{ display: "flex", justifyContent: "flex-end" }}>
+          {userItem._id === userId ? (
+            "❤️본인❤️"
+          ) : isFollow ? (
+            <button className="followBtn following" onClick={onClickUnFollow}>
+              팔로윙
+            </button>
+          ) : (
+            <button className="followBtn follow" onClick={onClickFollow}>
+              팔로우
+            </button>
+          )}
+        </ListItemText>
+      </ListItem>
+      {/* <img
         src={userItem.user_img}
         width={40}
         height={40}
@@ -83,7 +115,7 @@ export default function GroupMemberItem({
             팔로우
           </button>
         )}
-      </span>
+      </span> */}
     </GroupMemberItemWrap>
   );
 }

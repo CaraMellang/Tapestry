@@ -7,6 +7,7 @@ import { ReactComponent as MenuOption } from "../../../static/svg/menuOption.svg
 import { getCookie } from "../../../../lib/cookie";
 import client from "../../../../lib/api/client";
 import { useDispatch, useSelector } from "react-redux";
+import UserAvatar from "../../../common/UserAvatar";
 
 interface PostBodyProps {
   item: Post;
@@ -51,7 +52,7 @@ export default function PostBody({ item }: PostBodyProps) {
       <div className="author-area">
         {/* {item.group_id.group_name} */}
         <div className="imgWrap">
-          <img width={40} height={40} src={item.owner_id.user_img} />
+          <UserAvatar src={item.owner_id.user_img} />
         </div>
         <div
           style={{

@@ -1,6 +1,11 @@
+import dayjs from "dayjs";
+import { create } from "domain";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import DateFormat from "../../hook/DateFormat";
 import client from "../../lib/api/client";
+import UserAvatar from "../common/UserAvatar";
 import ChildComLayout from "./ChildComLayout";
 import { ParantComment } from "./CommentItemList";
 
@@ -25,13 +30,15 @@ export default function ParantCommentItem({
 }: ParantCommentItemProps) {
   const [isOwner, setIsOwner] = useState(false);
   const [isShowChild, setIsShowChild] = useState(false);
+  const formatDate = DateFormat(created_at, true);
+  const userId = useSelector((state: any) => state.userSliceReducer.user._id);
 
   const onClickDelete = async () => {
     const isDelete = window.confirm("정말 삭제하시겠습니까?");
     if (!isDelete) return;
     try {
       await client.delete(`/comment/parant/delete`, {
-        data: { comment_id: _id },
+        data: { comment_id: _id, user_id: userId },
       });
       onParantReloading();
     } catch (err) {
@@ -47,25 +54,22 @@ export default function ParantCommentItem({
   console.log(child_comment);
   return (
     <ParantCommentItmeWrap>
-      <img
-        width={40}
-        height={40}
-        className="parantUserImg"
-        style={{ borderRadius: "20px" }}
-        src={owner_id.user_img}
-      />
+      <UserAvatar src={owner_id.user_img} />
       <div
         style={{ width: "100%", boxSizing: "border-box", paddingLeft: "10px" }}
       >
         <span style={{ background: "gray" }}>{owner_id.user_name}</span>
         {isOwner && <span>⭐이 사람은 작성자 입니다⭐</span>}
-        <button
-          className="theme-bg-element2"
-          style={{ cursor: "pointer" }}
-          onClick={onClickDelete}
-        >
-          삭제
-        </button>
+        {owner_id._id === userId && (
+          <button
+            className="theme-bg-element2"
+            style={{ cursor: "pointer" }}
+            onClick={onClickDelete}
+          >
+            삭제
+          </button>
+        )}
+        <div>{formatDate}</div>
         <div>
           {text.split("\n").map((item, index: number) => {
             return (

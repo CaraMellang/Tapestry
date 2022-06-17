@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import UserAvatar from "../common/UserAvatar";
 import { ChildComment } from "./CommentItemList";
 
 interface ChildComItemProps {
@@ -16,16 +17,7 @@ export default function ChildComItem({ ChildArr, ownerId }: ChildComItemProps) {
         ? ChildArr.map((item) => {
             return (
               <div key={item._id} style={{ display: "flex", padding: "4px 0" }}>
-                <img
-                  width={40}
-                  height={40}
-                  style={{
-                    marginLeft: "5px",
-                    marginTop: "5px",
-                    borderRadius: 245,
-                  }}
-                  src={item.owner_id.user_img}
-                />
+                <UserAvatar src={item.owner_id.user_img} />
                 <div style={{ width: "100%" }}>
                   <span>{item.owner_id.user_name}</span>
                   <span>

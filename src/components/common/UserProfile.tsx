@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import UserAvatar from "./UserAvatar";
 import UserProfileDropDown from "./UserProfileDropDown";
 
 export default function UserProfile() {
@@ -30,7 +31,7 @@ export default function UserProfile() {
           className="profile-img-area"
           onClick={() => setIsActive((prev) => !prev)}
         >
-          <img src={userImg} />
+          <UserAvatar src={userImg} />
           <span className="profile-dropdown-caret"></span>
         </div>
         {isActive && <UserProfileDropDown setIsActive={setIsActive} />}
