@@ -9,6 +9,8 @@ import httpPath from "../../../../hook/useDesktop";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN_REQUEST } from "../../../../modules/redux/User";
 import client from "../../../../lib/api/client";
+import GroupSettingBtn from "../../../common/GroupSettingBtn";
+import { useNavigate } from "react-router-dom";
 
 interface GroupLeftSideProp {
   groupDetail: groupDetailInterface;
@@ -26,6 +28,8 @@ export default function GroupLeftSide({
   const userId = useSelector(
     (state: any) => state.userSliceReducer.user.userId
   );
+  const navigate = useNavigate()
+
 
   const onJoinGroupClick = async () => {
     const isJoin = window.confirm("그룹에 가입하시겠습니까?");
@@ -61,6 +65,10 @@ export default function GroupLeftSide({
     console.log(isLeave);
   };
 
+  const onClickgNavigate = () =>{
+    navigate(`setting`)
+  }
+
   return (
     <GroupLeftSideWrap>
       <div className="info_layout theme-bg-element2">
@@ -75,7 +83,7 @@ export default function GroupLeftSide({
           <h2>{groupDetail.group_name}</h2>
           <p>{groupDetail.group_description}</p>
           <p>멤버 수 : {groupDetail.group_people_count}</p>
-          <div className="">
+          <div className="group_btns">
             {isJoinGroup === true ? (
               <span
                 style={{ color: "red", cursor: "pointer" }}
@@ -85,12 +93,12 @@ export default function GroupLeftSide({
                 &nbsp;그룹탈퇴
               </span>
             ) : (
-              // <Button type="default" >
-              //   그룹 가입하기
-              // </Button>
               <button type="button" onClick={onJoinGroupClick}>
                 <span>그룹 가입하기</span>
               </button>
+            )}
+            {groupDetail.owner_id._id === userId && (
+              <GroupSettingBtn onClick={onClickgNavigate} >그룹세팅</GroupSettingBtn>
             )}
           </div>
         </div>
@@ -129,5 +137,9 @@ const GroupLeftSideWrap = styled.aside`
     background-color: #00c471;
     color: white;
     cursor: pointer;
+  }
+  .group_btns {
+    display: flex;
+    justify-content: space-between;
   }
 `;

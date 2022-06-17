@@ -19,6 +19,7 @@ import SearchListUser from "../components/search/SearchListUser";
 import useScroll from "../hook/useScroll";
 import WrotedPost from "../components/profile/WrotedPost";
 import MyFollowing from "../components/profile/MyFollowing";
+import GroupSetting from "../components/group/groupDetail/groupMain/GroupSetting";
 
 function Main() {
   const [isSign, setIsSign] = useState(true);
@@ -58,6 +59,7 @@ function Main() {
               <Route path={`group/:_id`} element={<Group />}>
                 <Route path="post" element={<GroupBody />} />
                 <Route path={`member`} element={<GroupMember />} />
+                <Route path={`setting`} element={<GroupSetting />} />
               </Route>
               <Route path={`/search`} element={<Search />}>
                 <Route path={`group/:search`} element={<SearchListGroup />} />

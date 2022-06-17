@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Group } from "../../../modules/redux/Groups";
+import UserAvatar from "../UserAvatar";
 
 interface MyGroupListItemProps {
   item: Group;
@@ -11,7 +12,7 @@ export default function MyGroupListItem({ item }: MyGroupListItemProps) {
   return (
     <MyGroupListItemWrap>
       <Link to={`/group/${item._id}/post`}>
-        <img width={40} height={40} src={item.group_img} />
+        <UserAvatar src={item.group_img} />
         <div className="group-name">{item.group_name}</div>
       </Link>
     </MyGroupListItemWrap>

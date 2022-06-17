@@ -3,9 +3,13 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 
 interface DateFormatProps {
   dateValue: string | Date;
+  shortToggle?: boolean;
 }
-
-export default function DateFormat(dateValue: string | Date) {
+// https://kdinner.tistory.com/68
+export default function DateFormat(
+  dateValue: string | Date,
+  isShort: boolean = false
+) {
   const [format, setFormat] = useState(
     dayjs(dateValue).format("YYYY년MM월DD일 HH:mm")
   );
@@ -19,9 +23,9 @@ export default function DateFormat(dateValue: string | Date) {
       currentDate.getDate() === itemDate.get("date") &&
       currentDate.getHours() - dayjs(itemDate).get("hour") === 0
     ) {
-      if(currentDate.getMinutes() - dayjs(itemDate).get("minute") === 0){
+      if (currentDate.getMinutes() - dayjs(itemDate).get("minute") === 0) {
         setFormat("방금 전");
-      }else{
+      } else {
         setFormat(
           `${currentDate.getMinutes() - dayjs(itemDate).get("minute")}분 전`
         );
@@ -39,6 +43,6 @@ export default function DateFormat(dateValue: string | Date) {
     } else if (itemDate.get("hour") >= 12) {
       setFormat(dayjs(itemDate).format(`YYYY년MM월DD일 오후 hh:mm`));
     }
-  }, [dateValue]);
+  }, [dateValue, isShort]);
   return format;
 }

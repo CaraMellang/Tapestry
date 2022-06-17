@@ -53,27 +53,27 @@ export default function GroupDetail() {
   let groupLoading = true;
   let groupPostLoading = true;
 
+  const readGroupDetail = async () => {
+    // 네트워크를 3g로 하면 콘솔에는 false로만 나오지만 Loading 프로그레스 컴포넌트는 잘 나오는걸 확인가능.
+    setDetailLoading(true);
+    try {
+      const {
+        data: { Group },
+      } = await client.post(`/group/groupdetail`, {
+        group_id: _id,
+        user_id: userSelector.user.userId,
+      });
+
+      setGroupDetail(Group);
+      dispatch(TOKEN_REQUEST(""));
+      setDetailLoading(false);
+    } catch (err) {
+      console.log(err);
+      setDetailLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const readGroupDetail = async () => {
-      // 네트워크를 3g로 하면 콘솔에는 false로만 나오지만 Loading 프로그레스 컴포넌트는 잘 나오는걸 확인가능.
-      setDetailLoading(true);
-      try {
-        const {
-          data: { Group },
-        } = await client.post(`/group/groupdetail`, {
-          group_id: _id,
-          user_id: userSelector.user.userId,
-        });
-
-        setGroupDetail(Group);
-        dispatch(TOKEN_REQUEST(""));
-        setDetailLoading(false);
-      } catch (err) {
-        console.log(err);
-        setDetailLoading(false);
-      }
-    };
-
     if (!detailLoading && groupDetail._id === null) {
       readGroupDetail();
     }

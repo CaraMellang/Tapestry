@@ -1,11 +1,20 @@
 import React from "react";
 import "./App.css";
 import Main from "./pages/Main";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { theme } from "./lib/theme";
+import { createGlobalStyle } from "styled-components";
+// import { theme } from "./lib/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 const queryClient = new QueryClient();
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: `#816BFF`,
+    },
+  },
+});
 
 function App() {
   return (
@@ -18,8 +27,10 @@ function App() {
     // >
     <>
       <QueryClientProvider client={queryClient}>
-        <GlobalStyled />
-        <Main />
+        <ThemeProvider theme={theme}>
+          <GlobalStyled />
+          <Main />
+        </ThemeProvider>
       </QueryClientProvider>
     </>
     // </ThemeProvider>
