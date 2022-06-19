@@ -28,8 +28,7 @@ export default function GroupLeftSide({
   const userId = useSelector(
     (state: any) => state.userSliceReducer.user.userId
   );
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const onJoinGroupClick = async () => {
     const isJoin = window.confirm("그룹에 가입하시겠습니까?");
@@ -65,9 +64,9 @@ export default function GroupLeftSide({
     console.log(isLeave);
   };
 
-  const onClickgNavigate = () =>{
-    navigate(`setting`)
-  }
+  const onClickgNavigate = () => {
+    navigate(`setting`);
+  };
 
   return (
     <GroupLeftSideWrap>
@@ -81,7 +80,13 @@ export default function GroupLeftSide({
         </div>
         <div className="info_layout_bot">
           <h2>{groupDetail.group_name}</h2>
-          <p>{groupDetail.group_description}</p>
+          <p>
+            {groupDetail.group_description.split("\n").map((text, index) => (
+              <span>
+                {text} <br />
+              </span>
+            ))}
+          </p>
           <p>멤버 수 : {groupDetail.group_people_count}</p>
           <div className="group_btns">
             {isJoinGroup === true ? (
@@ -98,7 +103,9 @@ export default function GroupLeftSide({
               </button>
             )}
             {groupDetail.owner_id._id === userId && (
-              <GroupSettingBtn onClick={onClickgNavigate} >그룹세팅</GroupSettingBtn>
+              <GroupSettingBtn onClick={onClickgNavigate}>
+                그룹세팅
+              </GroupSettingBtn>
             )}
           </div>
         </div>

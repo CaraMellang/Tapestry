@@ -11,16 +11,19 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useInput from "../../../hook/useInput";
 import client from "../../../lib/api/client";
+import { GROUP_RERENDER } from "../../../modules/redux/Group";
 import Button from "../Button";
 
 export default function GroupSettingFixGroupRow() {
   const [open, setOpen] = useState(false);
   const [description, onChangeDes, setDescription] = useInput("");
   const { _id } = useParams();
+  const dispatch = useDispatch();
 
   const patchDesc = async () => {
     try {
       await client.patch(`/group/patchgroup`, { group_id: _id, description });
+      dispatch(GROUP_RERENDER(""));
     } catch (err) {
       console.log(err);
     }
@@ -90,7 +93,7 @@ export default function GroupSettingFixGroupRow() {
                 setOpen(false);
                 patchDesc();
                 window.alert(
-                  "수정 완료되었습니다. 그룹에 다시 들어와야 적용됩니다."
+                  "수정 완료되었습니다."
                 );
               }}
               sx={{ marginLeft: "0.5rem", lineHeight: 1.25 }}

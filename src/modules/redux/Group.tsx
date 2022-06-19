@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ParantComment } from "../../components/comment/CommentItemList";
 import { Group } from "./Groups";
-import {User} from './User'
+import { User } from "./User";
 interface initialStateTypes {
   groupLoading: boolean;
   groupSucceed: boolean;
@@ -9,21 +9,22 @@ interface initialStateTypes {
   groupPosts: Post[];
   groupPageNumber: number;
   groupPageEnd: boolean;
+  rerender: boolean;
 }
 
 export interface Post {
-  _id:string;
-  group_id: Group ;
-  owner_id: User ;
+  _id: string;
+  group_id: Group;
+  owner_id: User;
   is_private: boolean;
-  text: string,
-  comment: ParantComment[],
-  images: string[],
-  views: number,
-  like_count: number,
-  like_user: User[],
-  created_at: string,
-  updated_at: string,
+  text: string;
+  comment: ParantComment[];
+  images: string[];
+  views: number;
+  like_count: number;
+  like_user: User[];
+  created_at: string;
+  updated_at: string;
 }
 
 const initialState: initialStateTypes = {
@@ -33,6 +34,7 @@ const initialState: initialStateTypes = {
   groupPosts: [],
   groupPageNumber: 1,
   groupPageEnd: false,
+  rerender: false,
 };
 
 const groupSlice = createSlice({
@@ -47,7 +49,7 @@ const groupSlice = createSlice({
     GROUP_SUCCESS: (state, action) => {
       state.groupLoading = false;
       state.groupSucceed = true;
-        state.groupPosts.push(...action.payload.data);
+      state.groupPosts.push(...action.payload.data);
       state.groupPageNumber += 1;
     },
     GROUP_FAILED: (state, action) => {
@@ -65,6 +67,9 @@ const groupSlice = createSlice({
       state.groupPosts = [];
       state.groupPageNumber = 1;
     },
+    GROUP_RERENDER: (state, action) => {
+      state.rerender = !state.rerender;
+    },
   },
 });
 
@@ -76,6 +81,7 @@ export const {
   GROUP_FAILED,
   GROUP_FINISHED,
   GROUP_EMPTY,
+  GROUP_RERENDER,
 } = groupSlice.actions;
 
 export default groupSliceReducer;
