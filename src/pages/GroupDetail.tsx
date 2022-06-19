@@ -30,6 +30,9 @@ export interface groupDetailInterface {
 
 export default function GroupDetail() {
   const userSelector = useSelector((state: any) => state.userSliceReducer);
+  const groupSelectorRerender = useSelector(
+    (state: any) => state.groupSliceReducer.rerender
+  );
   const dispatch = useDispatch();
   const [groupDetail, setGroupDetail] = useState<groupDetailInterface>({
     _id: null,
@@ -78,6 +81,10 @@ export default function GroupDetail() {
       readGroupDetail();
     }
   }, [detailLoading, groupDetail._id, userSelector.user.userId, _id]);
+  
+  useEffect(() => { 
+    if (groupDetail._id !== null) readGroupDetail();
+  }, [groupSelectorRerender]);
 
   useEffect(() => {
     if (
